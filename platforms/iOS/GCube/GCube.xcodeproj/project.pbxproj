@@ -1,0 +1,336 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		663274D9174DA31F001E839D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274D8174DA31F001E839D /* UIKit.framework */; };
+		663274DB174DA31F001E839D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274DA174DA31F001E839D /* Foundation.framework */; };
+		663274DD174DA31F001E839D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274DC174DA31F001E839D /* CoreGraphics.framework */; };
+		663274DF174DA31F001E839D /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274DE174DA31F001E839D /* GLKit.framework */; };
+		663274E1174DA31F001E839D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274E0174DA31F001E839D /* OpenGLES.framework */; };
+		663274E7174DA31F001E839D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 663274E5174DA31F001E839D /* InfoPlist.strings */; };
+		663274E9174DA31F001E839D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 663274E8174DA31F001E839D /* main.m */; };
+		663274ED174DA31F001E839D /* GCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 663274EC174DA31F001E839D /* GCAppDelegate.m */; };
+		663274EF174DA31F001E839D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 663274EE174DA31F001E839D /* Default.png */; };
+		663274F1174DA31F001E839D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 663274F0174DA31F001E839D /* Default@2x.png */; };
+		663274F3174DA31F001E839D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 663274F2174DA31F001E839D /* Default-568h@2x.png */; };
+		663274F6174DA31F001E839D /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 663274F4174DA31F001E839D /* MainStoryboard_iPhone.storyboard */; };
+		663274F9174DA31F001E839D /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 663274F7174DA31F001E839D /* MainStoryboard_iPad.storyboard */; };
+		663274FB174DA31F001E839D /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 663274FA174DA31F001E839D /* Shader.fsh */; };
+		663274FD174DA31F001E839D /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 663274FC174DA31F001E839D /* Shader.vsh */; };
+		66327500174DA31F001E839D /* GCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663274FF174DA31F001E839D /* GCViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		663274D5174DA31F001E839D /* GCube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCube.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		663274D8174DA31F001E839D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		663274DA174DA31F001E839D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		663274DC174DA31F001E839D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		663274DE174DA31F001E839D /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		663274E0174DA31F001E839D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		663274E4174DA31F001E839D /* GCube-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GCube-Info.plist"; sourceTree = "<group>"; };
+		663274E6174DA31F001E839D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		663274E8174DA31F001E839D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		663274EA174DA31F001E839D /* GCube-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GCube-Prefix.pch"; sourceTree = "<group>"; };
+		663274EB174DA31F001E839D /* GCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCAppDelegate.h; sourceTree = "<group>"; };
+		663274EC174DA31F001E839D /* GCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCAppDelegate.m; sourceTree = "<group>"; };
+		663274EE174DA31F001E839D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		663274F0174DA31F001E839D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		663274F2174DA31F001E839D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		663274F5174DA31F001E839D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		663274F8174DA31F001E839D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		663274FA174DA31F001E839D /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		663274FC174DA31F001E839D /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		663274FE174DA31F001E839D /* GCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCViewController.h; sourceTree = "<group>"; };
+		663274FF174DA31F001E839D /* GCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		663274D2174DA31F001E839D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				663274D9174DA31F001E839D /* UIKit.framework in Frameworks */,
+				663274DB174DA31F001E839D /* Foundation.framework in Frameworks */,
+				663274DD174DA31F001E839D /* CoreGraphics.framework in Frameworks */,
+				663274DF174DA31F001E839D /* GLKit.framework in Frameworks */,
+				663274E1174DA31F001E839D /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		663274CC174DA31F001E839D = {
+			isa = PBXGroup;
+			children = (
+				663274E2174DA31F001E839D /* GCube */,
+				663274D7174DA31F001E839D /* Frameworks */,
+				663274D6174DA31F001E839D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		663274D6174DA31F001E839D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				663274D5174DA31F001E839D /* GCube.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		663274D7174DA31F001E839D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				663274D8174DA31F001E839D /* UIKit.framework */,
+				663274DA174DA31F001E839D /* Foundation.framework */,
+				663274DC174DA31F001E839D /* CoreGraphics.framework */,
+				663274DE174DA31F001E839D /* GLKit.framework */,
+				663274E0174DA31F001E839D /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		663274E2174DA31F001E839D /* GCube */ = {
+			isa = PBXGroup;
+			children = (
+				663274EB174DA31F001E839D /* GCAppDelegate.h */,
+				663274EC174DA31F001E839D /* GCAppDelegate.m */,
+				663274F4174DA31F001E839D /* MainStoryboard_iPhone.storyboard */,
+				663274F7174DA31F001E839D /* MainStoryboard_iPad.storyboard */,
+				663274FA174DA31F001E839D /* Shader.fsh */,
+				663274FC174DA31F001E839D /* Shader.vsh */,
+				663274FE174DA31F001E839D /* GCViewController.h */,
+				663274FF174DA31F001E839D /* GCViewController.m */,
+				663274E3174DA31F001E839D /* Supporting Files */,
+			);
+			path = GCube;
+			sourceTree = "<group>";
+		};
+		663274E3174DA31F001E839D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				663274E4174DA31F001E839D /* GCube-Info.plist */,
+				663274E5174DA31F001E839D /* InfoPlist.strings */,
+				663274E8174DA31F001E839D /* main.m */,
+				663274EA174DA31F001E839D /* GCube-Prefix.pch */,
+				663274EE174DA31F001E839D /* Default.png */,
+				663274F0174DA31F001E839D /* Default@2x.png */,
+				663274F2174DA31F001E839D /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		663274D4174DA31F001E839D /* GCube */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66327503174DA31F001E839D /* Build configuration list for PBXNativeTarget "GCube" */;
+			buildPhases = (
+				663274D1174DA31F001E839D /* Sources */,
+				663274D2174DA31F001E839D /* Frameworks */,
+				663274D3174DA31F001E839D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GCube;
+			productName = GCube;
+			productReference = 663274D5174DA31F001E839D /* GCube.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		663274CD174DA31F001E839D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = GC;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "GClue, Inc.";
+			};
+			buildConfigurationList = 663274D0174DA31F001E839D /* Build configuration list for PBXProject "GCube" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 663274CC174DA31F001E839D;
+			productRefGroup = 663274D6174DA31F001E839D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				663274D4174DA31F001E839D /* GCube */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		663274D3174DA31F001E839D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				663274E7174DA31F001E839D /* InfoPlist.strings in Resources */,
+				663274EF174DA31F001E839D /* Default.png in Resources */,
+				663274F1174DA31F001E839D /* Default@2x.png in Resources */,
+				663274F3174DA31F001E839D /* Default-568h@2x.png in Resources */,
+				663274F6174DA31F001E839D /* MainStoryboard_iPhone.storyboard in Resources */,
+				663274F9174DA31F001E839D /* MainStoryboard_iPad.storyboard in Resources */,
+				663274FB174DA31F001E839D /* Shader.fsh in Resources */,
+				663274FD174DA31F001E839D /* Shader.vsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		663274D1174DA31F001E839D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				663274E9174DA31F001E839D /* main.m in Sources */,
+				663274ED174DA31F001E839D /* GCAppDelegate.m in Sources */,
+				66327500174DA31F001E839D /* GCViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		663274E5174DA31F001E839D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				663274E6174DA31F001E839D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		663274F4174DA31F001E839D /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				663274F5174DA31F001E839D /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		663274F7174DA31F001E839D /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				663274F8174DA31F001E839D /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		66327501174DA31F001E839D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		66327502174DA31F001E839D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		66327504174DA31F001E839D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GCube/GCube-Prefix.pch";
+				INFOPLIST_FILE = "GCube/GCube-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		66327505174DA31F001E839D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GCube/GCube-Prefix.pch";
+				INFOPLIST_FILE = "GCube/GCube-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		663274D0174DA31F001E839D /* Build configuration list for PBXProject "GCube" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66327501174DA31F001E839D /* Debug */,
+				66327502174DA31F001E839D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66327503174DA31F001E839D /* Build configuration list for PBXNativeTarget "GCube" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66327504174DA31F001E839D /* Debug */,
+				66327505174DA31F001E839D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 663274CD174DA31F001E839D /* Project object */;
+}
