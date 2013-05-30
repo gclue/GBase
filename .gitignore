@@ -1,3 +1,7 @@
 platforms/iOS/GCube/GCube.xcodeproj/xcuserdata
 *.xcuserstate
 platforms/iOS/GCube.xcodeproj/xcuserdata
+platforms/Android/obj
+platforms/Tizen/Debug
+platforms/Android/libs/armeabi-v7a
+platforms/Android/bin

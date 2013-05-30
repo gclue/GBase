@@ -9,6 +9,7 @@
 #include <FGraphics.h>
 #include <gl.h>
 #include <FGrpIGlRenderer.h>
+#include <GCube.h>
 
 class GlRendererTemplate :
 	public Tizen::Graphics::Opengl::IGlRenderer
@@ -33,7 +34,8 @@ public:
 private:
 	int __controlWidth;
 	int __controlHeight;
-	int __angle;
+	GCube::ApplicationController *gcube;
+	long long lastTick;
 };
 
 #endif /* _GLRENDERERTEMPLATE_H_ */
