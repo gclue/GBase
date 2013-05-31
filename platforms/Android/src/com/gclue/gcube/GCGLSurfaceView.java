@@ -22,16 +22,100 @@
 
 package com.gclue.gcube;
 
+import java.util.List;
+import java.util.Vector;
+
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.view.MotionEvent;
 
-
+/**
+ * GLを描画するためのView.
+ * @author GClue, Inc.
+ */
 public class GCGLSurfaceView extends GLSurfaceView {
 	
+	/** タッチイベントを保持するリスト. */
+	private List<TouchEvent> evts = new Vector<TouchEvent>();
+	
+	/**
+	 * コンストラクタ.
+	 * @param context コンテキスト
+	 */
     public GCGLSurfaceView(Context context) {
         super(context);
         setEGLContextClientVersion(2);
         setRenderer(new GCRenderer(context));
     }
 
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		final int action = event.getAction();
+		final float x = event.getX();
+		final float y = event.getY();
+		final long time = event.getEventTime();
+		switch (action) {
+		case MotionEvent.ACTION_DOWN:
+		case MotionEvent.ACTION_UP:
+		case MotionEvent.ACTION_MOVE:
+		case MotionEvent.ACTION_CANCEL:
+			queueEvent(getTouchEvent(action, x, y, time));
+			break;
+		}
+		return true;
+	}
+	
+	/**
+	 * 使用していないタッチイベント用のオブジェクトを取得します.
+	 * もし、使用していないタッチイベントがない場合には新たに作成します。
+	 * @param action アクション
+	 * @param x x座標
+	 * @param y y座標
+	 * @param time タッチイベントの発生した時間
+	 * @return タッチイベント
+	 */
+	private TouchEvent getTouchEvent(int action, float x, float y, long time) {
+		for (int i = 0; i < evts.size(); i++) {
+			if (!evts.get(i).isUsed) {
+				TouchEvent evt = evts.get(i);
+				evt.isUsed = true;
+				evt.action = action;
+				evt.x = x;
+				evt.y = y;
+				evt.time = time;
+				return evt;
+			}
+		}
+		
+		TouchEvent evt = new TouchEvent();
+		evt.isUsed = true;
+		evt.action = action;
+		evt.x = x;
+		evt.y = y;
+		evt.time = time;
+		evts.add(evt);
+		return evt;
+	}
+	
+	/**
+	 * タッチイベント.
+	 * @author GClue, Inc.
+	 */
+	private static class TouchEvent implements Runnable {
+		/** タッチイベントのアクション. */
+		private int action;
+		/** タッチされたx座標. */
+		private float x;
+		/** タッチされたy座標. */
+		private float y;
+		/** タッチされた時間. */
+		private long time;
+		/** 使用フラグ. */
+		private boolean isUsed;
+		@Override
+		public void run() {
+			NDKInterface.onTouchEvent(action, x, y, time);
+			isUsed = false;
+		}
+	}
 }

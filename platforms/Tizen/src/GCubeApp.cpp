@@ -62,6 +62,7 @@ GCubeApp::OnAppInitialized(void)
 	pGCubeFrame->Construct();
 	pGCubeFrame->SetName(L"GCube");
 	pGCubeFrame->AddOrientationEventListener(*this);
+	pGCubeFrame->AddTouchEventListener(*this);
 	pGCubeFrame->SetOrientation(ORIENTATION_AUTOMATIC);
 	AddFrame(*pGCubeFrame);
 
@@ -173,4 +174,35 @@ GCubeApp::ConvertOrientState (Tizen::Ui::OrientationStatus orientationStatus) {
 			break;
 	}
 	return o;
+}
+
+void GCubeApp::OnTouch (GCTouchAction type, const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
+	long long tick = 0;
+	Tizen::System::SystemTime::GetTicks(tick);
+	ApplicationController *controller = ApplicationController::SharedInstance();
+	controller->onTouch(type, currentPosition.x, currentPosition.y, tick);
+}
+
+void GCubeApp::OnTouchCanceled (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
+	this->OnTouch(GCTouchActionCancel, source, currentPosition, touchInfo);
+}
+
+void GCubeApp::OnTouchFocusIn (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
+
+}
+
+void GCubeApp::OnTouchFocusOut (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
+
+}
+
+void GCubeApp::OnTouchMoved (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
+	this->OnTouch(GCTouchActionMove, source, currentPosition, touchInfo);
+}
+
+void GCubeApp::OnTouchPressed (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
+	this->OnTouch(GCTouchActionDown, source, currentPosition, touchInfo);
+}
+
+void GCubeApp::OnTouchReleased (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
+	this->OnTouch(GCTouchActionUp, source, currentPosition, touchInfo);
 }

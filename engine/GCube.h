@@ -25,6 +25,7 @@
 
 #include <stddef.h>
 
+// デバイスの向き
 typedef enum GCDeviceOrientation
 {
     GCDeviceOrientationUnknown,
@@ -36,6 +37,16 @@ typedef enum GCDeviceOrientation
     GCDeviceOrientationFaceDown             // Device oriented flat, face down
 }
 GCDeviceOrientation;
+
+// タッチイベント
+typedef enum GCTouchAction
+{
+    GCTouchActionDown,
+    GCTouchActionUp,
+    GCTouchActionMove,
+    GCTouchActionCancel,
+}
+GCTouchAction;
 
 #include "ApplicationController.h"
 #include "util/Log.h"

@@ -29,23 +29,25 @@ namespace GCube {
 
 class ApplicationController {
 private:
-	ApplicationController(void);
-	virtual~ApplicationController(void);
+	ApplicationController();
+	virtual~ApplicationController();
 	
 public:
-	static ApplicationController* SharedInstance(void);
-	static void DestroyInstance(void);
+	static ApplicationController* SharedInstance();
+	static void DestroyInstance();
 	
-	virtual void onInit(void);
-	virtual void onTerminate(void);
-	virtual void onPause(void);
-	virtual void onResume(void);
-	virtual void onContextChanged(void);
+	virtual void onInit();
+	virtual void onTerminate();
+	virtual void onPause();
+	virtual void onResume();
+	virtual void onContextChanged();
 	virtual void onSizeChanged(float width, float height, GCDeviceOrientation orientation);
-	virtual void onLowMemory(void);
+	virtual void onLowMemory();
 	
 	virtual void onUpdate(float dt);
 	virtual void onDraw();
+	
+	virtual void onTouch(GCTouchAction action, float x, float y, long time);
 };
 	
 }

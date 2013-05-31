@@ -130,6 +130,21 @@ Java_com_gclue_gcube_NDKInterface_onTerminate(
 }
 
 /**
+ * タッチイベント処理を行います.
+ * <br><br>
+ * @param[in] env Java環境変数
+ * @param[in] thiz JavaのThisポインタ
+ */
+JNIEXPORT void JNICALL
+Java_com_gclue_gcube_NDKInterface_onTouchEvent(
+		JNIEnv * env, jobject obj, jint action, jfloat x, jfloat y, jlong time)
+{
+	if (controller) {
+		controller->onTouch((GCTouchAction)action, x, y, time);
+	}
+}
+
+/**
  * フレームレートを返します.
  * <br><br>
  * @param[in] env Java環境変数

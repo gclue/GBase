@@ -34,6 +34,7 @@ using namespace GCube;
 
 @implementation GCViewController
 
+// view読み込み
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,9 +52,11 @@ using namespace GCube;
     
     [EAGLContext setCurrentContext:self.context];
 	
-	gcube->onSizeChanged(view.bounds.size.width, view.bounds.size.height, (GCDeviceOrientation)self.interfaceOrientation);
+	float scale = [UIScreen mainScreen].scale;
+	gcube->onSizeChanged(view.bounds.size.width*scale, view.bounds.size.height*scale, (GCDeviceOrientation)self.interfaceOrientation);
 }
 
+// 後処理
 - (void)dealloc
 {    
     [EAGLContext setCurrentContext:self.context];
@@ -63,26 +66,64 @@ using namespace GCube;
     }
 }
 
+// メモリ不足
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+	gcube->onLowMemory();
 }
+
 
 #pragma mark - GLKView and GLKViewController delegate methods
 
+// 処理
 - (void)update
 {
 	gcube->onUpdate(self.timeSinceLastUpdate);
 }
 
+// 描画
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
 	gcube->onDraw();
 }
 
+// 画面回転
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	gcube->onSizeChanged(self.view.bounds.size.width, self.view.bounds.size.height, (GCDeviceOrientation)self.interfaceOrientation);
+	float scale = [UIScreen mainScreen].scale;
+	gcube->onSizeChanged(self.view.bounds.size.width*scale, self.view.bounds.size.height*scale, (GCDeviceOrientation)self.interfaceOrientation);
+}
+
+
+#pragma mark - Events
+
+// タッチイベント
+- (void)toucheEvent:(NSSet *)touches withEvent:(UIEvent *)event withType:(GCTouchAction)type {
+	float scale = [UIScreen mainScreen].scale;
+	UITouch *touch = [touches anyObject];
+	CGPoint location = [touch locationInView:self.view];
+	gcube->onTouch(type, location.x*scale, location.y*scale, touch.timestamp*1000);
+}
+
+// タッチ開始イベント
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self toucheEvent:touches withEvent:event withType:GCTouchActionDown];
+}
+
+// タッチ移動イベント
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self toucheEvent:touches withEvent:event withType:GCTouchActionMove];
+}
+
+// タッチ終了イベント
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self toucheEvent:touches withEvent:event withType:GCTouchActionUp];
+}
+
+// タッチキャンセルイベント
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self toucheEvent:touches withEvent:event withType:GCTouchActionCancel];
 }
 
 @end

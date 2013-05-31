@@ -85,5 +85,11 @@ void ApplicationController::onDraw() {
 	draw();
 //	LOGD("ApplicationController::onDraw()");
 }
+	
+// タッチイベント
+void ApplicationController::onTouch(GCTouchAction action, float x, float y, long time) {
+	LOGD("***********onTouch[%d](%f,%f) %u", action, x, y, time);
+}
+
 
 }
