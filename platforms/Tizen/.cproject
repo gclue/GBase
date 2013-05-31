@@ -149,24 +149,6 @@
 							<tool id="org.tizen.nativecpp.tool.sbi.edc.compiler.2010848909" name="EDC Resource Compiler" superClass="org.tizen.nativecpp.tool.sbi.edc.compiler"/>
 						</toolChain>
 					</folderInfo>
-					<folderInfo id="org.tizen.nativecpp.config.sbi.gcc45.app.debug.542757660.1996400906" name="/" resourcePath="engine">
-						<toolChain id="org.tizen.nativecpp.toolchain.sbi.gcc45.app.debug.1823061949" name="Tizen Native Toolchain" superClass="org.tizen.nativecpp.toolchain.sbi.gcc45.app.debug" unusedChildren="">
-							<tool id="org.tizen.nativecpp.tool.sbi.gnu.archiver.1815074422" name="Archiver" superClass="org.tizen.nativecpp.tool.sbi.gnu.archiver.707842937"/>
-							<tool id="org.tizen.nativecpp.tool.sbi.gnu.cpp.compiler.467729165" name="C++ Compiler" superClass="org.tizen.nativecpp.tool.sbi.gnu.cpp.compiler.1219153705">
-								<inputType id="sbi.gnu.cpp.compiler.tizen.inputType.1018718310" superClass="sbi.gnu.cpp.compiler.tizen.inputType"/>
-							</tool>
-							<tool id="org.tizen.nativecpp.tool.sbi.gnu.c.compiler.878147138" name="C Compiler" superClass="org.tizen.nativecpp.tool.sbi.gnu.c.compiler.1332097163">
-								<inputType id="sbi.gnu.c.compiler.tizen.inputType.1294260132" superClass="sbi.gnu.c.compiler.tizen.inputType"/>
-							</tool>
-							<tool id="org.tizen.nativeide.tool.sbi.gnu.c.linker.base.615808896" name="C Linker" superClass="org.tizen.nativeide.tool.sbi.gnu.c.linker.base.640241801"/>
-							<tool id="org.tizen.nativecpp.tool.sbi.gnu.cpp.linker.1541676687" name="C++ Linker" superClass="org.tizen.nativecpp.tool.sbi.gnu.cpp.linker.901135465"/>
-							<tool id="org.tizen.nativeapp.tool.sbi.gnu.assembler.base.1716123847" name="Assembler" superClass="org.tizen.nativeapp.tool.sbi.gnu.assembler.base.2146766494">
-								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.915276153" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
-							</tool>
-							<tool id="org.tizen.nativecpp.tool.sbi.po.compiler.896871893" name="PO Resource Compiler" superClass="org.tizen.nativecpp.tool.sbi.po.compiler.248419226"/>
-							<tool id="org.tizen.nativecpp.tool.sbi.edc.compiler.1489299937" name="EDC Resource Compiler" superClass="org.tizen.nativecpp.tool.sbi.edc.compiler.2010848909"/>
-						</toolChain>
-					</folderInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="res"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>

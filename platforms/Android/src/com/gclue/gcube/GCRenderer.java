@@ -5,7 +5,6 @@ import javax.microedition.khronos.opengles.GL10;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.util.Log;
 import android.view.Surface;
 
 public class GCRenderer extends FixedFPSRenderer {
@@ -24,7 +23,7 @@ public class GCRenderer extends FixedFPSRenderer {
 
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
-		Log.d("GCube", "onSurfaceChanged");
+		//Log.d("GCube", "onSurfaceChanged");
 		// 画面の向きを取得
 		int orientation = context.getResources().getConfiguration().orientation;
         int rotation = ((Activity) context).getWindowManager().getDefaultDisplay().getRotation();
@@ -53,7 +52,7 @@ public class GCRenderer extends FixedFPSRenderer {
 
 	@Override
 	public void onSurfaceCreated(GL10 arg0, EGLConfig arg1) {
-		Log.d("GCube", "onSurfaceCreated");
+		//Log.d("GCube", "onSurfaceCreated");
 		NDKInterface.onInit();
 	}
 

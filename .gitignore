@@ -5,3 +5,4 @@ platforms/Android/obj
 platforms/Tizen/Debug
 platforms/Android/libs/armeabi-v7a
 platforms/Android/bin
+platforms/Tizen/.sign

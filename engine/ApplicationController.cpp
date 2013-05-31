@@ -7,13 +7,14 @@
 //
 
 #include "ApplicationController.h"
+#include "glsample.h"
 
 namespace GCube {
 
 static ApplicationController *_instance = NULL;
 
 ApplicationController* ApplicationController::SharedInstance() {
-	LOGD("ApplicationController::SharedInstance()");
+//	LOGD("ApplicationController::SharedInstance()");
 	if (!_instance) _instance = new ApplicationController();
 	return _instance;
 }
@@ -34,6 +35,7 @@ ApplicationController::~ApplicationController(void) {
 
 void ApplicationController::onInit(void) {
 	LOGD("ApplicationController::onInit()");
+	
 }
 
 void ApplicationController::onTerminate(void) {
@@ -54,6 +56,7 @@ void ApplicationController::onContextChanged(void) {
 
 void ApplicationController::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
 	LOGD("ApplicationController::onSizeChanged(%f, %f, %d)", width, height, orientation);
+	glViewport(0, 0, width, height);
 }
 
 void ApplicationController::onLowMemory(void) {
@@ -61,11 +64,12 @@ void ApplicationController::onLowMemory(void) {
 }
 
 void ApplicationController::onUpdate(float dt) {
-	LOGD("ApplicationController::onUpdate(%f)", dt);
+//	LOGD("ApplicationController::onUpdate(%f)", dt);
 }
 
 void ApplicationController::onDraw() {
-	LOGD("ApplicationController::onDraw()");
+	draw();
+//	LOGD("ApplicationController::onDraw()");
 }
 
 }

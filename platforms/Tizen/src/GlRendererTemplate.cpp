@@ -20,7 +20,6 @@ GlRendererTemplate::InitializeGl(void)
 	lastTick = 0;
 	gcube = ApplicationController::SharedInstance();
 	gcube->onInit();
-	gcube->onContextChanged();
 
 	return true;
 }

@@ -37,7 +37,6 @@ using namespace GCube;
     
     [EAGLContext setCurrentContext:self.context];
 	
-	gcube->onContextChanged();
 	gcube->onSizeChanged(view.bounds.size.width, view.bounds.size.height, (GCDeviceOrientation)self.interfaceOrientation);
 }
 
