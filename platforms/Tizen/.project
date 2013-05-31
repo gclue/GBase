@@ -89,12 +89,12 @@
 		<link>
 			<name>engine</name>
 			<type>2</type>
-			<location>/Users/tsuchiya/Documents/workspace/GCube2/engine</location>
+			<locationURI>PARENT-2-PROJECT_LOC/engine</locationURI>
 		</link>
 		<link>
 			<name>main</name>
 			<type>2</type>
-			<location>/Users/tsuchiya/Documents/workspace/GCube2/main</location>
+			<locationURI>PARENT-2-PROJECT_LOC/main</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>

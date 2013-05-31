@@ -7,15 +7,21 @@
 //
 
 #include "ApplicationController.h"
-#include "util/Log.h"
 
 namespace GCube {
 
+static ApplicationController *_instance = NULL;
+
 ApplicationController* ApplicationController::SharedInstance() {
 	LOGD("ApplicationController::SharedInstance()");
-	static ApplicationController *_instance = NULL;
 	if (!_instance) _instance = new ApplicationController();
 	return _instance;
+}
+
+void ApplicationController::DestroyInstance() {
+	LOGD("ApplicationController::DestroyInstance()");
+	delete _instance;
+	_instance = NULL;
 }
 
 ApplicationController::ApplicationController(void) {
@@ -46,7 +52,7 @@ void ApplicationController::onContextChanged(void) {
 	LOGD("ApplicationController::onContextChanged()");
 }
 
-void ApplicationController::onSizeChanged(float width, float height, int orientation) {
+void ApplicationController::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
 	LOGD("ApplicationController::onSizeChanged(%f, %f, %d)", width, height, orientation);
 }
 
@@ -55,11 +61,11 @@ void ApplicationController::onLowMemory(void) {
 }
 
 void ApplicationController::onUpdate(float dt) {
-//	LOGD("ApplicationController::onUpdate(%f)", dt);
+	LOGD("ApplicationController::onUpdate(%f)", dt);
 }
 
 void ApplicationController::onDraw() {
-//	LOGD("ApplicationController::onDraw()");
+	LOGD("ApplicationController::onDraw()");
 }
 
 }

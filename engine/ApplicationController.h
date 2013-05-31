@@ -9,6 +9,8 @@
 #ifndef __GCube__ApplicationController__
 #define __GCube__ApplicationController__
 
+#include "GCube.h"
+
 namespace GCube {
 
 class ApplicationController {
@@ -18,13 +20,14 @@ private:
 	
 public:
 	static ApplicationController* SharedInstance(void);
+	static void DestroyInstance(void);
 	
 	virtual void onInit(void);
 	virtual void onTerminate(void);
 	virtual void onPause(void);
 	virtual void onResume(void);
 	virtual void onContextChanged(void);
-	virtual void onSizeChanged(float width, float height, int orientation);
+	virtual void onSizeChanged(float width, float height, GCDeviceOrientation orientation);
 	virtual void onLowMemory(void);
 	
 	virtual void onUpdate(float dt);

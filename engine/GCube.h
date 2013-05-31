@@ -9,6 +9,8 @@
 #ifndef GCube_GCube_h
 #define GCube_GCube_h
 
+#include <stddef.h>
+
 typedef enum GCDeviceOrientation
 {
     GCDeviceOrientationUnknown,

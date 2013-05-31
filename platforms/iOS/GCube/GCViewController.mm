@@ -38,7 +38,7 @@ using namespace GCube;
     [EAGLContext setCurrentContext:self.context];
 	
 	gcube->onContextChanged();
-	gcube->onSizeChanged(view.bounds.size.width, view.bounds.size.height, self.interfaceOrientation);
+	gcube->onSizeChanged(view.bounds.size.width, view.bounds.size.height, (GCDeviceOrientation)self.interfaceOrientation);
 }
 
 - (void)dealloc
@@ -69,7 +69,7 @@ using namespace GCube;
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	gcube->onSizeChanged(self.view.bounds.size.width, self.view.bounds.size.height, self.interfaceOrientation);
+	gcube->onSizeChanged(self.view.bounds.size.width, self.view.bounds.size.height, (GCDeviceOrientation)self.interfaceOrientation);
 }
 
 @end
