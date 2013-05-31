@@ -39,7 +39,7 @@ public abstract class FixedFPSRenderer implements GLSurfaceView.Renderer {
 	/**
 	 * FPS固定化用クラス.
 	 */
-	private FPSManager fps = new FPSManager(30);
+	private FPSManager fps = new FPSManager(NDKInterface.getFrameRate());
 	
 	/**
 	 * 経過時間計測用

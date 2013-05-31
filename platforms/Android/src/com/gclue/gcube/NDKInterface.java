@@ -31,6 +31,7 @@ public class NDKInterface {
 	public static native void step(float dt);
 
 	/**
+	 * 初期化処理
 	 */
 	public static native void onInit();
 	
@@ -87,4 +88,10 @@ public class NDKInterface {
 	 * @param param5 イベントパラメータ
 	 */
 	public synchronized static native void sendGameEvent(int type, int param1, int param2, int param3, int param4, String param5);
+	
+	/**
+	 * フレームレート取得
+	 */
+	public static native int getFrameRate();
+	
 }

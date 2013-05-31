@@ -129,6 +129,19 @@ Java_com_gclue_gcube_NDKInterface_onTerminate(
 	}
 }
 
+/**
+ * フレームレートを返します.
+ * <br><br>
+ * @param[in] env Java環境変数
+ * @param[in] thiz JavaのThisポインタ
+ */
+JNIEXPORT jint JNICALL
+Java_com_gclue_gcube_NDKInterface_getFrameRate(
+		JNIEnv * env, jobject obj)
+{
+	return __GCube_FrameRate__;
+}
+
 };	// end of extern "C"
 
 
