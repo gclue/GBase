@@ -21,6 +21,7 @@
  */
 
 #import "GCViewController.h"
+#import <CoreMotion/CoreMotion.h>
 #import <GCube.h>
 #import <GCubeConfig.h>
 
@@ -28,6 +29,7 @@ using namespace GCube;
 
 @interface GCViewController () {
 	ApplicationController *gcube;
+	CMMotionManager *motionMgr;
 }
 @property (strong, nonatomic) EAGLContext *context;
 @end
@@ -38,7 +40,7 @@ using namespace GCube;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+	
 	gcube = ApplicationController::SharedInstance();
 	
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -54,11 +56,21 @@ using namespace GCube;
 	
 	float scale = [UIScreen mainScreen].scale;
 	gcube->onSizeChanged(view.bounds.size.width*scale, view.bounds.size.height*scale, (GCDeviceOrientation)self.interfaceOrientation);
+	
+#ifdef __GCube_OrientationSensor__
+	// 傾きセンサー開始
+	[self startMotionSensor];
+#endif
 }
 
 // 後処理
 - (void)dealloc
-{    
+{
+
+#ifdef __GCube_OrientationSensor__
+	[self stopMotionSensor];
+#endif
+	
     [EAGLContext setCurrentContext:self.context];
     
     if ([EAGLContext currentContext] == self.context) {
@@ -79,6 +91,19 @@ using namespace GCube;
 // 処理
 - (void)update
 {
+	
+#ifdef __GCube_OrientationSensor__
+	// 傾き取得（Androidを基準に値を変換）
+	CMAttitude *currentAttitude = motionMgr.deviceMotion.attitude;
+	double roll = currentAttitude.roll;  // Y軸中心のラジアン角: -π〜π(-180度〜180度)
+	double pitch = -currentAttitude.pitch; // X軸中心のラジアン角: -π/2〜π/2(-90度〜90度)
+	double yaw = -M_PI_2-currentAttitude.yaw;  // Z軸中心のラジアン角: -π〜π(-180度〜180度)
+	if (yaw < -M_PI) yaw += (2.0*M_PI);
+	if (!(pitch==0 && roll==0)) {
+		gcube->onOrientationChanged(yaw, pitch, roll);
+	}
+#endif
+	
 	gcube->onUpdate(self.timeSinceLastUpdate);
 }
 
@@ -86,6 +111,42 @@ using namespace GCube;
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
 	gcube->onDraw();
+}
+
+// 回転方向（over iOS6）
+- (NSUInteger)supportedInterfaceOrientations
+{
+	NSUInteger orient = 0;
+#ifdef __GCube_SupportedOrientation_Portrait__
+	orient |= UIInterfaceOrientationMaskPortrait;
+#endif
+#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
+	orient |= UIInterfaceOrientationMaskPortraitUpsideDown;
+#endif
+#ifdef __GCube_SupportedOrientation_LandscapeLeft__
+	orient |= UIInterfaceOrientationMaskLandscapeLeft;
+#endif
+#ifdef __GCube_SupportedOrientation_LandscapeRight__
+	orient |= UIInterfaceOrientationMaskLandscapeRight;
+#endif
+	return orient;
+}
+
+// 回転方向（iOS5）
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+#ifdef __GCube_SupportedOrientation_Portrait__
+	if (interfaceOrientation == UIInterfaceOrientationPortrait) return YES;
+#endif
+#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
+	if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) return YES;
+#endif
+#ifdef __GCube_SupportedOrientation_LandscapeLeft__
+	if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) return YES;
+#endif
+#ifdef __GCube_SupportedOrientation_LandscapeRight__
+	if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) return YES;
+#endif
+	return NO;
 }
 
 // 画面回転
@@ -124,6 +185,33 @@ using namespace GCube;
 // タッチキャンセルイベント
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 	[self toucheEvent:touches withEvent:event withType:GCTouchActionCancel];
+}
+
+
+
+#pragma mark - MotionSensor
+
+// モーションセンサー開始
+- (void)startMotionSensor
+{
+	// インスタンスの生成
+	if (!motionMgr) {
+		motionMgr = [[CMMotionManager alloc] init];
+	}
+	
+	// 実質、ジャイロスコープの有無を確認
+	if (motionMgr.deviceMotionAvailable) {
+		// センサーの利用開始
+		[motionMgr startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical];
+	}
+}
+
+// モーションセンサー停止
+- (void)stopMotionSensor
+{
+	if (motionMgr.deviceMotionActive) {
+        [motionMgr stopMagnetometerUpdates];
+    }
 }
 
 @end

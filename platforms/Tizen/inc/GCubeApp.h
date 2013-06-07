@@ -29,11 +29,14 @@
 #include <FUi.h>
 #include <FUiIme.h>
 #include <FGraphics.h>
-#include <gl.h>
 #include <FGrpGlPlayer.h>
+#include <FUixSensor.h>
 
+#include <gl.h>
 #include "GlRendererTemplate.h"
 #include <GCube.h>
+
+using namespace Tizen::Uix::Sensor;
 
 /**
  * [GCubeApp] UiApp must inherit from UiApp class
@@ -44,6 +47,7 @@ class GCubeApp
 	, public Tizen::System::IScreenEventListener
 	, public Tizen::Ui::IOrientationEventListener
 	, public Tizen::Ui::ITouchEventListener
+	, public Tizen::Uix::Sensor::ISensorEventListener
 {
 public:
 	/**
@@ -95,10 +99,14 @@ public:
 	virtual void OnTouchMoved (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo);
 	virtual void OnTouchPressed (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo);
 	virtual void OnTouchReleased (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo);
+	virtual void OnDataReceived(SensorType sensorType, SensorData& sensorData, result r);
+
+	bool CreateSensor(void);
 
 private:
 	Tizen::Graphics::Opengl::GlPlayer* __player;
 	Tizen::Graphics::Opengl::IGlRenderer* __renderer;
+	Tizen::Uix::Sensor::SensorManager __sensorManager;
 	GCube::ApplicationController *gcube;
 
 	GCDeviceOrientation ConvertOrientState (Tizen::Ui::OrientationStatus orientationStatus);

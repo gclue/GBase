@@ -70,7 +70,7 @@ public class NDKInterface {
 	public synchronized static native boolean onPressBackKey();
 	
 	/**
-	 * JNI側にタッチイベントを通知します.
+	 * タッチイベントを通知.
 	 * @param action アクション
 	 * @param x x座標
 	 * @param y y座標
@@ -79,7 +79,15 @@ public class NDKInterface {
 	public static native void onTouchEvent(int action, float x, float y, long time);
 	
 	/**
-	 * JNIにイベントを配送します.
+	 * 傾きセンサーイベントを通知.
+	 * @param yaw ヨー
+	 * @param pitch ピッチ
+	 * @param roll ロール
+	 */
+	public static native void onOrientationChanged(float yaw, float pitch, float roll);
+	
+	/**
+	 * ユーザーイベントを配送.
 	 * @param type イベントタイプ
 	 * @param param1 イベントパラメータ
 	 * @param param2 イベントパラメータ
@@ -94,4 +102,13 @@ public class NDKInterface {
 	 */
 	public static native int getFrameRate();
 	
+	/**
+	 * 傾きセンサーを使用するかを取得
+	 */
+	public static native boolean useOrientationSensor();
+	
+	/**
+	 * 対応画面方向取得
+	 */
+	public static native int getSupportedOrientation();
 }

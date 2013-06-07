@@ -29,4 +29,13 @@
 // フレームレート
 #define __GCube_FrameRate__ 60
 
+// 傾きセンサー使用
+//#define __GCube_OrientationSensor__
+
+// 対応画面方向
+#define __GCube_SupportedOrientation_Portrait__
+//#define __GCube_SupportedOrientation_PortraitUpsideDown__
+#define __GCube_SupportedOrientation_LandscapeLeft__
+#define __GCube_SupportedOrientation_LandscapeRight__
+
 #endif

@@ -63,7 +63,34 @@ GCubeApp::OnAppInitialized(void)
 	pGCubeFrame->SetName(L"GCube");
 	pGCubeFrame->AddOrientationEventListener(*this);
 	pGCubeFrame->AddTouchEventListener(*this);
-	pGCubeFrame->SetOrientation(ORIENTATION_AUTOMATIC);
+
+	// 画面の向き
+	enum Orientation orientation = ORIENTATION_NONE;
+#ifdef __GCube_SupportedOrientation_Portrait__
+	#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
+		orientation = ORIENTATION_AUTOMATIC;
+	#else
+		orientation = ORIENTATION_PORTRAIT;
+	#endif
+#else
+	#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
+		#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
+			orientation = ORIENTATION_AUTOMATIC_FOUR_DIRECTION;
+		#else
+			orientation = ORIENTATION_PORTRAIT_REVERSE;
+		#endif
+	#else
+		#ifdef __GCube_SupportedOrientation_LandscapeLeft__
+			orientation = ORIENTATION_LANDSCAPE_REVERSE;
+		#else
+			#ifdef __GCube_SupportedOrientation_LandscapeRight__
+				orientation = ORIENTATION_LANDSCAPE;
+			#endif
+		#endif
+	#endif
+#endif
+	pGCubeFrame->SetOrientation(orientation);
+
 	AddFrame(*pGCubeFrame);
 
 	{
@@ -82,6 +109,11 @@ GCubeApp::OnAppInitialized(void)
 	// サイズを通知
 	GCDeviceOrientation o = this->ConvertOrientState(pGCubeFrame->GetOrientationStatus());
 	gcube->onSizeChanged(__renderer->GetTargetControlWidth(), __renderer->GetTargetControlHeight(), o);
+
+#ifdef __GCube_OrientationSensor__
+	__sensorManager.Construct();
+	this->CreateSensor();
+#endif
 
 	return true;
 }
@@ -114,11 +146,17 @@ void
 GCubeApp::OnForeground(void)
 {
 	__player->Resume();
+#ifdef __GCube_OrientationSensor__
+	this->CreateSensor();
+#endif
 }
 
 void
 GCubeApp::OnBackground(void)
 {
+#ifdef __GCube_OrientationSensor__
+	__sensorManager.RemoveSensorListener(*this);
+#endif
 	__player->Pause();
 }
 
@@ -206,3 +244,31 @@ void GCubeApp::OnTouchPressed (const Tizen::Ui::Control &source, const Tizen::Gr
 void GCubeApp::OnTouchReleased (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {
 	this->OnTouch(GCTouchActionUp, source, currentPosition, touchInfo);
 }
+
+void GCubeApp::OnDataReceived(SensorType sensorType, SensorData& sensorData, result r)
+{
+	// TODO: データをAndroidを基準に合わせる
+	DeviceOrientationSensorData& data = static_cast<DeviceOrientationSensorData&>(sensorData);
+	gcube->onOrientationChanged(DEGREES_TO_RADIANS(data.yaw), DEGREES_TO_RADIANS(data.pitch), DEGREES_TO_RADIANS(data.roll));
+}
+
+bool GCubeApp::CreateSensor(void)
+ {
+     result r = E_SUCCESS;
+
+     if (__sensorManager.IsAvailable(SENSOR_TYPE_DEVICE_ORIENTATION))
+     {
+         r = __sensorManager.AddSensorListener(*this, SENSOR_TYPE_DEVICE_ORIENTATION, 50, true);
+         if (IsFailed(r))
+         {
+             return false;
+       }
+     }
+     else
+     {
+         AppLogException("Acceleration sensor is not available.");
+         return false;
+     }
+
+     return true;
+ }

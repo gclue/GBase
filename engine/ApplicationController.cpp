@@ -91,5 +91,10 @@ void ApplicationController::onTouch(GCTouchAction action, float x, float y, long
 	LOGD("***********onTouch[%d](%f,%f) %u", action, x, y, time);
 }
 
+// 傾きセンサイベント
+void ApplicationController::onOrientationChanged(float yaw, float pitch, float roll) {
+	LOGD("***********onOrientationChanged(%f, %f, %f)", RADIANS_TO_DEGREES(yaw), RADIANS_TO_DEGREES(pitch), RADIANS_TO_DEGREES(roll));
+}
+
 
 }

@@ -22,8 +22,8 @@
 
 package com.gclue.gcube;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
@@ -31,13 +31,18 @@ public class MainActivity extends Activity {
 		System.loadLibrary("gcube");
 	}
 
-	private GCGLSurfaceView glview;
-
+	private GCGLSurfaceView glview = null;
+	private GCSensorEventListener sensor = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.setRequestedOrientation(NDKInterface.getSupportedOrientation());
 		glview = new GCGLSurfaceView(this);
 		setContentView(glview);
+		if (NDKInterface.useOrientationSensor()) {
+			sensor = new GCSensorEventListener(this);
+		}
 	}
 
 	@Override
@@ -52,10 +57,12 @@ public class MainActivity extends Activity {
 		super.onResume();
 		glview.onResume();
 		NDKInterface.onResume();
+		if (sensor!=null) sensor.start();
 	}
 	
 	@Override
 	protected void onPause() {
+		if (sensor!=null) sensor.stop();
 		NDKInterface.onPause();
 		glview.onPause();
 		super.onPause();
@@ -67,5 +74,4 @@ public class MainActivity extends Activity {
 		glview = null;
 		super.onDestroy();
 	}
-
 }

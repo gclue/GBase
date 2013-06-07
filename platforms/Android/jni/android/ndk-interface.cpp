@@ -52,9 +52,6 @@ Java_com_gclue_gcube_NDKInterface_onInit(
 
 /**
  * サイズ変更処理を行います.
- * <br><br>
- * @param[in] env Java環境変数
- * @param[in] thiz JavaのThisポインタ
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_step(
@@ -68,9 +65,6 @@ Java_com_gclue_gcube_NDKInterface_step(
 
 /**
  * サイズ変更処理を行います.
- * <br><br>
- * @param[in] env Java環境変数
- * @param[in] thiz JavaのThisポインタ
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_onSizeChanged(
@@ -84,9 +78,6 @@ Java_com_gclue_gcube_NDKInterface_onSizeChanged(
 
 /**
  * 一時停止処理を行います.
- * <br><br>
- * @param[in] env Java環境変数
- * @param[in] thiz JavaのThisポインタ
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_onPause(
@@ -99,9 +90,6 @@ Java_com_gclue_gcube_NDKInterface_onPause(
 
 /**
  * 再開処理を行います.
- * <br><br>
- * @param[in] env Java環境変数
- * @param[in] thiz JavaのThisポインタ
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_onResume(
@@ -114,9 +102,6 @@ Java_com_gclue_gcube_NDKInterface_onResume(
 
 /**
  * 終了処理をします.
- * <br><br>
- * @param[in] env Java環境変数
- * @param[in] thiz JavaのThisポインタ
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_onTerminate(
@@ -131,9 +116,6 @@ Java_com_gclue_gcube_NDKInterface_onTerminate(
 
 /**
  * タッチイベント処理を行います.
- * <br><br>
- * @param[in] env Java環境変数
- * @param[in] thiz JavaのThisポインタ
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_onTouchEvent(
@@ -145,16 +127,81 @@ Java_com_gclue_gcube_NDKInterface_onTouchEvent(
 }
 
 /**
+ * 傾きセンサーイベント処理を行います.
+ */
+JNIEXPORT void JNICALL
+Java_com_gclue_gcube_NDKInterface_onOrientationChanged(
+		JNIEnv * env, jobject obj, jfloat yaw, jfloat pitch, jfloat roll)
+{
+	if (controller) {
+		controller->onOrientationChanged(yaw, pitch, roll);
+	}
+}
+
+/**
  * フレームレートを返します.
- * <br><br>
- * @param[in] env Java環境変数
- * @param[in] thiz JavaのThisポインタ
  */
 JNIEXPORT jint JNICALL
 Java_com_gclue_gcube_NDKInterface_getFrameRate(
 		JNIEnv * env, jobject obj)
 {
 	return __GCube_FrameRate__;
+}
+
+/**
+ * 傾きセンサーを使用するかを返します.
+ */
+JNIEXPORT jboolean JNICALL
+Java_com_gclue_gcube_NDKInterface_useOrientationSensor(
+		JNIEnv * env, jobject obj)
+{
+#ifdef __GCube_OrientationSensor__
+	return true;
+#else
+	return false;
+#endif
+}
+
+/**
+ * 対応画面方向を返します.
+ */
+JNIEXPORT jint JNICALL
+Java_com_gclue_gcube_NDKInterface_getSupportedOrientation(
+		JNIEnv * env, jobject obj)
+{
+#ifdef __GCube_SupportedOrientation_Portrait__
+	#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
+		return 4; // SCREEN_ORIENTATION_SENSOR
+	#else
+		#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
+			return 7; // SCREEN_ORIENTATION_SENSOR_PORTRAIT
+		#else
+			return 1; // SCREEN_ORIENTATION_PORTRAIT
+		#endif
+	#endif
+#else
+	#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
+		#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
+			return 4; // SCREEN_ORIENTATION_SENSOR
+		#else
+			return 9; // SCREEN_ORIENTATION_REVERSE_PORTRAIT
+		#endif
+	#else
+		#ifdef __GCube_SupportedOrientation_LandscapeLeft__
+			#ifdef __GCube_SupportedOrientation_LandscapeRight__
+				return 6; // SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+			#else
+				return 8; // SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+			#endif
+		#else
+			#ifdef __GCube_SupportedOrientation_LandscapeRight__
+				return 0; // SCREEN_ORIENTATION_LANDSCAPE
+			#endif
+		#endif
+	#endif
+#endif
+
+	return -1; // SCREEN_ORIENTATION_UNSPECIFIED
 }
 
 };	// end of extern "C"

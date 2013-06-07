@@ -30,6 +30,7 @@
 		66FC58A017585F07002D7A6F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589917585F07002D7A6F /* Icon.png */; };
 		66FC58A117585F07002D7A6F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589A17585F07002D7A6F /* Icon@2x.png */; };
 		66FC58E617586047002D7A6F /* glsample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66FC58E417586047002D7A6F /* glsample.cpp */; };
+		66FC58E91760235E002D7A6F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66FC58E81760235D002D7A6F /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		66FC589A17585F07002D7A6F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		66FC58E417586047002D7A6F /* glsample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glsample.cpp; sourceTree = "<group>"; };
 		66FC58E517586047002D7A6F /* glsample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glsample.h; sourceTree = "<group>"; };
+		66FC58E81760235D002D7A6F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66FC58E91760235E002D7A6F /* CoreMotion.framework in Frameworks */,
 				663274D9174DA31F001E839D /* UIKit.framework in Frameworks */,
 				663274DB174DA31F001E839D /* Foundation.framework in Frameworks */,
 				663274DD174DA31F001E839D /* CoreGraphics.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		663274D7174DA31F001E839D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66FC58E81760235D002D7A6F /* CoreMotion.framework */,
 				663274D8174DA31F001E839D /* UIKit.framework */,
 				663274DA174DA31F001E839D /* Foundation.framework */,
 				663274DC174DA31F001E839D /* CoreGraphics.framework */,
