@@ -20,31 +20,32 @@
  * THE SOFTWARE.
  */
 
-#ifndef GCube_GCube_h
-#define GCube_GCube_h
-
-// Android
-#ifdef __GCube_Android__
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#endif
-
-// iOS
-#ifdef __GCube_iOS__
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#endif
-
-// Tizen
-#ifdef __GCube_Tizen__
-#include <gl2.h>
-#include <gl2ext.h>
-#endif
+#ifndef GCube_IApplicationEventListener_h
+#define GCube_IApplicationEventListener_h
 
 
-#include "GCDefines.h"
-#include "ApplicationController.h"
-#include "IApplicationEventListener.h"
-#include "util/Log.h"
+namespace GCube {
+	
+class IApplicationEventListener {
+public:
+	virtual~IApplicationEventListener() {};
+	
+	virtual void onInit() {};
+	virtual void onTerminate() {};
+	virtual void onPause() {};
+	virtual void onResume() {};
+	virtual void onContextChanged() {};
+	virtual void onSizeChanged(float width, float height, GCDeviceOrientation orientation) {};
+	virtual void onLowMemory() {};
+	
+	virtual void onUpdate(float dt) {};
+	virtual void onDraw() {};
+	
+	virtual void onTouch(GCTouchAction action, float x, float y, long time) {};
+	virtual void onOrientationChanged(float yaw, float pitch, float roll) {};
+};
+	
+}
+
 
 #endif

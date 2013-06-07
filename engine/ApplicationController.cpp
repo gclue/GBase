@@ -21,7 +21,8 @@
  */
 
 #include "ApplicationController.h"
-#include "glsample.h"
+#include "GCube.h"
+#include "Main.h"
 
 namespace GCube {
 
@@ -41,59 +42,69 @@ void ApplicationController::DestroyInstance() {
 
 ApplicationController::ApplicationController(void) {
 	LOGD("ApplicationController::ApplicationController()");
+	main = new Main();
 }
 
 ApplicationController::~ApplicationController(void) {
 	LOGD("ApplicationController::~ApplicationController()");
+	delete main;
 }
 
 void ApplicationController::onInit(void) {
 	LOGD("ApplicationController::onInit()");
-	
+	main->onInit();
 }
 
 void ApplicationController::onTerminate(void) {
 	LOGD("ApplicationController::onTerminate()");
+	main->onTerminate();
 }
 
 void ApplicationController::onPause(void) {
 	LOGD("ApplicationController::onPause()");
+	main->onPause();
 }
 
 void ApplicationController::onResume(void) {
 	LOGD("ApplicationController::onResume()");
+	main->onResume();
 }
 
 void ApplicationController::onContextChanged(void) {
 	LOGD("ApplicationController::onContextChanged()");
+	main->onContextChanged();
 }
 
 void ApplicationController::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
 	LOGD("ApplicationController::onSizeChanged(%f, %f, %d)", width, height, orientation);
-	glViewport(0, 0, width, height);
+	main->onSizeChanged(width, height, orientation);
 }
 
 void ApplicationController::onLowMemory(void) {
 	LOGD("ApplicationController::onLowMemory()");
+	main->onLowMemory();
 }
 
 void ApplicationController::onUpdate(float dt) {
 //	LOGD("ApplicationController::onUpdate(%f)", dt);
+	main->onUpdate(dt);
 }
 
 void ApplicationController::onDraw() {
-	draw();
 //	LOGD("ApplicationController::onDraw()");
+	main->onDraw();
 }
 	
 // タッチイベント
 void ApplicationController::onTouch(GCTouchAction action, float x, float y, long time) {
 	LOGD("***********onTouch[%d](%f,%f) %u", action, x, y, time);
+	main->onTouch(action, x, y, time);
 }
 
 // 傾きセンサイベント
 void ApplicationController::onOrientationChanged(float yaw, float pitch, float roll) {
 	LOGD("***********onOrientationChanged(%f, %f, %f)", RADIANS_TO_DEGREES(yaw), RADIANS_TO_DEGREES(pitch), RADIANS_TO_DEGREES(roll));
+	main->onOrientationChanged(yaw, pitch, roll);
 }
 
 

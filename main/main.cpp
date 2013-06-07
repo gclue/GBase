@@ -20,31 +20,27 @@
  * THE SOFTWARE.
  */
 
-#ifndef GCube_GCube_h
-#define GCube_GCube_h
+#include "Main.h"
+#include "glsample.h"
 
-// Android
-#ifdef __GCube_Android__
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#endif
+namespace GCube {
 
-// iOS
-#ifdef __GCube_iOS__
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#endif
+Main::Main()
+{
+	LOGD("Main::Main()");
+}
 
-// Tizen
-#ifdef __GCube_Tizen__
-#include <gl2.h>
-#include <gl2ext.h>
-#endif
+Main::~Main() {
+	LOGD("Main::~Main()");
+}
 
+void Main::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
+	LOGD("Main::onSizeChanged(%f, %f, %d)", width, height, orientation);
+	glViewport(0, 0, width, height);
+}
+	
+void Main::onDraw() {
+	draw();
+}
 
-#include "GCDefines.h"
-#include "ApplicationController.h"
-#include "IApplicationEventListener.h"
-#include "util/Log.h"
-
-#endif
+}

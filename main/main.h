@@ -20,31 +20,24 @@
  * THE SOFTWARE.
  */
 
-#ifndef GCube_GCube_h
-#define GCube_GCube_h
+#ifndef __GCube__Main__
+#define __GCube__Main__
 
-// Android
-#ifdef __GCube_Android__
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#endif
+#include "GCube.h"
 
-// iOS
-#ifdef __GCube_iOS__
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#endif
+namespace GCube {
+	
+class Main : public IApplicationEventListener {
+private:
+	
+public:
+	Main();
+	virtual~Main();
+	
+	virtual void onSizeChanged(float width, float height, GCDeviceOrientation orientation);
+	virtual void onDraw();
+};
+	
+}
 
-// Tizen
-#ifdef __GCube_Tizen__
-#include <gl2.h>
-#include <gl2ext.h>
-#endif
-
-
-#include "GCDefines.h"
-#include "ApplicationController.h"
-#include "IApplicationEventListener.h"
-#include "util/Log.h"
-
-#endif
+#endif /* defined(__GCube__Main__) */

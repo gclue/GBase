@@ -15,6 +15,7 @@ LOCAL_CFLAGS    := -Werror -D__GCube_Android__
 LOCAL_LDLIBS    := -llog -lGLESv2 -lz
 
 LOCAL_SRC_FILES := platforms/Android/jni/android/ndk-interface.cpp \
+                   main/Main.cpp \
                    main/glsample.cpp
                    
 LOCAL_C_INCLUDES:= $(MY_PATH)/android/ \

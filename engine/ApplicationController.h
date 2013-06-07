@@ -23,16 +23,21 @@
 #ifndef __GCube__ApplicationController__
 #define __GCube__ApplicationController__
 
-#include "GCube.h"
+#include "GCDefines.h"
+#include "IApplicationEventListener.h"
 
 namespace GCube {
 
-class ApplicationController {
+class ApplicationController : public IApplicationEventListener {
+private:
+	GCube::Main *main;
+	
 private:
 	ApplicationController();
-	virtual~ApplicationController();
 	
 public:
+	virtual~ApplicationController();
+	
 	static ApplicationController* SharedInstance();
 	static void DestroyInstance();
 	

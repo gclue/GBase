@@ -20,31 +20,41 @@
  * THE SOFTWARE.
  */
 
-#ifndef GCube_GCube_h
-#define GCube_GCube_h
+#ifndef GCube_GCDefines_h
+#define GCube_GCDefines_h
 
-// Android
-#ifdef __GCube_Android__
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#endif
+#include <stddef.h>
+#include <math.h>
 
-// iOS
-#ifdef __GCube_iOS__
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#endif
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
-// Tizen
-#ifdef __GCube_Tizen__
-#include <gl2.h>
-#include <gl2ext.h>
-#endif
+// デバイスの向き
+typedef enum GCDeviceOrientation
+{
+    GCDeviceOrientationUnknown,
+    GCDeviceOrientationPortrait,            // Device oriented vertically, home button on the bottom
+    GCDeviceOrientationPortraitUpsideDown,  // Device oriented vertically, home button on the top
+    GCDeviceOrientationLandscapeLeft,       // Device oriented horizontally, home button on the right
+    GCDeviceOrientationLandscapeRight,      // Device oriented horizontally, home button on the left
+    GCDeviceOrientationFaceUp,              // Device oriented flat, face up
+    GCDeviceOrientationFaceDown             // Device oriented flat, face down
+}
+GCDeviceOrientation;
 
+// タッチイベント
+typedef enum GCTouchAction
+{
+    GCTouchActionDown,
+    GCTouchActionUp,
+    GCTouchActionMove,
+    GCTouchActionCancel,
+}
+GCTouchAction;
 
-#include "GCDefines.h"
-#include "ApplicationController.h"
-#include "IApplicationEventListener.h"
-#include "util/Log.h"
+namespace GCube {
+	class Main;
+	class ApplicationController;
+}
 
 #endif
