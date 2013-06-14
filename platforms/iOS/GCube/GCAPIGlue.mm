@@ -20,25 +20,11 @@
  * THE SOFTWARE.
  */
 
-#include "Main.h"
-#include "glsample.h"
+#import "GCDefines.h"
 
-namespace GCube {
-
-void Main::onInit() {
-	LOGD("Main::onInit()");
-	
-	ApplicationController *ctr = ApplicationController::SharedInstance();
-	LOGD("lang:%s", ctr->getLanguage().c_str());
-}
-
-void Main::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
-	LOGD("Main::onSizeChanged(%f, %f, %d)", width, height, orientation);
-	glViewport(0, 0, width, height);
-}
-	
-void Main::onDraw() {
-	draw();
-}
-
+// 言語コードを取得
+std::string GCGetLanguage() {
+	NSArray *languages = [NSLocale preferredLanguages];
+	NSString *lang = [languages objectAtIndex:0];
+	return std::string([lang UTF8String]);
 }

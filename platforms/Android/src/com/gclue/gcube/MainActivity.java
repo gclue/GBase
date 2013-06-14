@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		NDKInterface.initInterface(this);
 		this.setRequestedOrientation(NDKInterface.getSupportedOrientation());
 		glview = new GCGLSurfaceView(this);
 		setContentView(glview);

@@ -23,6 +23,7 @@
 		66327500174DA31F001E839D /* GCViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 663274FF174DA31F001E839D /* GCViewController.mm */; };
 		66327514174DE743001E839D /* ApplicationController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66327511174DE743001E839D /* ApplicationController.cpp */; };
 		66740DFF1761C17800510BCB /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66740DFD1761C17800510BCB /* Main.cpp */; };
+		667FC334176ABC9E000E8D0E /* GCAPIGlue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667FC333176ABC9E000E8D0E /* GCAPIGlue.mm */; };
 		66FC589B17585F07002D7A6F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589417585F07002D7A6F /* Icon-72.png */; };
 		66FC589C17585F07002D7A6F /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589517585F07002D7A6F /* Icon-72@2x.png */; };
 		66FC589D17585F07002D7A6F /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589617585F07002D7A6F /* Icon-Small-50.png */; };
@@ -60,6 +61,7 @@
 		66740DFD1761C17800510BCB /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		66740DFE1761C17800510BCB /* Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Main.h; sourceTree = "<group>"; };
 		66740E001761C6C900510BCB /* IApplicationEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IApplicationEventListener.h; sourceTree = "<group>"; };
+		667FC333176ABC9E000E8D0E /* GCAPIGlue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GCAPIGlue.mm; sourceTree = "<group>"; };
 		66FC588C17571446002D7A6F /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		66FC588E175717E4002D7A6F /* GCube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCube.h; sourceTree = "<group>"; };
 		66FC589217571ABC002D7A6F /* GCubeConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCubeConfig.h; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				663274F7174DA31F001E839D /* MainStoryboard_iPad.storyboard */,
 				663274FE174DA31F001E839D /* GCViewController.h */,
 				663274FF174DA31F001E839D /* GCViewController.mm */,
+				667FC333176ABC9E000E8D0E /* GCAPIGlue.mm */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				66327514174DE743001E839D /* ApplicationController.cpp in Sources */,
 				66FC58E617586047002D7A6F /* glsample.cpp in Sources */,
 				66740DFF1761C17800510BCB /* Main.cpp in Sources */,
+				667FC334176ABC9E000E8D0E /* GCAPIGlue.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

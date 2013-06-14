@@ -22,8 +22,35 @@
 
 package com.gclue.gcube;
 
+import android.app.Activity;
+
 public class NDKInterface {
 
+	private Activity activity;
+	
+	/**
+	 * コンストラクタ
+	 * @param activity 
+	 */
+	private NDKInterface(Activity activity) {
+		this.activity = activity;
+	}
+	
+	/**
+	 * 初期化処理を行います.
+	 */
+	public static void initInterface(Activity activity) {
+		NDKInterface.setInterface(new NDKInterface(activity));
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////// send event to native
+	
+	/**
+	 * ネイティブとの橋渡しオブジェクトを設定します.
+	 * @param ndkInterface
+	 */
+	private synchronized static native void setInterface(NDKInterface ndkInterface);
+	
 	/**
 	 * ステップ実行.
 	 * @param dt 経過時間
@@ -111,4 +138,43 @@ public class NDKInterface {
 	 * 対応画面方向取得
 	 */
 	public static native int getSupportedOrientation();
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////// received event from native
+
+	/**
+	 * 文字列をキーに文字列情報を返す.
+	 * @param key キー
+	 * @return 情報
+	 */
+	public String getStringInfo(String key) {
+		String ret = "";
+		// 言語設定
+		if (key.equals("lang")) {
+			return activity.getResources().getConfiguration().locale.getLanguage();
+		}
+		return ret;
+	}
+	
+	/**
+	 * ネイティブからのイベントを受け取る. <br>
+	 * <br>
+	 * 
+	 * @param type
+	 *            イベントタイプ
+	 * @param param1
+	 *            イベントパラメータ
+	 * @param param2
+	 *            イベントパラメータ
+	 * @param param3
+	 *            イベントパラメータ
+	 * @param param4
+	 *            イベントパラメータ
+	 * @param param5
+	 *            イベントパラメータ
+	 */
+	public void onGameEvent(int type, int param1, long param2, float param3, double param4, final String param5) {
+	}
+	
 }

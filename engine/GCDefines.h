@@ -25,6 +25,7 @@
 
 #include <stddef.h>
 #include <math.h>
+#include <string>
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
@@ -52,9 +53,19 @@ typedef enum GCTouchAction
 }
 GCTouchAction;
 
+// クラス
 namespace GCube {
 	class Main;
 	class ApplicationController;
 }
+
+
+
+
+// 言語コードを取得
+std::string GCGetLanguage();
+
+//extern "C" {
+//}
 
 #endif

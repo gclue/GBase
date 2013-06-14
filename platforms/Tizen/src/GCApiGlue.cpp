@@ -20,25 +20,25 @@
  * THE SOFTWARE.
  */
 
-#include "Main.h"
-#include "glsample.h"
+#include "GCDefines.h"
+#include <FBase.h>
+#include <FLocales.h>
 
-namespace GCube {
+using namespace Tizen::Base;
+using namespace Tizen::Locales;
 
-void Main::onInit() {
-	LOGD("Main::onInit()");
-	
-	ApplicationController *ctr = ApplicationController::SharedInstance();
-	LOGD("lang:%s", ctr->getLanguage().c_str());
-}
-
-void Main::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
-	LOGD("Main::onSizeChanged(%f, %f, %d)", width, height, orientation);
-	glViewport(0, 0, width, height);
-}
-	
-void Main::onDraw() {
-	draw();
-}
-
+// 言語コードを取得
+std::string GCGetLanguage() {
+	// locale取得
+	LocaleManager localeManager;
+	localeManager.Construct();
+	String lang = localeManager.GetSelectedLanguage();
+	// cstrに変換
+	int nLen = wcstombs( NULL, lang.GetPointer(), 0 );
+	char* pstr = (char*) malloc ( nLen + 1 );
+	wcstombs(pstr, lang.GetPointer(), nLen+1);
+	std::string ret = std::string(pstr);
+	free(pstr);
+	// 返る値がiOS/Androidと少し違うので注意
+	return ret;
 }

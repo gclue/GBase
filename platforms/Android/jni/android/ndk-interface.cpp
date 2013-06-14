@@ -23,12 +23,85 @@
 #include <stddef.h>
 #include <jni.h>
 #include <GCube.h>
+#include "GCDefines.h"
 
 using namespace GCube;
 
 static ApplicationController *controller = NULL;
 
+/**
+ * JNIを操作する為のデータを保持する構造体.
+ */
+struct JNIInterface {
+	JNIEnv *env;					//!< Java環境へのポインタ
+	jobject obj;					//!< NDKInterfae.javaのインスタンス
+
+	jmethodID onGameEventMethod;
+	jmethodID getStringInfoMthod;
+};
+
+/**
+ * JNIインターフェイス.
+ */
+static JNIInterface jni = {0};
+
+
+/**
+ * 文字列をキーに文字列情報を取得.
+ */
+std::string GCGetStringInfo(const char *key) {
+	JNIEnv* env = jni.env;
+	if (env) {
+		jstring strKey = env->NewStringUTF(key);
+		jstring strRet = (jstring)env->CallObjectMethod(jni.obj, jni.getStringInfoMthod, strKey);
+		env->DeleteLocalRef(strKey);
+		std::string lang = std::string(env->GetStringUTFChars(strRet, NULL));
+		env->DeleteLocalRef(strRet);
+		return lang;
+	}
+	return NULL;
+}
+
+/**
+ * 言語設定を取得.
+ */
+std::string GCGetLanguage() {
+	return GCGetStringInfo("lang");
+}
+
 extern "C" {
+
+/**
+ * ネイティブからJavaのメソッドを実行するためのインターフェースをセットします.
+ *
+ * @param env 環境変数.
+ * @param thiz thisポインタ
+ * @param ndk インターフェースクラスのオブジェクト.
+ */
+JNIEXPORT void JNICALL
+Java_com_gclue_gcube_NDKInterface_setInterface(
+		JNIEnv *env, jobject thiz, jobject ndk) {
+	LOGD("Java_com_gclue_gcube_setInterface");
+
+	// インターフェースクラスのロード.
+	jclass clazz = env->FindClass("com/gclue/gcube/NDKInterface");
+
+	// クラスに環境変数を格納します.
+	jni.env = env;
+	jni.obj = env->NewGlobalRef(ndk);
+
+	// 各メソッドを取得
+	jni.onGameEventMethod = env->GetMethodID(clazz, "onGameEvent", "(IIJFDLjava/lang/String;)V");
+	if (!jni.onGameEventMethod) {
+		LOGE("Mehtod not found!! (onGameEventMethod)");
+	}
+	jni.getStringInfoMthod = env->GetMethodID(clazz, "getStringInfo", "(Ljava/lang/String;)Ljava/lang/String;");
+	if (!jni.getStringInfoMthod) {
+		LOGE("Mehtod not found!! (getStringInfoMthod)");
+	}
+
+	env->DeleteLocalRef(clazz);
+}
 
 /**
  * 初期化関数.

@@ -31,9 +31,10 @@ class Main : public IApplicationEventListener {
 private:
 	
 public:
-	Main();
-	virtual~Main();
+	Main() {};
+	virtual~Main() {};
 	
+	virtual void onInit();
 	virtual void onSizeChanged(float width, float height, GCDeviceOrientation orientation);
 	virtual void onDraw();
 };

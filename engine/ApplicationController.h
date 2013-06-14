@@ -41,6 +41,9 @@ public:
 	static ApplicationController* SharedInstance();
 	static void DestroyInstance();
 	
+	virtual std::string getLanguage();
+	
+	// IApplicationEventListener //
 	virtual void onInit();
 	virtual void onTerminate();
 	virtual void onPause();
@@ -48,10 +51,8 @@ public:
 	virtual void onContextChanged();
 	virtual void onSizeChanged(float width, float height, GCDeviceOrientation orientation);
 	virtual void onLowMemory();
-	
 	virtual void onUpdate(float dt);
 	virtual void onDraw();
-	
 	virtual void onTouch(GCTouchAction action, float x, float y, long id, long time);
 	virtual void onOrientationChanged(float yaw, float pitch, float roll);
 };

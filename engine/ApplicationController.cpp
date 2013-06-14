@@ -107,5 +107,10 @@ void ApplicationController::onOrientationChanged(float yaw, float pitch, float r
 	main->onOrientationChanged(yaw, pitch, roll);
 }
 
+// 言語取得
+std::string ApplicationController::getLanguage() {
+	 return GCGetLanguage();
+}
+
 
 }
