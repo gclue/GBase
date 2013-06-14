@@ -119,10 +119,10 @@ Java_com_gclue_gcube_NDKInterface_onTerminate(
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_onTouchEvent(
-		JNIEnv * env, jobject obj, jint action, jfloat x, jfloat y, jlong time)
+		JNIEnv * env, jobject obj, jint action, jfloat x, jfloat y, jint id, jlong time)
 {
 	if (controller) {
-		controller->onTouch((GCTouchAction)action, x, y, time);
+		controller->onTouch((GCTouchAction)action, x, y, id, time);
 	}
 }
 

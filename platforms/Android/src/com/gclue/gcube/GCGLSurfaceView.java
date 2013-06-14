@@ -22,11 +22,9 @@
 
 package com.gclue.gcube;
 
-import java.util.List;
-import java.util.Vector;
-
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.util.SparseArray;
 import android.view.MotionEvent;
 
 /**
@@ -36,7 +34,7 @@ import android.view.MotionEvent;
 public class GCGLSurfaceView extends GLSurfaceView {
 	
 	/** タッチイベントを保持するリスト. */
-	private List<TouchEvent> evts = new Vector<TouchEvent>();
+	private SparseArray<TouchEvent> eventArray = new SparseArray<TouchEvent>();
 	
 	/**
 	 * コンストラクタ.
@@ -50,17 +48,33 @@ public class GCGLSurfaceView extends GLSurfaceView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		final int action = event.getAction();
-		final float x = event.getX();
-		final float y = event.getY();
+		
+		int count = event.getPointerCount();
+		int action = event.getActionMasked();
+		int idx = event.getActionIndex();
 		final long time = event.getEventTime();
-		switch (action) {
-		case MotionEvent.ACTION_DOWN:
-		case MotionEvent.ACTION_UP:
-		case MotionEvent.ACTION_MOVE:
-		case MotionEvent.ACTION_CANCEL:
-			queueEvent(getTouchEvent(action, x, y, time));
-			break;
+		
+		for(int i=0; i<count; i++) {
+			if (action!=MotionEvent.ACTION_MOVE && idx!=i) {
+				continue;
+			}
+			final int id = event.getPointerId(i);
+			final int x = (int) event.getX(i);
+			final int y = (int) event.getY(i);
+			
+			TouchEvent evt = getTouchEvent(action, x, y, id, time);
+			if (evt==null) continue;
+			
+			switch (action) {
+			case MotionEvent.ACTION_MOVE:
+			case MotionEvent.ACTION_DOWN:
+			case MotionEvent.ACTION_POINTER_DOWN:
+			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_POINTER_UP:
+			case MotionEvent.ACTION_CANCEL:
+				queueEvent(evt.clone());
+				break;
+			}
 		}
 		return true;
 	}
@@ -74,26 +88,23 @@ public class GCGLSurfaceView extends GLSurfaceView {
 	 * @param time タッチイベントの発生した時間
 	 * @return タッチイベント
 	 */
-	private TouchEvent getTouchEvent(int action, float x, float y, long time) {
-		for (int i = 0; i < evts.size(); i++) {
-			if (!evts.get(i).isUsed) {
-				TouchEvent evt = evts.get(i);
-				evt.isUsed = true;
-				evt.action = action;
-				evt.x = x;
-				evt.y = y;
-				evt.time = time;
-				return evt;
-			}
+	private TouchEvent getTouchEvent(int action, int x, int y, int id, long time) {
+		TouchEvent evt = eventArray.get(id);
+		// 同一座標のMoveイベントは無視
+		if (evt!=null && evt.x == x && evt.y == y && action==MotionEvent.ACTION_MOVE) {
+			return null;
 		}
-		
-		TouchEvent evt = new TouchEvent();
-		evt.isUsed = true;
+		if (evt==null) {
+			evt = new TouchEvent();
+		}
+		// データ詰め替え
 		evt.action = action;
 		evt.x = x;
 		evt.y = y;
 		evt.time = time;
-		evts.add(evt);
+		evt.id = id;
+		eventArray.put(id, evt);
+		
 		return evt;
 	}
 	
@@ -101,21 +112,32 @@ public class GCGLSurfaceView extends GLSurfaceView {
 	 * タッチイベント.
 	 * @author GClue, Inc.
 	 */
-	private static class TouchEvent implements Runnable {
+	private static class TouchEvent implements Runnable, Cloneable {
 		/** タッチイベントのアクション. */
 		private int action;
 		/** タッチされたx座標. */
-		private float x;
+		private int x;
 		/** タッチされたy座標. */
-		private float y;
+		private int y;
 		/** タッチされた時間. */
 		private long time;
-		/** 使用フラグ. */
-		private boolean isUsed;
+		/** ID. */
+		private int id;
 		@Override
 		public void run() {
-			NDKInterface.onTouchEvent(action, x, y, time);
-			isUsed = false;
+			int sendaction = action;
+			if (sendaction == MotionEvent.ACTION_POINTER_DOWN) sendaction = MotionEvent.ACTION_DOWN;
+			if (sendaction == MotionEvent.ACTION_POINTER_UP) sendaction = MotionEvent.ACTION_UP;
+			NDKInterface.onTouchEvent(sendaction, x, y, id, time);
+		}
+		public TouchEvent clone(){
+			TouchEvent t;
+			try {
+				t = (TouchEvent)super.clone();
+			} catch (CloneNotSupportedException ce) {
+				throw new RuntimeException();
+			}
+			return t;
 		}
 	}
 }

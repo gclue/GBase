@@ -30,6 +30,7 @@ using namespace GCube;
 @interface GCViewController () {
 	ApplicationController *gcube;
 	CMMotionManager *motionMgr;
+	UITouch *touchArray[10];
 }
 @property (strong, nonatomic) EAGLContext *context;
 @end
@@ -51,6 +52,7 @@ using namespace GCube;
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+	view.multipleTouchEnabled = YES;
     
     [EAGLContext setCurrentContext:self.context];
 	
@@ -159,12 +161,38 @@ using namespace GCube;
 
 #pragma mark - Events
 
+- (int)findTouch:(UITouch*)touch
+{
+	int idx = NSNotFound;
+	for (int i=0; i<10; i++) {
+		if (touchArray[i]==touch) {
+			idx = i;
+			break;
+		}
+	}
+	return idx;
+}
+
 // タッチイベント
 - (void)toucheEvent:(NSSet *)touches withEvent:(UIEvent *)event withType:(GCTouchAction)type {
 	float scale = [UIScreen mainScreen].scale;
-	UITouch *touch = [touches anyObject];
-	CGPoint location = [touch locationInView:self.view];
-	gcube->onTouch(type, location.x*scale, location.y*scale, touch.timestamp*1000);
+	for (UITouch *touch in touches) {
+		// 何番目のタッチかを探す
+		int idx = [self findTouch:touch];
+		// 見つからない時は空欄に入れる
+		if (idx == NSNotFound) {
+			idx = [self findTouch:nil];
+			touchArray[idx] = touch;
+		} else {
+			// タッチアップのタイミングで空欄にする
+			if (type == GCTouchActionUp || type == GCTouchActionCancel) {
+				touchArray[idx] = nil;
+			}
+		}
+		// 通知
+        CGPoint location = [touch locationInView:self.view];
+		gcube->onTouch(type, location.x*scale, location.y*scale, idx, touch.timestamp*1000);
+	}
 }
 
 // タッチ開始イベント

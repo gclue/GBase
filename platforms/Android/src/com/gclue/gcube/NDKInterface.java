@@ -76,7 +76,7 @@ public class NDKInterface {
 	 * @param y y座標
 	 * @param time イベント発生時間
 	 */
-	public static native void onTouchEvent(int action, float x, float y, long time);
+	public static native void onTouchEvent(int action, float x, float y, int id, long time);
 	
 	/**
 	 * 傾きセンサーイベントを通知.

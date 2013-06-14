@@ -90,7 +90,7 @@ GCubeApp::OnAppInitialized(void)
 	#endif
 #endif
 	pGCubeFrame->SetOrientation(orientation);
-
+	pGCubeFrame->SetMultipointTouchEnabled(true);
 	AddFrame(*pGCubeFrame);
 
 	{
@@ -218,7 +218,7 @@ void GCubeApp::OnTouch (GCTouchAction type, const Tizen::Ui::Control &source, co
 	long long tick = 0;
 	Tizen::System::SystemTime::GetTicks(tick);
 	ApplicationController *controller = ApplicationController::SharedInstance();
-	controller->onTouch(type, currentPosition.x, currentPosition.y, tick);
+	controller->onTouch(type, currentPosition.x, currentPosition.y, touchInfo.GetPointId(), tick);
 }
 
 void GCubeApp::OnTouchCanceled (const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo) {

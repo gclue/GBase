@@ -52,7 +52,7 @@ public:
 	virtual void onUpdate(float dt);
 	virtual void onDraw();
 	
-	virtual void onTouch(GCTouchAction action, float x, float y, long time);
+	virtual void onTouch(GCTouchAction action, float x, float y, long id, long time);
 	virtual void onOrientationChanged(float yaw, float pitch, float roll);
 };
 	
