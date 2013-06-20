@@ -24,9 +24,12 @@ package com.gclue.gcube;
 
 import android.app.Activity;
 
+import com.gclue.gcube.event.UserEventHandler;
+
 public class NDKInterface {
 
 	private Activity activity;
+	private UserEventHandler userEventHandler;
 	
 	/**
 	 * コンストラクタ
@@ -34,6 +37,7 @@ public class NDKInterface {
 	 */
 	private NDKInterface(Activity activity) {
 		this.activity = activity;
+		userEventHandler = new UserEventHandler(activity);
 	}
 	
 	/**
@@ -159,22 +163,16 @@ public class NDKInterface {
 	
 	/**
 	 * ネイティブからのイベントを受け取る. <br>
-	 * <br>
 	 * 
-	 * @param type
-	 *            イベントタイプ
-	 * @param param1
-	 *            イベントパラメータ
-	 * @param param2
-	 *            イベントパラメータ
-	 * @param param3
-	 *            イベントパラメータ
-	 * @param param4
-	 *            イベントパラメータ
-	 * @param param5
-	 *            イベントパラメータ
+	 * @param type イベントタイプ
+	 * @param param1 イベントパラメータ
+	 * @param param2 イベントパラメータ
+	 * @param param3 イベントパラメータ
+	 * @param param4 イベントパラメータ
+	 * @param param5 イベントパラメータ
 	 */
-	public void onGameEvent(int type, int param1, long param2, float param3, double param4, final String param5) {
+	public int onUserEvent(int type, int param1, long param2, float param3, double param4, final String param5) {
+		return userEventHandler.onUserEvent(type, param1, param2, param3, param4, param5);
 	}
 	
 }

@@ -20,12 +20,40 @@
  * THE SOFTWARE.
  */
 
-#import "GCDefines.h"
+package com.gclue.gcube.event;
 
-// 言語コードを取得
-std::string GCGetLanguage() {
-	NSArray *languages = [NSLocale preferredLanguages];
-	NSString *lang = [languages objectAtIndex:0];
-	return std::string([lang UTF8String]);
+import android.app.Activity;
+import android.util.Log;
+
+/**
+ * ユーザーイベント処理.
+ * デベロッパはこのクラスを変更してAndroid向けの処理を記述してください.
+ */
+public class UserEventHandler {
+	
+	private Activity activity;
+	
+	/**
+	 * コンストラクタ
+	 * @param activity 
+	 */
+	public UserEventHandler(Activity activity) {
+		this.activity = activity;
+	}
+
+	/**
+	 * ユーザーイベントを受け取る. <br>
+	 * 
+	 * @param type イベントタイプ
+	 * @param param1 イベントパラメータ
+	 * @param param2 イベントパラメータ
+	 * @param param3 イベントパラメータ
+	 * @param param4 イベントパラメータ
+	 * @param param5 イベントパラメータ
+	 */
+	public int onUserEvent(int type, int param1, long param2, float param3, double param4, String param5) {
+		Log.d(activity.getLocalClassName(), "UserEvent(t:"+type+", 1:"+param1+", 2:"+param2+", 3:"+param3+", 4:"+param4+", 5:"+param5+")");
+		return type;
+	}
+
 }
-

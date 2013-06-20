@@ -36,7 +36,7 @@ struct JNIInterface {
 	JNIEnv *env;					//!< Java環境へのポインタ
 	jobject obj;					//!< NDKInterfae.javaのインスタンス
 
-	jmethodID onGameEventMethod;
+	jmethodID onUserEventMethod;
 	jmethodID getStringInfoMthod;
 };
 
@@ -69,6 +69,21 @@ std::string GCGetLanguage() {
 	return GCGetStringInfo("lang");
 }
 
+/**
+ * ゲームイベントを受け取る.
+ */
+int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
+	JNIEnv* env = jni.env;
+	jint ret = -1;
+	if (env) {
+		jstring str = NULL;
+		if (param5)	str = env->NewStringUTF(param5);
+		ret = env->CallIntMethod(jni.obj, jni.onUserEventMethod, type, param1, param2, param3, param4, str);
+		if (str) env->DeleteLocalRef(str);
+	}
+	return ret;
+}
+
 extern "C" {
 
 /**
@@ -91,9 +106,9 @@ Java_com_gclue_gcube_NDKInterface_setInterface(
 	jni.obj = env->NewGlobalRef(ndk);
 
 	// 各メソッドを取得
-	jni.onGameEventMethod = env->GetMethodID(clazz, "onGameEvent", "(IIJFDLjava/lang/String;)V");
-	if (!jni.onGameEventMethod) {
-		LOGE("Mehtod not found!! (onGameEventMethod)");
+	jni.onUserEventMethod = env->GetMethodID(clazz, "onUserEvent", "(IIJFDLjava/lang/String;)I");
+	if (!jni.onUserEventMethod) {
+		LOGE("Mehtod not found!! (onUserEventMethod)");
 	}
 	jni.getStringInfoMthod = env->GetMethodID(clazz, "getStringInfo", "(Ljava/lang/String;)Ljava/lang/String;");
 	if (!jni.getStringInfoMthod) {

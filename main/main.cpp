@@ -25,18 +25,24 @@
 
 namespace GCube {
 
+// 初期化
 void Main::onInit() {
 	LOGD("Main::onInit()");
 	
 	ApplicationController *ctr = ApplicationController::SharedInstance();
+	// 言語設定を取得
 	LOGD("lang:%s", ctr->getLanguage().c_str());
+	// UserEventを送信
+	LOGD("send user event:%d", ctr->sendUserEvent(1, 2, 3, 4, 5, "a"));
 }
 
+// サイズ変更
 void Main::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
 	LOGD("Main::onSizeChanged(%f, %f, %d)", width, height, orientation);
 	glViewport(0, 0, width, height);
 }
-	
+
+// 描画
 void Main::onDraw() {
 	draw();
 }

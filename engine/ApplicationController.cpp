@@ -28,6 +28,9 @@ namespace GCube {
 
 static ApplicationController *_instance = NULL;
 
+/////////////////////////////////////////////////////////////////////////
+#pragma mark - Life cycle
+	
 ApplicationController* ApplicationController::SharedInstance() {
 //	LOGD("ApplicationController::SharedInstance()");
 	if (!_instance) _instance = new ApplicationController();
@@ -50,6 +53,25 @@ ApplicationController::~ApplicationController(void) {
 	delete main;
 }
 
+
+/////////////////////////////////////////////////////////////////////////
+#pragma mark - Public method
+
+// 言語取得
+std::string ApplicationController::getLanguage() {
+	 return GCGetLanguage();
+}
+
+// ユーザーイベント
+int ApplicationController::sendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
+	return GCSendUserEvent(type, param1, param2, param3, param4, param5);
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+#pragma mark - IApplicationEventListener
+
+// 初期化
 void ApplicationController::onInit(void) {
 	LOGD("ApplicationController::onInit()");
 	main->onInit();
@@ -106,11 +128,5 @@ void ApplicationController::onOrientationChanged(float yaw, float pitch, float r
 	LOGD("***********onOrientationChanged(%f, %f, %f)", RADIANS_TO_DEGREES(yaw), RADIANS_TO_DEGREES(pitch), RADIANS_TO_DEGREES(roll));
 	main->onOrientationChanged(yaw, pitch, roll);
 }
-
-// 言語取得
-std::string ApplicationController::getLanguage() {
-	 return GCGetLanguage();
-}
-
 
 }

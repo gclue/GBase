@@ -60,12 +60,14 @@ namespace GCube {
 }
 
 
-
+/////////////////////////////////////////////////////////////////////////
+#pragma mark - API glue
 
 // 言語コードを取得
 std::string GCGetLanguage();
 
-//extern "C" {
-//}
+// ユーザーイベントを送信
+int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5);
+
 
 #endif

@@ -20,12 +20,17 @@
  * THE SOFTWARE.
  */
 
-#import "GCDefines.h"
+#import "GCube.h"
 
-// 言語コードを取得
-std::string GCGetLanguage() {
-	NSArray *languages = [NSLocale preferredLanguages];
-	NSString *lang = [languages objectAtIndex:0];
-	return std::string([lang UTF8String]);
+/*
+ * ユーザーイベント処理.
+ * デベロッパはこのクラスを変更してiOS向けの処理を記述してください.
+ */
+
+// ユーザーイベントを受け取る
+int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
+	// なにか処理をする。
+	LOGD("UserEvent(t: %d, 1: %d, 2: %lld, 3:%f, 4:%f, 5:%s)", type, param1, param2, param3, param4, param5);
+	// なにか値を返す。
+	return 1;
 }
-
