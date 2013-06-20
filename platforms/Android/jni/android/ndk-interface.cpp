@@ -70,7 +70,7 @@ std::string GCGetLanguage() {
 }
 
 /**
- * ゲームイベントを受け取る.
+ * ユーザーイベントをJava側に送信.
  */
 int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
 	JNIEnv* env = jni.env;
@@ -290,6 +290,22 @@ Java_com_gclue_gcube_NDKInterface_getSupportedOrientation(
 #endif
 
 	return -1; // SCREEN_ORIENTATION_UNSPECIFIED
+}
+
+/**
+ * ユーザーイベント処理を行います.
+ */
+JNIEXPORT void JNICALL
+Java_com_gclue_gcube_NDKInterface_sendUserEvent (
+		JNIEnv * env, jobject obj, jint type, jint param1, jlong param2, jfloat param3, jdouble param4, jstring param5)
+{
+	if (controller) {
+		const char* str = env->GetStringUTFChars(param5, NULL);
+		controller->onUserEvent(type, param1, param2, param3, param4, str);
+		if (str) {
+			env->ReleaseStringUTFChars(param5, str);
+		}
+	}
 }
 
 };	// end of extern "C"

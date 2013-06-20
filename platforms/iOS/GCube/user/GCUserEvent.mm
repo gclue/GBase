@@ -27,10 +27,15 @@
  * デベロッパはこのクラスを変更してiOS向けの処理を記述してください.
  */
 
+using namespace GCube;
+
 // ユーザーイベントを受け取る
 int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
 	// なにか処理をする。
-	LOGD("UserEvent(t: %d, 1: %d, 2: %lld, 3:%f, 4:%f, 5:%s)", type, param1, param2, param3, param4, param5);
+	NSLog(@"処理");
+	// ユーザイベントを送信。
+	ApplicationController *ctr = ApplicationController::SharedInstance();
+	ctr->onUserEvent(10, 11, 12, 13, 14, "b");
 	// なにか値を返す。
-	return 1;
+	return type;
 }

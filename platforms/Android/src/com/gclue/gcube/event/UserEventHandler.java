@@ -22,6 +22,8 @@
 
 package com.gclue.gcube.event;
 
+import com.gclue.gcube.NDKInterface;
+
 import android.app.Activity;
 import android.util.Log;
 
@@ -52,7 +54,11 @@ public class UserEventHandler {
 	 * @param param5 イベントパラメータ
 	 */
 	public int onUserEvent(int type, int param1, long param2, float param3, double param4, String param5) {
-		Log.d(activity.getLocalClassName(), "UserEvent(t:"+type+", 1:"+param1+", 2:"+param2+", 3:"+param3+", 4:"+param4+", 5:"+param5+")");
+		// なにか処理をする。
+		Log.d(activity.getLocalClassName(), "処理");
+		// ユーザイベントを送信。
+		NDKInterface.sendUserEvent(10, 11, 12, 13, 14, "b");
+		// なにか値を返す。
 		return type;
 	}
 

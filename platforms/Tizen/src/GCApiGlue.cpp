@@ -24,6 +24,8 @@
 #include <FBase.h>
 #include <FLocales.h>
 
+using namespace GCube;
+
 using namespace Tizen::Base;
 using namespace Tizen::Locales;
 
@@ -47,7 +49,10 @@ std::string GCGetLanguage() {
 // ユーザーイベントを受け取る
 int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
 	// なにか処理をする。
-	LOGD("UserEvent(t: %d, 1: %d, 2: %lld, 3:%f, 4:%f, 5:%s)", type, param1, param2, param3, param4, param5);
+	AppLog("処理");
+	// ユーザイベントを送信。
+	ApplicationController *ctr = ApplicationController::SharedInstance();
+	ctr->onUserEvent(10, 11, 12, 13, 14, "b");
 	// なにか値を返す。
 	return 1;
 }

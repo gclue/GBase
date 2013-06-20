@@ -64,6 +64,7 @@ std::string ApplicationController::getLanguage() {
 
 // ユーザーイベント
 int ApplicationController::sendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
+	LOGD("sendUserEvent(t: %d, 1: %d, 2: %lld, 3:%f, 4:%f, 5:%s)", type, param1, param2, param3, param4, param5);
 	return GCSendUserEvent(type, param1, param2, param3, param4, param5);
 }
 
@@ -127,6 +128,12 @@ void ApplicationController::onTouch(GCTouchAction action, float x, float y, long
 void ApplicationController::onOrientationChanged(float yaw, float pitch, float roll) {
 	LOGD("***********onOrientationChanged(%f, %f, %f)", RADIANS_TO_DEGREES(yaw), RADIANS_TO_DEGREES(pitch), RADIANS_TO_DEGREES(roll));
 	main->onOrientationChanged(yaw, pitch, roll);
+}
+
+// ユーザイベント
+int ApplicationController::onUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5) {
+	//LOGD("onUserEvent(t: %d, 1: %d, 2: %lld, 3:%f, 4:%f, 5:%s)", type, param1, param2, param3, param4, param5);
+	return main->onUserEvent(type, param1, param2, param3, param4, param5);
 }
 
 }

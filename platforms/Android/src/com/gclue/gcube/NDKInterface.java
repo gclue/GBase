@@ -126,7 +126,7 @@ public class NDKInterface {
 	 * @param param4 イベントパラメータ
 	 * @param param5 イベントパラメータ
 	 */
-	public synchronized static native void sendGameEvent(int type, int param1, int param2, int param3, int param4, String param5);
+	public synchronized static native void sendUserEvent(int type, int param1, long param2, float param3, double param4, String param5);
 	
 	/**
 	 * フレームレート取得
