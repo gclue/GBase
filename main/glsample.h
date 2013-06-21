@@ -27,6 +27,7 @@
 
 GLuint loadShader(GLenum shaderType, const char* pSource);
 GLuint createProgram(const char* pVertexSource, const char* pFragmentSource);
+void initProgram(std::vector<char> &buf);
 void draw();
 
 #endif /* defined(__GCube__glsample__) */

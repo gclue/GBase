@@ -42,6 +42,8 @@ public:
 	static void DestroyInstance();
 	
 	virtual std::string getLanguage();
+	virtual void getResource(const char *fileName, std::vector<char>& outData);
+	
 	virtual int sendUserEvent(int type, int param1=0, long long param2=0, float param3=0, double param4=0, const char *param5=NULL);
 	
 	// IApplicationEventListener //

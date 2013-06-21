@@ -23,6 +23,7 @@
 package com.gclue.gcube;
 
 import android.app.Activity;
+import android.content.res.AssetManager;
 
 import com.gclue.gcube.event.UserEventHandler;
 
@@ -44,7 +45,7 @@ public class NDKInterface {
 	 * 初期化処理を行います.
 	 */
 	public static void initInterface(Activity activity) {
-		NDKInterface.setInterface(new NDKInterface(activity));
+		NDKInterface.setInterface(new NDKInterface(activity), activity.getResources().getAssets());
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////// send event to native
@@ -53,7 +54,7 @@ public class NDKInterface {
 	 * ネイティブとの橋渡しオブジェクトを設定します.
 	 * @param ndkInterface
 	 */
-	private synchronized static native void setInterface(NDKInterface ndkInterface);
+	private synchronized static native void setInterface(NDKInterface ndkInterface, AssetManager manager);
 	
 	/**
 	 * ステップ実行.
@@ -152,7 +153,7 @@ public class NDKInterface {
 	 * @param key キー
 	 * @return 情報
 	 */
-	public String getStringInfo(String key) {
+	public String getStringInfo(String key, String opt) {
 		String ret = "";
 		// 言語設定
 		if (key.equals("lang")) {

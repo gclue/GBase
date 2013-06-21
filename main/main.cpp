@@ -40,6 +40,14 @@ void Main::onInit() {
 void Main::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
 	LOGD("Main::onSizeChanged(%f, %f, %d)", width, height, orientation);
 	glViewport(0, 0, width, height);
+	
+	// リソース読み込み
+	ApplicationController *ctr = ApplicationController::SharedInstance();
+	std::vector<char> buf;
+	ctr->getResource("texture/gclue_logo.png", buf);
+
+	// サンプル初期化
+	initProgram(buf);
 }
 
 // 描画

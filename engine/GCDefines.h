@@ -26,6 +26,7 @@
 #include <stddef.h>
 #include <math.h>
 #include <string>
+#include <vector>
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
@@ -65,6 +66,8 @@ namespace GCube {
 
 // 言語コードを取得
 std::string GCGetLanguage();
+// リソースを取得
+void GCGetResourceData(const char *fileName, std::vector<char>& outData);
 
 // ユーザーイベントを送信
 int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5);

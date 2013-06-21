@@ -22,12 +22,16 @@
 
 #include "GCube.h"
 #include <FBase.h>
+#include <FApp.h>
 #include <FLocales.h>
+#include <FIo.h>
 
 using namespace GCube;
 
 using namespace Tizen::Base;
+using namespace Tizen::App;
 using namespace Tizen::Locales;
+using namespace Tizen::Io;
 
 // 言語コードを取得
 std::string GCGetLanguage() {
@@ -43,6 +47,30 @@ std::string GCGetLanguage() {
 	free(pstr);
 	// 返る値がiOS/Androidと少し違うので注意
 	return ret;
+}
+
+// リソースを取得
+void GCGetResourceData(const char *fileName, std::vector<char>& outData) {
+	AppLogDebug("GCGetResourceData... %s", fileName);
+	File file;
+	static const int bufflen = 1024;
+	char buffer[bufflen];
+	result r = E_SUCCESS;
+
+	// Open the file
+	r = file.Construct(App::GetInstance()->GetAppResourcePath() + "assets/" + fileName, "r");
+	TryCatch(!IsFailed(r), , "[GCGetResourceData] file open failed.");
+
+	// Reads
+	while(int len = file.Read(buffer, bufflen)) {
+		TryCatch(!IsFailed(GetLastResult()), , "[GCGetResourceData] file read failed.");
+		std::vector<float> tmp(buffer, buffer+len);
+		outData.insert(outData.end(), tmp.begin(), tmp.end());
+	}
+
+	//AppLog("GCGetResourceData Succeeded!");
+CATCH:
+	AppLog("GCGetResourceData Failed...");
 }
 
 // TODO: デベロッパーが記述しやすい場所を準備する

@@ -22,6 +22,8 @@
 
 #include <stddef.h>
 #include <jni.h>
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
 #include <GCube.h>
 #include "GCDefines.h"
 
@@ -35,6 +37,7 @@ static ApplicationController *controller = NULL;
 struct JNIInterface {
 	JNIEnv *env;					//!< Java環境へのポインタ
 	jobject obj;					//!< NDKInterfae.javaのインスタンス
+	jobject assetManager;			//!< AssetManagerのインスタンス
 
 	jmethodID onUserEventMethod;
 	jmethodID getStringInfoMthod;
@@ -49,15 +52,17 @@ static JNIInterface jni = {0};
 /**
  * 文字列をキーに文字列情報を取得.
  */
-std::string GCGetStringInfo(const char *key) {
+std::string GCGetStringInfo(const char *key, const char *opt) {
 	JNIEnv* env = jni.env;
 	if (env) {
 		jstring strKey = env->NewStringUTF(key);
-		jstring strRet = (jstring)env->CallObjectMethod(jni.obj, jni.getStringInfoMthod, strKey);
+		jstring strOpt = opt?env->NewStringUTF(opt):NULL;
+		jstring strRet = (jstring)env->CallObjectMethod(jni.obj, jni.getStringInfoMthod, strKey, strOpt);
 		env->DeleteLocalRef(strKey);
-		std::string lang = std::string(env->GetStringUTFChars(strRet, NULL));
+		env->DeleteLocalRef(strOpt);
+		std::string ret = std::string(env->GetStringUTFChars(strRet, NULL));
 		env->DeleteLocalRef(strRet);
-		return lang;
+		return ret;
 	}
 	return NULL;
 }
@@ -66,7 +71,22 @@ std::string GCGetStringInfo(const char *key) {
  * 言語設定を取得.
  */
 std::string GCGetLanguage() {
-	return GCGetStringInfo("lang");
+	return GCGetStringInfo("lang", NULL);
+}
+
+/**
+ * リソースパスを取得.
+ */
+std::string GCGetResourcePath(const char *fileName) {
+	return GCGetStringInfo("resourcePath", fileName);
+}
+
+void GCGetResourceData(const char *fileName, std::vector<char>& outData){
+	AAssetManager* mgr = AAssetManager_fromJava(jni.env, jni.assetManager);
+	AAsset* asset = AAssetManager_open(mgr, fileName, AASSET_MODE_BUFFER);
+	const char* assetData = (const char*)AAsset_getBuffer(asset);
+	const off_t assetLen = AAsset_getLength(asset);
+	outData.assign(assetData, assetData+assetLen);
 }
 
 /**
@@ -95,7 +115,7 @@ extern "C" {
  */
 JNIEXPORT void JNICALL
 Java_com_gclue_gcube_NDKInterface_setInterface(
-		JNIEnv *env, jobject thiz, jobject ndk) {
+		JNIEnv *env, jobject thiz, jobject ndk, jobject assetManager) {
 	LOGD("Java_com_gclue_gcube_setInterface");
 
 	// インターフェースクラスのロード.
@@ -104,13 +124,14 @@ Java_com_gclue_gcube_NDKInterface_setInterface(
 	// クラスに環境変数を格納します.
 	jni.env = env;
 	jni.obj = env->NewGlobalRef(ndk);
+	jni.assetManager = env->NewGlobalRef(assetManager);
 
 	// 各メソッドを取得
 	jni.onUserEventMethod = env->GetMethodID(clazz, "onUserEvent", "(IIJFDLjava/lang/String;)I");
 	if (!jni.onUserEventMethod) {
 		LOGE("Mehtod not found!! (onUserEventMethod)");
 	}
-	jni.getStringInfoMthod = env->GetMethodID(clazz, "getStringInfo", "(Ljava/lang/String;)Ljava/lang/String;");
+	jni.getStringInfoMthod = env->GetMethodID(clazz, "getStringInfo", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
 	if (!jni.getStringInfoMthod) {
 		LOGE("Mehtod not found!! (getStringInfoMthod)");
 	}

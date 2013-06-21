@@ -29,3 +29,11 @@ std::string GCGetLanguage() {
 	return std::string([lang UTF8String]);
 }
 
+// リソースを取得
+void GCGetResourceData(const char *fileName, std::vector<char>& outData) {
+	NSString *nameStr = [NSString stringWithCString:fileName encoding:NSUTF8StringEncoding];
+	NSString *pathStr = [[NSBundle mainBundle] pathForResource:[nameStr lastPathComponent] ofType:nil];
+	NSData *data = [NSData dataWithContentsOfFile:pathStr];
+	const UInt8* bytes = (UInt8 *)[data bytes];
+	outData.assign(bytes, bytes+[data length]);
+}

@@ -22,18 +22,18 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.macosx.base.597690520" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
 								<option id="gnu.both.asm.option.include.paths.1188809463" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-8/arch-arm/usr/include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/engine}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/main}&quot;"/>
+									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-9/arch-arm/usr/include"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.216078413" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.533900405" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.396813052" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option id="gnu.cpp.compiler.option.include.paths.1591807457" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-8/arch-arm/usr/include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/engine}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/main}&quot;"/>
+									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-9/arch-arm/usr/include"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.885857062" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GCube_Android__"/>
@@ -42,9 +42,9 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.764334549" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option id="gnu.c.compiler.option.include.paths.15302643" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-8/arch-arm/usr/include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/engine}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/main}&quot;"/>
+									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-9/arch-arm/usr/include"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1279228583" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GCube_Android__"/>

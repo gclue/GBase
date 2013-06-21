@@ -12,7 +12,7 @@ MAIN_PATH := $(LOCAL_PATH)/main
 APP_MODULES     := gcube
 LOCAL_MODULE    := gcube
 LOCAL_CFLAGS    := -Werror -D__GCube_Android__
-LOCAL_LDLIBS    := -llog -lGLESv2 -lz
+LOCAL_LDLIBS    := -llog -lGLESv2 -lz -landroid
 
 LOCAL_SRC_FILES := platforms/Android/jni/android/ndk-interface.cpp \
                    main/Main.cpp \
@@ -20,8 +20,10 @@ LOCAL_SRC_FILES := platforms/Android/jni/android/ndk-interface.cpp \
                    
 LOCAL_C_INCLUDES:= $(MY_PATH)/android/ \
                    $(ENGINE_PATH)/ \
+                   $(ENGINE_PATH)/external/stb/ \
                    $(MAIN_PATH)
                    
 LOCAL_STATIC_LIBRARIES := common
 
 include $(BUILD_SHARED_LIBRARY)
+

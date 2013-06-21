@@ -46,5 +46,6 @@
 #include "ApplicationController.h"
 #include "IApplicationEventListener.h"
 #include "util/Log.h"
+#include "external/stb/stb_image.h"
 
 #endif
