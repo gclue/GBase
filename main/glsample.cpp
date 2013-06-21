@@ -42,7 +42,7 @@ const char gFragmentShader[] =
 
 
 GLuint loadShader(GLenum shaderType, const char* pSource) {
-    GLuint shader = glCreateShader(shaderType);
+	GLuint shader = glCreateShader(shaderType);
 	glShaderSource(shader, 1, &pSource, 0);
 	glCompileShader(shader);
 	GLint compiled;
@@ -50,13 +50,13 @@ GLuint loadShader(GLenum shaderType, const char* pSource) {
 	if (compiled == 0) {
 		LOGD("compile error:%s", pSource);
 	}
-    return shader;
+	return shader;
 }
 
 GLuint createProgram(const char* pVertexSource, const char* pFragmentSource) {
-    GLuint vertexShader = loadShader(GL_VERTEX_SHADER, pVertexSource);
-    GLuint pixelShader = loadShader(GL_FRAGMENT_SHADER, pFragmentSource);
-    GLuint program = glCreateProgram();
+	GLuint vertexShader = loadShader(GL_VERTEX_SHADER, pVertexSource);
+	GLuint pixelShader = loadShader(GL_FRAGMENT_SHADER, pFragmentSource);
+	GLuint program = glCreateProgram();
 	glAttachShader(program, vertexShader);
 	glAttachShader(program, pixelShader);
 	
@@ -66,19 +66,17 @@ GLuint createProgram(const char* pVertexSource, const char* pFragmentSource) {
 	if (linkStatus == 0) {
 		LOGD("link error");
 	}
-    return program;
+	return program;
 }
 
 static GLuint gProgram;
 
 void initProgram(std::vector<char> &buf) {
-    gProgram = createProgram(gVertexShader, gFragmentShader);
+	gProgram = createProgram(gVertexShader, gFragmentShader);
 	
 	unsigned char* pixels ;
-    int w, h, bpp;
-//    std::vector<char> buf;
-//    GCGetResourceData("texture/gclue_logo.png", buf);
-    pixels = stbi_load_from_memory((const unsigned char *)&buf[0], buf.size(), &w, &h, &bpp, 4);
+	int w, h, bpp;
+	pixels = stbi_load_from_memory((const unsigned char *)&buf[0], buf.size(), &w, &h, &bpp, 4);
 	LOGD("s:%d-%d(%d)", w, h, bpp);
 	
 	GLuint texName = 0;
@@ -90,9 +88,9 @@ void initProgram(std::vector<char> &buf) {
 	glBindTexture(GL_TEXTURE_2D, texName);
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
@@ -101,8 +99,8 @@ void initProgram(std::vector<char> &buf) {
 }
 
 void draw() {
-    GLuint gvPositionHandle = glGetAttribLocation(gProgram, "vPosition");
-    GLuint gvTexHandle = glGetAttribLocation(gProgram, "a_texcoord");
+	GLuint gvPositionHandle = glGetAttribLocation(gProgram, "vPosition");
+	GLuint gvTexHandle = glGetAttribLocation(gProgram, "a_texcoord");
 	
 	const GLfloat vertices[] = {
 		0.0f,  0.5f,

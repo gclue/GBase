@@ -57,6 +57,7 @@ using namespace GCube;
     [EAGLContext setCurrentContext:self.context];
 	
 	float scale = [UIScreen mainScreen].scale;
+	gcube->onInit();
 	gcube->onSizeChanged(view.bounds.size.width*scale, view.bounds.size.height*scale, (GCDeviceOrientation)self.interfaceOrientation);
 	
 #ifdef __GCube_OrientationSensor__

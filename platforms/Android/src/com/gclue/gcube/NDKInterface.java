@@ -22,6 +22,7 @@
 
 package com.gclue.gcube;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.AssetManager;
 
@@ -153,11 +154,20 @@ public class NDKInterface {
 	 * @param key キー
 	 * @return 情報
 	 */
+	@SuppressLint("SdCardPath")
 	public String getStringInfo(String key, String opt) {
 		String ret = "";
 		// 言語設定
-		if (key.equals("lang")) {
+		if (key.equals("Lang")) {
 			return activity.getResources().getConfiguration().locale.getLanguage();
+		}
+		// ストレージパス取得
+		if (key.equals("StoragePath")) {
+			if (opt.equals("Cache")) {
+				return activity.getCacheDir().getAbsolutePath();
+			} else {
+				return "/data/data/" + activity.getPackageName() + "/files/";
+			}
 		}
 		return ret;
 	}

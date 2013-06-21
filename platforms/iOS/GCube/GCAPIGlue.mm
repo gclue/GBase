@@ -37,3 +37,18 @@ void GCGetResourceData(const char *fileName, std::vector<char>& outData) {
 	const UInt8* bytes = (UInt8 *)[data bytes];
 	outData.assign(bytes, bytes+[data length]);
 }
+
+// ストレージパスを取得
+std::string GCGetStoragePath(GCStorageType type) {
+	NSSearchPathDirectory dir;
+	switch (type) {
+		case GCStorageTypeDocument:
+			dir = NSDocumentDirectory;
+			break;
+		case GCStorageTypeCache:
+			dir = NSCachesDirectory;
+			break;
+	}
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(dir, NSUserDomainMask, YES);
+	return std::string([[paths[0] stringByAppendingString:@"/"] UTF8String]);
+}

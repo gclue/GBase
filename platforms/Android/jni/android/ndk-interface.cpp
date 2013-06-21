@@ -25,7 +25,6 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <GCube.h>
-#include "GCDefines.h"
 
 using namespace GCube;
 
@@ -71,16 +70,12 @@ std::string GCGetStringInfo(const char *key, const char *opt) {
  * 言語設定を取得.
  */
 std::string GCGetLanguage() {
-	return GCGetStringInfo("lang", NULL);
+	return GCGetStringInfo("Lang", NULL);
 }
 
 /**
- * リソースパスを取得.
+ * リソースを取得.
  */
-std::string GCGetResourcePath(const char *fileName) {
-	return GCGetStringInfo("resourcePath", fileName);
-}
-
 void GCGetResourceData(const char *fileName, std::vector<char>& outData){
 	AAssetManager* mgr = AAssetManager_fromJava(jni.env, jni.assetManager);
 	AAsset* asset = AAssetManager_open(mgr, fileName, AASSET_MODE_BUFFER);
@@ -88,6 +83,22 @@ void GCGetResourceData(const char *fileName, std::vector<char>& outData){
 	const off_t assetLen = AAsset_getLength(asset);
 	outData.assign(assetData, assetData+assetLen);
 }
+
+/**
+ * ストレージパスを取得.
+ */
+std::string GCGetStoragePath(GCStorageType type) {
+	switch (type) {
+		case GCStorageTypeDocument:
+			return GCGetStringInfo("StoragePath", "Document");
+			break;
+		case GCStorageTypeCache:
+			return GCGetStringInfo("StoragePath", "Cache");
+			break;
+	}
+	return NULL;
+}
+
 
 /**
  * ユーザーイベントをJava側に送信.

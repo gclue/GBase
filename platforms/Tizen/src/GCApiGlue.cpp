@@ -69,8 +69,30 @@ void GCGetResourceData(const char *fileName, std::vector<char>& outData) {
 	}
 
 	//AppLog("GCGetResourceData Succeeded!");
+	return;
 CATCH:
 	AppLog("GCGetResourceData Failed...");
+}
+
+// ストレージパスを取得
+std::string GCGetStoragePath(GCStorageType type) {
+	String path;
+	switch (type) {
+		case GCStorageTypeDocument:
+			path = App::GetInstance()->GetAppDataPath();
+			break;
+		case GCStorageTypeCache:
+			// TODO: キャッシュの概念を考える
+			path = App::GetInstance()->GetAppDataPath();
+			break;
+	}
+	// cstrに変換
+	int nLen = wcstombs( NULL, path.GetPointer(), 0 );
+	char* pstr = (char*) malloc ( nLen + 1 );
+	wcstombs(pstr, path.GetPointer(), nLen+1);
+	std::string ret = std::string(pstr);
+	free(pstr);
+	return ret;
 }
 
 // TODO: デベロッパーが記述しやすい場所を準備する

@@ -34,25 +34,33 @@
 // デバイスの向き
 typedef enum GCDeviceOrientation
 {
-    GCDeviceOrientationUnknown,
-    GCDeviceOrientationPortrait,            // Device oriented vertically, home button on the bottom
-    GCDeviceOrientationPortraitUpsideDown,  // Device oriented vertically, home button on the top
-    GCDeviceOrientationLandscapeLeft,       // Device oriented horizontally, home button on the right
-    GCDeviceOrientationLandscapeRight,      // Device oriented horizontally, home button on the left
-    GCDeviceOrientationFaceUp,              // Device oriented flat, face up
-    GCDeviceOrientationFaceDown             // Device oriented flat, face down
+	GCDeviceOrientationUnknown,
+	GCDeviceOrientationPortrait,            // Device oriented vertically, home button on the bottom
+	GCDeviceOrientationPortraitUpsideDown,  // Device oriented vertically, home button on the top
+	GCDeviceOrientationLandscapeLeft,       // Device oriented horizontally, home button on the right
+	GCDeviceOrientationLandscapeRight,      // Device oriented horizontally, home button on the left
+	GCDeviceOrientationFaceUp,              // Device oriented flat, face up
+	GCDeviceOrientationFaceDown             // Device oriented flat, face down
 }
 GCDeviceOrientation;
 
 // タッチイベント
 typedef enum GCTouchAction
 {
-    GCTouchActionDown,
-    GCTouchActionUp,
-    GCTouchActionMove,
-    GCTouchActionCancel,
+	GCTouchActionDown,
+	GCTouchActionUp,
+	GCTouchActionMove,
+	GCTouchActionCancel,
 }
 GCTouchAction;
+
+// ストレージタイプ
+typedef enum GCStorageType
+{
+	GCStorageTypeDocument,
+	GCStorageTypeCache,
+}
+GCStorageType;
 
 // クラス
 namespace GCube {
@@ -68,6 +76,8 @@ namespace GCube {
 std::string GCGetLanguage();
 // リソースを取得
 void GCGetResourceData(const char *fileName, std::vector<char>& outData);
+// ストレージパスを取得
+std::string GCGetStoragePath(GCStorageType type);
 
 // ユーザーイベントを送信
 int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5);

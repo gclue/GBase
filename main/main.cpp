@@ -34,18 +34,34 @@ void Main::onInit() {
 	LOGD("lang:%s", ctr->getLanguage().c_str());
 	// UserEventを送信
 	LOGD("send user event:%d", ctr->sendUserEvent(1, 2, 3, 4, 5, "a"));
+	
+	this->onContextChanged();
 }
 
 // サイズ変更
 void Main::onSizeChanged(float width, float height, GCDeviceOrientation orientation) {
 	LOGD("Main::onSizeChanged(%f, %f, %d)", width, height, orientation);
 	glViewport(0, 0, width, height);
-	
+}
+
+// コンテキスト切り替え
+void Main::onContextChanged() {
 	// リソース読み込み
 	ApplicationController *ctr = ApplicationController::SharedInstance();
 	std::vector<char> buf;
 	ctr->getResource("texture/gclue_logo.png", buf);
-
+	
+	// ファイル書き込み
+	std::string filePath = ctr->getStoragePath(GCStorageTypeDocument);
+	filePath += "hello.txt";
+	LOGD("file:%s", filePath.c_str());
+	FILE* file = fopen(filePath.c_str(), "w+");
+	if (file != NULL) {
+		fputs("HELLO WORLD!\n", file);
+		fflush(file);
+		fclose(file);
+	}
+	
 	// サンプル初期化
 	initProgram(buf);
 }

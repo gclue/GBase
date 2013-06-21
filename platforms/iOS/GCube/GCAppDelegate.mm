@@ -36,7 +36,6 @@ using namespace GCube;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	gcube = ApplicationController::SharedInstance();
-	gcube->onInit();
 	
     return YES;
 }

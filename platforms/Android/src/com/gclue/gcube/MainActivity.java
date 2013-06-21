@@ -22,6 +22,9 @@
 
 package com.gclue.gcube;
 
+import java.io.File;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,11 +37,15 @@ public class MainActivity extends Activity {
 	private GCGLSurfaceView glview = null;
 	private GCSensorEventListener sensor = null;
 	
+	@SuppressLint("SdCardPath")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		NDKInterface.initInterface(this);
+		// filesフォルダを作成
+		new File("/data/data/"+getPackageName()+"/files/").mkdir();
+		// 画面回転方向を設定
 		this.setRequestedOrientation(NDKInterface.getSupportedOrientation());
+		// GLViewを作成
 		glview = new GCGLSurfaceView(this);
 		setContentView(glview);
 		if (NDKInterface.useOrientationSensor()) {

@@ -75,6 +75,7 @@ public class GCRenderer extends FixedFPSRenderer {
 	@Override
 	public void onSurfaceCreated(GL10 arg0, EGLConfig arg1) {
 		//Log.d("GCube", "onSurfaceCreated");
+		NDKInterface.initInterface((Activity)context);
 		NDKInterface.onInit();
 	}
 
