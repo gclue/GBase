@@ -20,29 +20,45 @@
  * THE SOFTWARE.
  */
 
-#ifndef __GCube__Main__
-#define __GCube__Main__
+#ifndef SoundData_h
+#define SoundData_h
 
-#include "GCube.h"
+#include "GCDefines.h"
 
 namespace GCube {
 	
-class Main : public IApplicationEventListener {
-private:
-	int sid;
-	
+/**
+ * サウンドデータクラス.
+ */
+class SoundData {
 public:
-	Main() {};
-	virtual~Main() {};
+	std::string fileName;	//!< ファイル名
+	int dataSize;			//!< データサイズ
+	short *data;			//!< データ
+	int fileType;		//!< ファイルタイプ
+	int sampleRate;		//!< サンプリングレート
 	
-	virtual void onInit();
-	virtual void onSizeChanged(float width, float height, GCDeviceOrientation orientation);
-	virtual void onContextChanged();
-	virtual void onDraw();
-	virtual void onTouch(GCTouchAction action, float x, float y, long id, long time);
-	virtual int onUserEvent(int type, int param1=0, long long param2=0, float param3=0, double param4=0, const char *param5=NULL);
+	/**
+	 * コンストラクタ.
+	 */
+	SoundData() : data(NULL) {};
+	SoundData(const char *fileName, int dataSize, short *data, int fileType, int sampleRate) :
+		fileName(std::string(fileName)), dataSize(dataSize), data(data), fileType(fileType), sampleRate(sampleRate) {};
+	
+	/**
+	 * デストラクタ.
+	 */
+	~SoundData() {
+		if (data) free(data);
+	};
+	
+	
+	/**
+	 * Oggファイル読み込み.
+	 */
+	bool loadOgg(const char *fileName);
 };
-	
+
 }
 
-#endif /* defined(__GCube__Main__) */
+#endif

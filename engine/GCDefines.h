@@ -23,10 +23,37 @@
 #ifndef GCube_GCDefines_h
 #define GCube_GCDefines_h
 
+#include <stdlib.h>
 #include <stddef.h>
 #include <math.h>
 #include <string>
 #include <vector>
+#include <map>
+
+// Android
+#ifdef __GCube_Android__
+# include <GLES2/gl2.h>
+# include <GLES2/gl2ext.h>
+# include <AL/al.h>
+# include <AL/alc.h>
+#endif
+
+// iOS
+#ifdef __GCube_iOS__
+# include <OpenGLES/ES2/gl.h>
+# include <OpenGLES/ES2/glext.h>
+# include <OpenAL/al.h>
+# include <OpenAL/alc.h>
+#endif
+
+// Tizen
+#ifdef __GCube_Tizen__
+# include <gl2.h>
+# include <gl2ext.h>
+# include <AL/al.h>
+# include <AL/alc.h>
+#endif
+
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
@@ -65,7 +92,6 @@ GCStorageType;
 // クラス
 namespace GCube {
 	class Main;
-	class ApplicationController;
 }
 
 

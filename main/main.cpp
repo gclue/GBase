@@ -64,11 +64,25 @@ void Main::onContextChanged() {
 	
 	// サンプル初期化
 	initProgram(buf);
+	
+	// 音読み込み
+	SoundPlayer *player = SoundPlayer::SharedInstance();
+	SoundData sdata;
+	sdata.loadOgg("sound/se_yay.ogg");
+	sid = player->loadSound(&sdata);
 }
 
 // 描画
 void Main::onDraw() {
 	draw();
+}
+
+void Main::onTouch(GCTouchAction action, float x, float y, long id, long time) {
+	if (action==GCTouchActionUp) {
+		// 音再生
+		SoundPlayer *player = SoundPlayer::SharedInstance();
+		player->play(sid);
+	}
 }
 
 // ユーザイベント

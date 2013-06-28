@@ -23,29 +23,13 @@
 #ifndef GCube_GCube_h
 #define GCube_GCube_h
 
-// Android
-#ifdef __GCube_Android__
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#endif
-
-// iOS
-#ifdef __GCube_iOS__
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#endif
-
-// Tizen
-#ifdef __GCube_Tizen__
-#include <gl2.h>
-#include <gl2ext.h>
-#endif
-
-
 #include "GCDefines.h"
 #include "ApplicationController.h"
 #include "IApplicationEventListener.h"
+#include "sound/SoundData.h"
+#include "sound/SoundPlayer.h"
 #include "util/Log.h"
 #include "external/stb/stb_image.h"
+#include "external/stb/stb_vorbis.h"
 
 #endif

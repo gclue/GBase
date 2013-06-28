@@ -27,6 +27,11 @@
 		667FC33C176AFA07000E8D0E /* GCUserEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667FC33B176AFA07000E8D0E /* GCUserEvent.mm */; };
 		66AFF4C71772DC4800025BF6 /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 66AFF4C51772DC4800025BF6 /* stb_image.c */; };
 		66AFF4CA1772E2B500025BF6 /* gclue_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 66AFF4C91772E2B500025BF6 /* gclue_logo.png */; };
+		66AFF4CD177BD50E00025BF6 /* stb_vorbis.c in Sources */ = {isa = PBXBuildFile; fileRef = 66AFF4CC177BD50E00025BF6 /* stb_vorbis.c */; };
+		66AFF4D2177BDA1C00025BF6 /* SoundPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66AFF4D0177BD9E200025BF6 /* SoundPlayer.cpp */; };
+		66AFF4D4177BDA8E00025BF6 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFF4D3177BDA8E00025BF6 /* OpenAL.framework */; };
+		66BBBABB177C1E7C00C1476B /* SoundData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BBBABA177C1E7C00C1476B /* SoundData.cpp */; };
+		66BBBABF177C37FB00C1476B /* se_yay.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 66BBBABE177C37E400C1476B /* se_yay.ogg */; };
 		66FC589B17585F07002D7A6F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589417585F07002D7A6F /* Icon-72.png */; };
 		66FC589C17585F07002D7A6F /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589517585F07002D7A6F /* Icon-72@2x.png */; };
 		66FC589D17585F07002D7A6F /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589617585F07002D7A6F /* Icon-Small-50.png */; };
@@ -69,6 +74,14 @@
 		66AFF4C51772DC4800025BF6 /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
 		66AFF4C61772DC4800025BF6 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		66AFF4C91772E2B500025BF6 /* gclue_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gclue_logo.png; sourceTree = "<group>"; };
+		66AFF4CB177BD50500025BF6 /* stb_vorbis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_vorbis.h; sourceTree = "<group>"; };
+		66AFF4CC177BD50E00025BF6 /* stb_vorbis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_vorbis.c; sourceTree = "<group>"; };
+		66AFF4CF177BD9E200025BF6 /* SoundData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundData.h; sourceTree = "<group>"; };
+		66AFF4D0177BD9E200025BF6 /* SoundPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SoundPlayer.cpp; sourceTree = "<group>"; };
+		66AFF4D1177BD9E200025BF6 /* SoundPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
+		66AFF4D3177BDA8E00025BF6 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		66BBBABA177C1E7C00C1476B /* SoundData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundData.cpp; sourceTree = "<group>"; };
+		66BBBABE177C37E400C1476B /* se_yay.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = se_yay.ogg; sourceTree = "<group>"; };
 		66FC588C17571446002D7A6F /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		66FC588E175717E4002D7A6F /* GCube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCube.h; sourceTree = "<group>"; };
 		66FC589217571ABC002D7A6F /* GCubeConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCubeConfig.h; sourceTree = "<group>"; };
@@ -89,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66AFF4D4177BDA8E00025BF6 /* OpenAL.framework in Frameworks */,
 				66FC58E91760235E002D7A6F /* CoreMotion.framework in Frameworks */,
 				663274D9174DA31F001E839D /* UIKit.framework in Frameworks */,
 				663274DB174DA31F001E839D /* Foundation.framework in Frameworks */,
@@ -121,6 +135,7 @@
 		663274D7174DA31F001E839D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66AFF4D3177BDA8E00025BF6 /* OpenAL.framework */,
 				66FC58E81760235D002D7A6F /* CoreMotion.framework */,
 				663274D8174DA31F001E839D /* UIKit.framework */,
 				663274DA174DA31F001E839D /* Foundation.framework */,
@@ -176,6 +191,7 @@
 		6632750F174DE743001E839D /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				66AFF4D5177BDBF900025BF6 /* sound */,
 				66AFF4C81772E2B500025BF6 /* texture */,
 			);
 			name = assets;
@@ -190,6 +206,7 @@
 				66740E001761C6C900510BCB /* IApplicationEventListener.h */,
 				66327511174DE743001E839D /* ApplicationController.cpp */,
 				66327512174DE743001E839D /* ApplicationController.h */,
+				66AFF4CE177BD9D600025BF6 /* sound */,
 				66FC588A1757131F002D7A6F /* util */,
 				66AFF4C31772DC4800025BF6 /* external */,
 			);
@@ -218,6 +235,8 @@
 			children = (
 				66AFF4C61772DC4800025BF6 /* stb_image.h */,
 				66AFF4C51772DC4800025BF6 /* stb_image.c */,
+				66AFF4CB177BD50500025BF6 /* stb_vorbis.h */,
+				66AFF4CC177BD50E00025BF6 /* stb_vorbis.c */,
 			);
 			path = stb;
 			sourceTree = "<group>";
@@ -228,6 +247,25 @@
 				66AFF4C91772E2B500025BF6 /* gclue_logo.png */,
 			);
 			path = texture;
+			sourceTree = "<group>";
+		};
+		66AFF4CE177BD9D600025BF6 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				66AFF4CF177BD9E200025BF6 /* SoundData.h */,
+				66BBBABA177C1E7C00C1476B /* SoundData.cpp */,
+				66AFF4D0177BD9E200025BF6 /* SoundPlayer.cpp */,
+				66AFF4D1177BD9E200025BF6 /* SoundPlayer.h */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
+		66AFF4D5177BDBF900025BF6 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				66BBBABE177C37E400C1476B /* se_yay.ogg */,
+			);
+			path = sound;
 			sourceTree = "<group>";
 		};
 		66FC588A1757131F002D7A6F /* util */ = {
@@ -331,6 +369,7 @@
 				66FC58A017585F07002D7A6F /* Icon.png in Resources */,
 				66FC58A117585F07002D7A6F /* Icon@2x.png in Resources */,
 				66AFF4CA1772E2B500025BF6 /* gclue_logo.png in Resources */,
+				66BBBABF177C37FB00C1476B /* se_yay.ogg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +389,9 @@
 				667FC334176ABC9E000E8D0E /* GCAPIGlue.mm in Sources */,
 				667FC33C176AFA07000E8D0E /* GCUserEvent.mm in Sources */,
 				66AFF4C71772DC4800025BF6 /* stb_image.c in Sources */,
+				66AFF4CD177BD50E00025BF6 /* stb_vorbis.c in Sources */,
+				66AFF4D2177BDA1C00025BF6 /* SoundPlayer.cpp in Sources */,
+				66BBBABB177C1E7C00C1476B /* SoundData.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +488,8 @@
 		66327504174DA31F001E839D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMPRESS_PNG_FILES = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GCube/GCube-Prefix.pch";
 				INFOPLIST_FILE = "GCube/GCube-Info.plist";
@@ -457,6 +501,7 @@
 		66327505174DA31F001E839D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMPRESS_PNG_FILES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GCube/GCube-Prefix.pch";
 				INFOPLIST_FILE = "GCube/GCube-Info.plist";
