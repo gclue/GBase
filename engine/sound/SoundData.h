@@ -20,8 +20,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef SoundData_h
-#define SoundData_h
+#ifndef __GCube__SoundData_h
+#define __GCube__SoundData_h
 
 #include "GCDefines.h"
 

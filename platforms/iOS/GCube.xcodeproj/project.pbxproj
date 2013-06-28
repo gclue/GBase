@@ -252,8 +252,8 @@
 		66AFF4CE177BD9D600025BF6 /* sound */ = {
 			isa = PBXGroup;
 			children = (
-				66AFF4CF177BD9E200025BF6 /* SoundData.h */,
 				66BBBABA177C1E7C00C1476B /* SoundData.cpp */,
+				66AFF4CF177BD9E200025BF6 /* SoundData.h */,
 				66AFF4D0177BD9E200025BF6 /* SoundPlayer.cpp */,
 				66AFF4D1177BD9E200025BF6 /* SoundPlayer.h */,
 			);
