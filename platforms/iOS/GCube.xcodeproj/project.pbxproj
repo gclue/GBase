@@ -58,7 +58,6 @@
 		66FC58A117585F07002D7A6F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589A17585F07002D7A6F /* Icon@2x.png */; };
 		66FC58E617586047002D7A6F /* glsample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66FC58E417586047002D7A6F /* glsample.cpp */; };
 		66FC58E91760235E002D7A6F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66FC58E81760235D002D7A6F /* CoreMotion.framework */; };
-		980F5B08178576FF008194CB /* GCObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980F5B06178576FF008194CB /* GCObject.cpp */; };
 		66FE247A178537C100969BA7 /* ApplicationController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66327511174DE743001E839D /* ApplicationController.cpp */; };
 		66FE247C178537C100969BA7 /* SoundData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BBBABA177C1E7C00C1476B /* SoundData.cpp */; };
 		66FE247E178537C100969BA7 /* SoundPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66AFF4D0177BD9E200025BF6 /* SoundPlayer.cpp */; };
@@ -119,8 +118,6 @@
 		66FC58E417586047002D7A6F /* glsample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glsample.cpp; sourceTree = "<group>"; };
 		66FC58E517586047002D7A6F /* glsample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glsample.h; sourceTree = "<group>"; };
 		66FC58E81760235D002D7A6F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		980F5B06178576FF008194CB /* GCObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GCObject.cpp; sourceTree = "<group>"; };
-		980F5B07178576FF008194CB /* GCObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCObject.h; sourceTree = "<group>"; };
 		66FE246B1785371A00969BA7 /* libGCube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGCube.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -238,8 +235,6 @@
 				66AFF4CE177BD9D600025BF6 /* sound */,
 				66FC588A1757131F002D7A6F /* util */,
 				66AFF4C31772DC4800025BF6 /* external */,
-				980F5B06178576FF008194CB /* GCObject.cpp */,
-				980F5B07178576FF008194CB /* GCObject.h */,
 			);
 			name = engine;
 			path = ../../../engine;
@@ -479,7 +474,6 @@
 				66AFF4CD177BD50E00025BF6 /* stb_vorbis.c in Sources */,
 				66AFF4D2177BDA1C00025BF6 /* SoundPlayer.cpp in Sources */,
 				66BBBABB177C1E7C00C1476B /* SoundData.cpp in Sources */,
-				980F5B08178576FF008194CB /* GCObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
