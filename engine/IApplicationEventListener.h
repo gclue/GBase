@@ -45,6 +45,7 @@ public:
 	virtual void onOrientationChanged(float yaw, float pitch, float roll) {};
 	
 	virtual int onUserEvent(int type, int param1=0, long long param2=0, float param3=0, double param4=0, const char *param5=NULL) {return 0;};
+	virtual void onDebugCommand(const char *command, int param) {};
 };
 	
 }

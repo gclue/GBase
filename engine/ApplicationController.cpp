@@ -146,4 +146,10 @@ int ApplicationController::onUserEvent(int type, int param1, long long param2, f
 	return main->onUserEvent(type, param1, param2, param3, param4, param5);
 }
 
+// デバッグコマンド
+void ApplicationController::onDebugCommand(const char *command, int param) {
+	//LOGD("onDebugCommand(%s, %d)", command, param);
+	main->onDebugCommand(command, param);
+}
+
 }

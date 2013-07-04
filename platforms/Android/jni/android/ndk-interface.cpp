@@ -283,6 +283,20 @@ Java_com_gclue_gcube_NDKInterface_useOrientationSensor(
 }
 
 /**
+ * デバッグコンソールを使用するかを返します.
+ */
+JNIEXPORT jboolean JNICALL
+Java_com_gclue_gcube_NDKInterface_useDebugConsole (
+		JNIEnv * env, jobject obj)
+{
+#if __GCube_DebugButton__ > 0
+	return true;
+#else
+	return false;
+#endif
+}
+
+/**
  * 対応画面方向を返します.
  */
 JNIEXPORT jint JNICALL
@@ -336,6 +350,22 @@ Java_com_gclue_gcube_NDKInterface_sendUserEvent (
 		controller->onUserEvent(type, param1, param2, param3, param4, str);
 		if (str) {
 			env->ReleaseStringUTFChars(param5, str);
+		}
+	}
+}
+
+/**
+ * デバッグコマンド処理を行います.
+ */
+JNIEXPORT void JNICALL
+Java_com_gclue_gcube_NDKInterface_sendDebugCommand (
+		JNIEnv * env, jobject obj, jstring command, jint param)
+{
+	if (controller) {
+		const char* str = env->GetStringUTFChars(command, NULL);
+		controller->onDebugCommand(str, param);
+		if (str) {
+			env->ReleaseStringUTFChars(command, str);
 		}
 	}
 }

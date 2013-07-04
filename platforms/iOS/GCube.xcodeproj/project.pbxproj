@@ -32,6 +32,7 @@
 		66AFF4D4177BDA8E00025BF6 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFF4D3177BDA8E00025BF6 /* OpenAL.framework */; };
 		66BBBABB177C1E7C00C1476B /* SoundData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BBBABA177C1E7C00C1476B /* SoundData.cpp */; };
 		66BBBABF177C37FB00C1476B /* se_yay.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 66BBBABE177C37E400C1476B /* se_yay.ogg */; };
+		66BBBAC5177D542A00C1476B /* debug.txt in Resources */ = {isa = PBXBuildFile; fileRef = 66BBBAC4177D542A00C1476B /* debug.txt */; };
 		66FC589B17585F07002D7A6F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589417585F07002D7A6F /* Icon-72.png */; };
 		66FC589C17585F07002D7A6F /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589517585F07002D7A6F /* Icon-72@2x.png */; };
 		66FC589D17585F07002D7A6F /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FC589617585F07002D7A6F /* Icon-Small-50.png */; };
@@ -82,6 +83,7 @@
 		66AFF4D3177BDA8E00025BF6 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		66BBBABA177C1E7C00C1476B /* SoundData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundData.cpp; sourceTree = "<group>"; };
 		66BBBABE177C37E400C1476B /* se_yay.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = se_yay.ogg; sourceTree = "<group>"; };
+		66BBBAC4177D542A00C1476B /* debug.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.txt; sourceTree = "<group>"; };
 		66FC588C17571446002D7A6F /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		66FC588E175717E4002D7A6F /* GCube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCube.h; sourceTree = "<group>"; };
 		66FC589217571ABC002D7A6F /* GCubeConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCubeConfig.h; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			children = (
 				66AFF4D5177BDBF900025BF6 /* sound */,
 				66AFF4C81772E2B500025BF6 /* texture */,
+				66BBBAC3177D542A00C1476B /* etc */,
 			);
 			name = assets;
 			path = ../../../assets;
@@ -266,6 +269,14 @@
 				66BBBABE177C37E400C1476B /* se_yay.ogg */,
 			);
 			path = sound;
+			sourceTree = "<group>";
+		};
+		66BBBAC3177D542A00C1476B /* etc */ = {
+			isa = PBXGroup;
+			children = (
+				66BBBAC4177D542A00C1476B /* debug.txt */,
+			);
+			path = etc;
 			sourceTree = "<group>";
 		};
 		66FC588A1757131F002D7A6F /* util */ = {
@@ -370,6 +381,7 @@
 				66FC58A117585F07002D7A6F /* Icon@2x.png in Resources */,
 				66AFF4CA1772E2B500025BF6 /* gclue_logo.png in Resources */,
 				66BBBABF177C37FB00C1476B /* se_yay.ogg in Resources */,
+				66BBBAC5177D542A00C1476B /* debug.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

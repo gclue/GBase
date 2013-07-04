@@ -24,6 +24,7 @@ package com.gclue.gcube;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;

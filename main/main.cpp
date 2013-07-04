@@ -91,4 +91,12 @@ int Main::onUserEvent(int type, int param1, long long param2, float param3, doub
 	return type;
 }
 
+// デバッグコマンド
+void Main::onDebugCommand(const char *command, int param) {
+	LOGD("onDebugCommand(%s, %d)", command, param);
+	if (strcmp(command, "test")==0) {
+		LOGD("***TestCommand (%d)", param);
+	}
+}
+
 }

@@ -22,14 +22,15 @@
 
 
 #include "GCubeApp.h"
-#include "GCubeFrame.h"
 
 using namespace GCube;
 using namespace Tizen::App;
 using namespace Tizen::Base;
+using namespace Tizen::Base::Utility;
 using namespace Tizen::System;
 using namespace Tizen::Ui;
 using namespace Tizen::Ui::Controls;
+using namespace Tizen::Graphics;
 
 GCubeApp::GCubeApp(void)
 {
@@ -57,12 +58,19 @@ GCubeApp::OnAppInitializing(AppRegistry& appRegistry)
 bool
 GCubeApp::OnAppInitialized(void)
 {
-	// Create a Frame
-	GCubeFrame* pGCubeFrame = new GCubeFrame();
-	pGCubeFrame->Construct();
-	pGCubeFrame->SetName(L"GCube");
-	pGCubeFrame->AddOrientationEventListener(*this);
-	pGCubeFrame->AddTouchEventListener(*this);
+	// フレーム作成
+	Frame *pFrame = new Frame();
+	pFrame->Construct();
+	pFrame->SetName(L"GCube");
+	pFrame->AddOrientationEventListener(*this);
+
+	// フォーム作成
+	Form *pForm = new Form();
+	pForm->Construct(FORM_STYLE_NORMAL);
+	pForm->AddTouchEventListener(*this);
+
+	pFrame->AddControl(pForm);
+	pFrame->SetCurrentForm(pForm);
 
 	// 画面の向き
 	enum Orientation orientation = ORIENTATION_NONE;
@@ -89,13 +97,13 @@ GCubeApp::OnAppInitialized(void)
 		#endif
 	#endif
 #endif
-	pGCubeFrame->SetOrientation(orientation);
-	pGCubeFrame->SetMultipointTouchEnabled(true);
-	AddFrame(*pGCubeFrame);
+	pFrame->SetOrientation(orientation);
+	pFrame->SetMultipointTouchEnabled(true);
+	AddFrame(*pFrame);
 
 	{
 		__player = new Tizen::Graphics::Opengl::GlPlayer;
-		__player->Construct(Tizen::Graphics::Opengl::EGL_CONTEXT_CLIENT_VERSION_2_X, pGCubeFrame);
+		__player->Construct(Tizen::Graphics::Opengl::EGL_CONTEXT_CLIENT_VERSION_2_X, pForm);
 
 		__player->SetFps(__GCube_FrameRate__);
 		__player->SetEglAttributePreset(Tizen::Graphics::Opengl::EGL_ATTRIBUTES_PRESET_RGB565);
@@ -106,9 +114,65 @@ GCubeApp::OnAppInitialized(void)
 	__renderer = new GlRendererTemplate();
 	__player->SetIGlRenderer(__renderer);
 
+	int w = __renderer->GetTargetControlWidth();
+	int h = __renderer->GetTargetControlHeight();
+
+#if __GCube_DebugButton__ > 0
+	// デバッグボタン作成
+	// TODO: XMLで作成
+	Button* pDebugButton = new Button();
+# if __GCube_DebugButton__ == 1
+	pDebugButton->Construct(Rectangle(w-80, h-80, 70, 70), L"D");
+# elif __GCube_DebugButton__ == 2
+	pDebugButton->Construct(Rectangle(10, h-80, 70, 70), L"D");
+# elif __GCube_DebugButton__ == 3
+	pDebugButton->Construct(Rectangle(w-80, 10, 70, 70), L"D");
+# elif __GCube_DebugButton__ == 4
+	pDebugButton->Construct(Rectangle(10, 10, 70, 70), L"D");
+# endif
+	pDebugButton->SetActionId(ID_DEBUG_BUTTON);
+	pDebugButton->AddActionEventListener(*this);
+	pForm->AddControl(pDebugButton);
+
+	// ポップアップ作成
+	__pPopup = new Popup();
+	__pPopup->Construct(true, Dimension(600, 800));
+	__pPopup->SetTitleText(L"DebugConsole");
+
+	// ポップアップを閉じるボタン作成
+	Button* pCloseButton = new Button();
+	pCloseButton->Construct(Rectangle(30, 600, 250, 80), L"Cancel");
+	pCloseButton->SetActionId(ID_BUTTON_CLOSE_POPUP);
+	pCloseButton->AddActionEventListener(*this);
+	__pPopup->AddControl(pCloseButton);
+
+	// OKボタン作成
+	Button* pOKButton = new Button();
+	pOKButton->Construct(Rectangle(320, 600, 250, 80), L"OK");
+	pOKButton->SetActionId(ID_BUTTON_OK_POPUP);
+	pOKButton->AddActionEventListener(*this);
+	__pPopup->AddControl(pOKButton);
+
+	// テキスト入力
+	__pEditField = new EditField();
+	__pEditField->Construct(Rectangle(30, 500, 540, 80));
+	__pPopup->AddControl(__pEditField);
+
+	// 説明テキスト
+	std::vector<char> textBuff;
+	GCGetResourceData("etc/debug.txt", textBuff);
+	textBuff.push_back('\n');
+	String text = String(&textBuff[0]);
+	TextBox *pTextBox = new TextBox();
+	pTextBox->Construct(Rectangle(30, 50, 540, 430));
+	pTextBox->SetTextSize(18);
+	pTextBox->SetText(text);
+	__pPopup->AddControl(pTextBox);
+#endif
+
 	// サイズを通知
-	GCDeviceOrientation o = this->ConvertOrientState(pGCubeFrame->GetOrientationStatus());
-	gcube->onSizeChanged(__renderer->GetTargetControlWidth(), __renderer->GetTargetControlHeight(), o);
+	GCDeviceOrientation o = this->ConvertOrientState(pFrame->GetOrientationStatus());
+	gcube->onSizeChanged(w, h, o);
 
 #ifdef __GCube_OrientationSensor__
 	__sensorManager.Construct();
@@ -272,3 +336,40 @@ bool GCubeApp::CreateSensor(void)
 
      return true;
  }
+
+// IActionEventListener implementation
+void GCubeApp::OnActionPerformed(const Control& source, int actionId) {
+	switch (actionId) {
+	case ID_DEBUG_BUTTON: {
+		__pPopup->SetShowState(true);
+		__pPopup->Show();
+		break;
+	}
+	case ID_BUTTON_CLOSE_POPUP:
+		 __pPopup->SetShowState(false);
+		break;
+	case ID_BUTTON_OK_POPUP: {
+		String str = __pEditField->GetText();
+		StringTokenizer strTok(str, L" ");
+	    String token1, token2 = NULL;
+	    strTok.GetNextToken(token1);
+	    if (strTok.HasMoreTokens()) {
+		    strTok.GetNextToken(token2);
+	    }
+		// cstrに変換
+		int nLen = wcstombs( NULL, token1.GetPointer(), 0 );
+		char* pstr = (char*) malloc ( nLen + 1 );
+		wcstombs(pstr, token1.GetPointer(), nLen+1);
+		// intに変換
+		int param = 0;
+		Integer::Parse(token2, param);
+
+	    gcube->onDebugCommand(pstr, param);
+		__pPopup->SetShowState(false);
+		free(pstr);
+		break;
+	}
+	default:
+		break;
+	}
+}

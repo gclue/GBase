@@ -131,6 +131,13 @@ public class NDKInterface {
 	public synchronized static native void sendUserEvent(int type, int param1, long param2, float param3, double param4, String param5);
 	
 	/**
+	 * デバッグコマンドを配送.
+	 * @param command コマンド
+	 * @param param パラメータ
+	 */
+	public synchronized static native void sendDebugCommand(String command, int param);
+	
+	/**
 	 * フレームレート取得
 	 */
 	public static native int getFrameRate();
@@ -145,6 +152,10 @@ public class NDKInterface {
 	 */
 	public static native int getSupportedOrientation();
 	
+	/**
+	 * デバッグコンソールを使用するかを取得
+	 */
+	public static native boolean useDebugConsole();
 	
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////// received event from native

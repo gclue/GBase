@@ -29,9 +29,7 @@ import android.os.SystemClock;
 
 /**
  * FPS固定で描画するレンダラ抽象クラス.
- * デフォルトでは30fpsで描画されます。
- * 
- * ただし、端末によっては30fpsを出せない場合には、その端末のmaxのfpsで動作します。
+ * 端末によって指定のfpsを出せない場合には、その端末のmaxのfpsで動作します。
  * 
  * @author GClue, Inc.
  */

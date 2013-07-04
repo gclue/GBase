@@ -25,6 +25,8 @@
 #import <GCube.h>
 #import <GCubeConfig.h>
 
+#define kDebugButtonPadding 15
+
 using namespace GCube;
 
 @interface GCViewController () {
@@ -63,6 +65,22 @@ using namespace GCube;
 #ifdef __GCube_OrientationSensor__
 	// 傾きセンサー開始
 	[self startMotionSensor];
+#endif
+	
+	// デバッグボタン追加
+#if __GCube_DebugButton__ > 0
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	[button addTarget:self action:@selector(debugButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:button];
+# if __GCube_DebugButton__ == 1
+	button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
+# elif __GCube_DebugButton__ == 2
+	button.center = CGPointMake(kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
+# elif __GCube_DebugButton__ == 3
+	button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, kDebugButtonPadding);
+# elif __GCube_DebugButton__ == 4
+	button.center = CGPointMake(kDebugButtonPadding, kDebugButtonPadding);
+# endif
 #endif
 }
 
@@ -217,7 +235,6 @@ using namespace GCube;
 }
 
 
-
 #pragma mark - MotionSensor
 
 // モーションセンサー開始
@@ -241,6 +258,37 @@ using namespace GCube;
 	if (motionMgr.deviceMotionActive) {
         [motionMgr stopMagnetometerUpdates];
     }
+}
+
+
+#pragma mark - For debug
+
+// デバッグボタンイベント
+- (void)debugButtonPressed:(id)sender {
+	self.paused = YES;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"debug" ofType:@"txt"];
+	NSString *msg = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+	UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [alert show];
+}
+
+// デバッグアラートイベント
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	self.paused = NO;
+	if (buttonIndex==1 && gcube) {
+		UITextField *txt = [alertView textFieldAtIndex:0];
+		NSArray *cmds = [[txt text] componentsSeparatedByString:@" "];
+		if ([cmds count]>0) {
+			NSString *str = [cmds objectAtIndex:0];
+			int p = 0;
+			if ([cmds count]>1) {
+				p = [[cmds objectAtIndex:1] intValue];
+			}
+			const char* c = [str cStringUsingEncoding:NSUTF8StringEncoding];
+			gcube->onDebugCommand(c, p);
+		}
+	}
 }
 
 @end

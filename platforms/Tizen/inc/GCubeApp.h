@@ -48,6 +48,7 @@ class GCubeApp
 	, public Tizen::Ui::IOrientationEventListener
 	, public Tizen::Ui::ITouchEventListener
 	, public Tizen::Uix::Sensor::ISensorEventListener
+	, public Tizen::Ui::IActionEventListener
 {
 public:
 	/**
@@ -90,6 +91,10 @@ public:
 	// Called when the screen turns off.
 	virtual void OnScreenOff(void);
 
+	// IActionEventListener
+	virtual void OnActionPerformed(const Tizen::Ui::Control& source, int actionId);
+
+
 	virtual void OnOrientationChanged (const Tizen::Ui::Control &source, Tizen::Ui::OrientationStatus orientationStatus);
 
 	void OnTouch (GCTouchAction type, const Tizen::Ui::Control &source, const Tizen::Graphics::Point &currentPosition, const Tizen::Ui::TouchEventInfo &touchInfo);
@@ -104,9 +109,15 @@ public:
 	bool CreateSensor(void);
 
 private:
+	static const int ID_DEBUG_BUTTON  = 9990;
+	static const int ID_BUTTON_CLOSE_POPUP = 9991;
+	static const int ID_BUTTON_OK_POPUP = 9992;
+
 	Tizen::Graphics::Opengl::GlPlayer* __player;
 	Tizen::Graphics::Opengl::IGlRenderer* __renderer;
 	Tizen::Uix::Sensor::SensorManager __sensorManager;
+	Tizen::Ui::Controls::Popup* __pPopup;
+	Tizen::Ui::Controls::EditField *__pEditField;
 	GCube::ApplicationController *gcube;
 
 	GCDeviceOrientation ConvertOrientState (Tizen::Ui::OrientationStatus orientationStatus);
