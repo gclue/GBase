@@ -22,8 +22,8 @@
 
 #import "GCViewController.h"
 #import <CoreMotion/CoreMotion.h>
-#import <GCube.h>
-#import <GCubeConfig.h>
+#import "GCube.h"
+#import "GCubeConfig.h"
 
 #define kDebugButtonPadding 15
 
