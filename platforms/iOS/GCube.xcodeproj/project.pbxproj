@@ -6,7 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		66FE24B71785566300969BA7 /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 66FE24B81785566300969BA7 /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				66FE24BB178556BF00969BA7 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Framework;
+			productName = gcube;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		6621FA7F17856EE6000F1EDB /* GCViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 663274FF174DA31F001E839D /* GCViewController.mm */; };
+		6621FA8017856EEA000F1EDB /* GCAPIGlue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667FC333176ABC9E000E8D0E /* GCAPIGlue.mm */; };
 		663274D9174DA31F001E839D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274D8174DA31F001E839D /* UIKit.framework */; };
 		663274DB174DA31F001E839D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274DA174DA31F001E839D /* Foundation.framework */; };
 		663274DD174DA31F001E839D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663274DC174DA31F001E839D /* CoreGraphics.framework */; };
@@ -43,6 +59,11 @@
 		66FC58E617586047002D7A6F /* glsample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66FC58E417586047002D7A6F /* glsample.cpp */; };
 		66FC58E91760235E002D7A6F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66FC58E81760235D002D7A6F /* CoreMotion.framework */; };
 		980F5B08178576FF008194CB /* GCObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980F5B06178576FF008194CB /* GCObject.cpp */; };
+		66FE247A178537C100969BA7 /* ApplicationController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66327511174DE743001E839D /* ApplicationController.cpp */; };
+		66FE247C178537C100969BA7 /* SoundData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BBBABA177C1E7C00C1476B /* SoundData.cpp */; };
+		66FE247E178537C100969BA7 /* SoundPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66AFF4D0177BD9E200025BF6 /* SoundPlayer.cpp */; };
+		66FE2482178537C100969BA7 /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 66AFF4C51772DC4800025BF6 /* stb_image.c */; };
+		66FE2484178537C100969BA7 /* stb_vorbis.c in Sources */ = {isa = PBXBuildFile; fileRef = 66AFF4CC177BD50E00025BF6 /* stb_vorbis.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +121,7 @@
 		66FC58E81760235D002D7A6F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		980F5B06178576FF008194CB /* GCObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GCObject.cpp; sourceTree = "<group>"; };
 		980F5B07178576FF008194CB /* GCObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCObject.h; sourceTree = "<group>"; };
+		66FE246B1785371A00969BA7 /* libGCube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGCube.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				663274D5174DA31F001E839D /* GCube.app */,
+				66FE246B1785371A00969BA7 /* libGCube.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,6 +362,22 @@
 			productReference = 663274D5174DA31F001E839D /* GCube.app */;
 			productType = "com.apple.product-type.application";
 		};
+		66FE246A1785371A00969BA7 /* Engine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66FE24741785371A00969BA7 /* Build configuration list for PBXNativeTarget "Engine" */;
+			buildPhases = (
+				66FE24671785371A00969BA7 /* Sources */,
+				66FE24CF178562D100969BA7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Engine;
+			productName = gcube;
+			productReference = 66FE246B1785371A00969BA7 /* libGCube.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -362,6 +401,8 @@
 			projectRoot = "";
 			targets = (
 				663274D4174DA31F001E839D /* GCube */,
+				66FE246A1785371A00969BA7 /* Engine */,
+				66FE24B71785566300969BA7 /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -392,6 +433,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		66FE24BB178556BF00969BA7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Environment Variables\nFRAMEWORK_NAME=${PROJECT_NAME}\nFRAMEWORK_VERSION=A\nFRAMEWORK_VERSION_NUMBER=1.0\nCONFIGURATION=\"Release\"\nFRAMEWORK_BUILD_PATH=\"${SRCROOT}/build/${CONFIGURATION}-framework\"\nFRAMEWORK_DIR=\"${FRAMEWORK_BUILD_PATH}/${FRAMEWORK_NAME}.framework\"\n\n# Clean directories\nrm -rf \"${FRAMEWORK_BUILD_PATH}\"\n\n# Build simulator and device binaries.\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphonesimulator -target \"Engine\" -configuration ${CONFIGURATION} clean build\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphoneos -target \"Engine\" -configuration ${CONFIGURATION} clean build\n\n# create framework directories.\nmkdir -p ${FRAMEWORK_DIR}\nmkdir -p ${FRAMEWORK_DIR}/Versions\nmkdir -p ${FRAMEWORK_DIR}/Versions/${FRAMEWORK_VERSION}\nmkdir -p ${FRAMEWORK_DIR}/Versions/${FRAMEWORK_VERSION}/Resources\nmkdir -p ${FRAMEWORK_DIR}/Versions/${FRAMEWORK_VERSION}/Headers\n\n# create symlinks\ncd ${FRAMEWORK_DIR}\nln -s ../Versions/${FRAMEWORK_VERSION} Versions/Current\nln -s Versions/Current/Headers Headers\nln -s Versions/Current/Resources Resources\nln -s Versions/Current/${FRAMEWORK_NAME} ${FRAMEWORK_NAME}\ncd ${SRCROOT}\n\n# create the universal library\nlipo ${SRCROOT}/build/${CONFIGURATION}-iphoneos/lib${FRAMEWORK_NAME}.a ${SRCROOT}/build/${CONFIGURATION}-iphonesimulator/lib${FRAMEWORK_NAME}.a -create -output \"${FRAMEWORK_DIR}/Versions/Current/${FRAMEWORK_NAME}\"\n\n# copy files\ncp -r ${SRCROOT}/build/${CONFIGURATION}-iphoneos/Headers/ ${FRAMEWORK_DIR}/Headers/\n#cp ${PROJECT_NAME}/Info.plist ${FRAMEWORK_DIR}/Resources\n";
+		};
+		66FE24CF178562D100969BA7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${BUILT_PRODUCTS_DIR}\nrm -rf Headers\nmkdir Headers\ncd ${SRCROOT}/../../engine/\nfind . -name \"*.h\" -print | cpio -pdv ${BUILT_PRODUCTS_DIR}/Headers/\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		663274D1174DA31F001E839D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -410,6 +480,20 @@
 				66AFF4D2177BDA1C00025BF6 /* SoundPlayer.cpp in Sources */,
 				66BBBABB177C1E7C00C1476B /* SoundData.cpp in Sources */,
 				980F5B08178576FF008194CB /* GCObject.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66FE24671785371A00969BA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66FE247A178537C100969BA7 /* ApplicationController.cpp in Sources */,
+				66FE247C178537C100969BA7 /* SoundData.cpp in Sources */,
+				66FE247E178537C100969BA7 /* SoundPlayer.cpp in Sources */,
+				66FE2482178537C100969BA7 /* stb_image.c in Sources */,
+				66FE2484178537C100969BA7 /* stb_vorbis.c in Sources */,
+				6621FA7F17856EE6000F1EDB /* GCViewController.mm in Sources */,
+				6621FA8017856EEA000F1EDB /* GCAPIGlue.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +612,50 @@
 			};
 			name = Release;
 		};
+		66FE24751785371A00969BA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DSTROOT = /tmp/gcube.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GCube/GCube-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = GCube;
+				PUBLIC_HEADERS_FOLDER_PATH = /Headers;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		66FE24761785371A00969BA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DSTROOT = /tmp/gcube.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GCube/GCube-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = GCube;
+				PUBLIC_HEADERS_FOLDER_PATH = /Headers;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		66FE24B91785566300969BA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		66FE24BA1785566300969BA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -545,6 +673,24 @@
 			buildConfigurations = (
 				66327504174DA31F001E839D /* Debug */,
 				66327505174DA31F001E839D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66FE24741785371A00969BA7 /* Build configuration list for PBXNativeTarget "Engine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66FE24751785371A00969BA7 /* Debug */,
+				66FE24761785371A00969BA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66FE24B81785566300969BA7 /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66FE24B91785566300969BA7 /* Debug */,
+				66FE24BA1785566300969BA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
