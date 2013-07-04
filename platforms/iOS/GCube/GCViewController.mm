@@ -74,12 +74,16 @@ using namespace GCube;
 	[self.view addSubview:button];
 # if __GCube_DebugButton__ == 1
 	button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
+	[button setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin];
 # elif __GCube_DebugButton__ == 2
 	button.center = CGPointMake(kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
+	[button setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin];
 # elif __GCube_DebugButton__ == 3
 	button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, kDebugButtonPadding);
+	[button setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin];
 # elif __GCube_DebugButton__ == 4
 	button.center = CGPointMake(kDebugButtonPadding, kDebugButtonPadding);
+	[button setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin];
 # endif
 #endif
 }
