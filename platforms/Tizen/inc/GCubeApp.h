@@ -119,6 +119,7 @@ private:
 	Tizen::Ui::Controls::Popup* __pPopup;
 	Tizen::Ui::Controls::EditField *__pEditField;
 	GCube::ApplicationController *gcube;
+	GCubeSettings *settings;
 
 	GCDeviceOrientation ConvertOrientState (Tizen::Ui::OrientationStatus orientationStatus);
 };

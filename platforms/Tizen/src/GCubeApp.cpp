@@ -51,6 +51,7 @@ bool
 GCubeApp::OnAppInitializing(AppRegistry& appRegistry)
 {
 	gcube = ApplicationController::SharedInstance();
+	settings = new GCubeSettings();
 
 	return true;
 }
@@ -74,30 +75,32 @@ GCubeApp::OnAppInitialized(void)
 
 	// 画面の向き
 	enum Orientation orientation = ORIENTATION_NONE;
-#ifdef __GCube_SupportedOrientation_Portrait__
-	#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
-		orientation = ORIENTATION_AUTOMATIC;
-	#else
-		orientation = ORIENTATION_PORTRAIT;
-	#endif
-#else
-	#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
-		#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
-			orientation = ORIENTATION_AUTOMATIC_FOUR_DIRECTION;
-		#else
-			orientation = ORIENTATION_PORTRAIT_REVERSE;
-		#endif
-	#else
-		#ifdef __GCube_SupportedOrientation_LandscapeLeft__
-			orientation = ORIENTATION_LANDSCAPE_REVERSE;
-		#else
-			#ifdef __GCube_SupportedOrientation_LandscapeRight__
-				orientation = ORIENTATION_LANDSCAPE;
-			#endif
-		#endif
-	#endif
-#endif
+	if (settings->orientationPortrait) {
+		if (settings->orientationLandscapeLeft || settings->orientationLandscapeRight) {
+			orientation = ORIENTATION_AUTOMATIC;
+		} else {
+			orientation = ORIENTATION_PORTRAIT;
+		}
+	} else {
+		if (settings->orientationPortraitUpsideDown) {
+			if (settings->orientationLandscapeLeft || settings->orientationLandscapeRight) {
+				orientation = ORIENTATION_AUTOMATIC_FOUR_DIRECTION;
+			} else {
+				orientation = ORIENTATION_PORTRAIT_REVERSE;
+			}
+		} else {
+			if (settings->orientationLandscapeLeft) {
+				orientation = ORIENTATION_LANDSCAPE_REVERSE;
+			} else {
+				if (settings->orientationLandscapeRight) {
+					orientation = ORIENTATION_LANDSCAPE;
+				}
+			}
+		}
+	}
+
 	pFrame->SetOrientation(orientation);
+	pForm->SetOrientation(orientation);
 	pFrame->SetMultipointTouchEnabled(true);
 	AddFrame(*pFrame);
 
@@ -105,7 +108,7 @@ GCubeApp::OnAppInitialized(void)
 		__player = new Tizen::Graphics::Opengl::GlPlayer;
 		__player->Construct(Tizen::Graphics::Opengl::EGL_CONTEXT_CLIENT_VERSION_2_X, pForm);
 
-		__player->SetFps(__GCube_FrameRate__);
+		__player->SetFps(settings->frameRate);
 		__player->SetEglAttributePreset(Tizen::Graphics::Opengl::EGL_ATTRIBUTES_PRESET_RGB565);
 
 		__player->Start();
@@ -117,67 +120,67 @@ GCubeApp::OnAppInitialized(void)
 	int w = __renderer->GetTargetControlWidth();
 	int h = __renderer->GetTargetControlHeight();
 
-#if __GCube_DebugButton__ > 0
-	// デバッグボタン作成
-	// TODO: XMLで作成
-	Button* pDebugButton = new Button();
-# if __GCube_DebugButton__ == 1
-	pDebugButton->Construct(Rectangle(w-80, h-80, 70, 70), L"D");
-# elif __GCube_DebugButton__ == 2
-	pDebugButton->Construct(Rectangle(10, h-80, 70, 70), L"D");
-# elif __GCube_DebugButton__ == 3
-	pDebugButton->Construct(Rectangle(w-80, 10, 70, 70), L"D");
-# elif __GCube_DebugButton__ == 4
-	pDebugButton->Construct(Rectangle(10, 10, 70, 70), L"D");
-# endif
-	pDebugButton->SetActionId(ID_DEBUG_BUTTON);
-	pDebugButton->AddActionEventListener(*this);
-	pForm->AddControl(pDebugButton);
+	if (settings->debugButtonPos > 0) {
+		// デバッグボタン作成
+		// TODO: XMLで作成
+		Button* pDebugButton = new Button();
+		if (settings->debugButtonPos == 1) {
+			pDebugButton->Construct(Rectangle(w-80, h-80, 70, 70), L"D");
+		} else if (settings->debugButtonPos == 2) {
+			pDebugButton->Construct(Rectangle(10, h-80, 70, 70), L"D");
+		} else if (settings->debugButtonPos == 3) {
+			pDebugButton->Construct(Rectangle(w-80, 10, 70, 70), L"D");
+		} else {
+			pDebugButton->Construct(Rectangle(10, 10, 70, 70), L"D");
+		}
+		pDebugButton->SetActionId(ID_DEBUG_BUTTON);
+		pDebugButton->AddActionEventListener(*this);
+		pForm->AddControl(pDebugButton);
 
-	// ポップアップ作成
-	__pPopup = new Popup();
-	__pPopup->Construct(true, Dimension(600, 800));
-	__pPopup->SetTitleText(L"DebugConsole");
+		// ポップアップ作成
+		__pPopup = new Popup();
+		__pPopup->Construct(true, Dimension(600, 800));
+		__pPopup->SetTitleText(L"DebugConsole");
 
-	// ポップアップを閉じるボタン作成
-	Button* pCloseButton = new Button();
-	pCloseButton->Construct(Rectangle(30, 600, 250, 80), L"Cancel");
-	pCloseButton->SetActionId(ID_BUTTON_CLOSE_POPUP);
-	pCloseButton->AddActionEventListener(*this);
-	__pPopup->AddControl(pCloseButton);
+		// ポップアップを閉じるボタン作成
+		Button* pCloseButton = new Button();
+		pCloseButton->Construct(Rectangle(30, 600, 250, 80), L"Cancel");
+		pCloseButton->SetActionId(ID_BUTTON_CLOSE_POPUP);
+		pCloseButton->AddActionEventListener(*this);
+		__pPopup->AddControl(pCloseButton);
 
-	// OKボタン作成
-	Button* pOKButton = new Button();
-	pOKButton->Construct(Rectangle(320, 600, 250, 80), L"OK");
-	pOKButton->SetActionId(ID_BUTTON_OK_POPUP);
-	pOKButton->AddActionEventListener(*this);
-	__pPopup->AddControl(pOKButton);
+		// OKボタン作成
+		Button* pOKButton = new Button();
+		pOKButton->Construct(Rectangle(320, 600, 250, 80), L"OK");
+		pOKButton->SetActionId(ID_BUTTON_OK_POPUP);
+		pOKButton->AddActionEventListener(*this);
+		__pPopup->AddControl(pOKButton);
 
-	// テキスト入力
-	__pEditField = new EditField();
-	__pEditField->Construct(Rectangle(30, 500, 540, 80));
-	__pPopup->AddControl(__pEditField);
+		// テキスト入力
+		__pEditField = new EditField();
+		__pEditField->Construct(Rectangle(30, 500, 540, 80));
+		__pPopup->AddControl(__pEditField);
 
-	// 説明テキスト
-	std::vector<char> textBuff;
-	GCGetResourceData("etc/debug.txt", textBuff);
-	textBuff.push_back('\n');
-	String text = String(&textBuff[0]);
-	TextBox *pTextBox = new TextBox();
-	pTextBox->Construct(Rectangle(30, 50, 540, 430));
-	pTextBox->SetTextSize(18);
-	pTextBox->SetText(text);
-	__pPopup->AddControl(pTextBox);
-#endif
+		// 説明テキスト
+		std::vector<char> textBuff;
+		GCGetResourceData("etc/debug.txt", textBuff);
+		textBuff.push_back('\n');
+		String text = String(&textBuff[0]);
+		TextBox *pTextBox = new TextBox();
+		pTextBox->Construct(Rectangle(30, 50, 540, 430));
+		pTextBox->SetTextSize(18);
+		pTextBox->SetText(text);
+		__pPopup->AddControl(pTextBox);
+	}
 
 	// サイズを通知
 	GCDeviceOrientation o = this->ConvertOrientState(pFrame->GetOrientationStatus());
 	gcube->onSizeChanged(w, h, o);
 
-#ifdef __GCube_OrientationSensor__
-	__sensorManager.Construct();
-	this->CreateSensor();
-#endif
+	if (settings->useOrientationSensor) {
+		__sensorManager.Construct();
+		this->CreateSensor();
+	}
 
 	return true;
 }
@@ -210,17 +213,17 @@ void
 GCubeApp::OnForeground(void)
 {
 	__player->Resume();
-#ifdef __GCube_OrientationSensor__
-	this->CreateSensor();
-#endif
+	if (settings->useOrientationSensor) {
+		this->CreateSensor();
+	}
 }
 
 void
 GCubeApp::OnBackground(void)
 {
-#ifdef __GCube_OrientationSensor__
-	__sensorManager.RemoveSensorListener(*this);
-#endif
+	if (settings->useOrientationSensor) {
+		__sensorManager.RemoveSensorListener(*this);
+	}
 	__player->Pause();
 }
 
