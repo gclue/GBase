@@ -29,7 +29,7 @@
 // Android
 #ifdef __GCube_Android__
 
-	#ifdef __GCube_Log__
+	#ifdef __GCube_LogOut__
 		#include <android/log.h>
 		#define LOG_TAG "GCube"
 		#define LOGI(...)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
@@ -43,7 +43,7 @@
 // iOS
 #ifdef __GCube_iOS__
 
-	#ifdef __GCube_Log__
+	#ifdef __GCube_LogOut__
 		#define LOGI(...) _log("I", __VA_ARGS__)
 		#define LOGD(...) _log("D", __VA_ARGS__)
 		#define LOGW(...) _log("W", __VA_ARGS__)
@@ -81,7 +81,7 @@
 // Tizen
 #ifdef __GCube_Tizen__
 
-	#ifdef __GCube_Log__
+	#ifdef __GCube_LogOut__
 		#include <FBase.h>
 
 		#define LOGI(...) AppLog(__VA_ARGS__)
@@ -94,7 +94,7 @@
 
 
 
-#ifndef __GCube_Log__
+#ifndef __GCube_LogOut__
 	#define LOGI(...)
 	#define LOGD(...)
 	#define LOGW(...)

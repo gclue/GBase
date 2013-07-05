@@ -21,9 +21,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "GCubeConfig.h"
 
 @interface GCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic) struct GCubeSettings *settings;
 
 @end

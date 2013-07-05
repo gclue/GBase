@@ -24,6 +24,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import "GCube.h"
 #import "GCubeConfig.h"
+#import "GCAppDelegate.h"
 
 #define kDebugButtonPadding 15
 
@@ -33,11 +34,22 @@ using namespace GCube;
 	ApplicationController *gcube;
 	CMMotionManager *motionMgr;
 	UITouch *touchArray[10];
+	GCubeSettings *_settings;
 }
 @property (strong, nonatomic) EAGLContext *context;
 @end
 
 @implementation GCViewController
+
+// 初期化時に設定を読み込む
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+		GCAppDelegate *delegate = (GCAppDelegate*)([UIApplication sharedApplication].delegate);
+		_settings = delegate.settings;
+    }
+    return self;
+}
 
 // view読み込み
 - (void)viewDidLoad
@@ -47,7 +59,7 @@ using namespace GCube;
 	gcube = ApplicationController::SharedInstance();
 	
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-	self.preferredFramesPerSecond = __GCube_FrameRate__;
+	self.preferredFramesPerSecond = _settings->frameRate;
 
 	NSAssert(self.context, @"Failed to create ES context");
     
@@ -62,39 +74,39 @@ using namespace GCube;
 	gcube->onInit();
 	gcube->onSizeChanged(view.bounds.size.width*scale, view.bounds.size.height*scale, (GCDeviceOrientation)self.interfaceOrientation);
 	
-#ifdef __GCube_OrientationSensor__
-	// 傾きセンサー開始
-	[self startMotionSensor];
-#endif
+	if (_settings->useOrientationSensor) {
+		// 傾きセンサー開始
+		[self startMotionSensor];
+	}
 	
 	// デバッグボタン追加
-#if __GCube_DebugButton__ > 0
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	[button addTarget:self action:@selector(debugButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:button];
-# if __GCube_DebugButton__ == 1
-	button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
-	[button setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin];
-# elif __GCube_DebugButton__ == 2
-	button.center = CGPointMake(kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
-	[button setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin];
-# elif __GCube_DebugButton__ == 3
-	button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, kDebugButtonPadding);
-	[button setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin];
-# elif __GCube_DebugButton__ == 4
-	button.center = CGPointMake(kDebugButtonPadding, kDebugButtonPadding);
-	[button setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin];
-# endif
-#endif
+	if (_settings->debugButtonPos > 0) {
+		UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		[button addTarget:self action:@selector(debugButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+		[self.view addSubview:button];
+		if (_settings->debugButtonPos == 1) {
+			button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
+			[button setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin];
+		} else if (_settings->debugButtonPos == 2) {
+			button.center = CGPointMake(kDebugButtonPadding, view.bounds.size.height-kDebugButtonPadding);
+			[button setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin];
+		} else if (_settings->debugButtonPos == 3) {
+			button.center = CGPointMake(view.bounds.size.width-kDebugButtonPadding, kDebugButtonPadding);
+			[button setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin];
+		} else {
+			button.center = CGPointMake(kDebugButtonPadding, kDebugButtonPadding);
+			[button setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin];
+		}
+	}
 }
 
 // 後処理
 - (void)dealloc
 {
 
-#ifdef __GCube_OrientationSensor__
-	[self stopMotionSensor];
-#endif
+	if (_settings->useOrientationSensor) {
+		[self stopMotionSensor];
+	}
 	
     [EAGLContext setCurrentContext:self.context];
     
@@ -117,17 +129,17 @@ using namespace GCube;
 - (void)update
 {
 	
-#ifdef __GCube_OrientationSensor__
-	// 傾き取得（Androidを基準に値を変換）
-	CMAttitude *currentAttitude = motionMgr.deviceMotion.attitude;
-	double roll = currentAttitude.roll;  // Y軸中心のラジアン角: -π〜π(-180度〜180度)
-	double pitch = -currentAttitude.pitch; // X軸中心のラジアン角: -π/2〜π/2(-90度〜90度)
-	double yaw = -M_PI_2-currentAttitude.yaw;  // Z軸中心のラジアン角: -π〜π(-180度〜180度)
-	if (yaw < -M_PI) yaw += (2.0*M_PI);
-	if (!(pitch==0 && roll==0)) {
-		gcube->onOrientationChanged(yaw, pitch, roll);
+	if (_settings->useOrientationSensor) {
+		// 傾き取得（Androidを基準に値を変換）
+		CMAttitude *currentAttitude = motionMgr.deviceMotion.attitude;
+		double roll = currentAttitude.roll;  // Y軸中心のラジアン角: -π〜π(-180度〜180度)
+		double pitch = -currentAttitude.pitch; // X軸中心のラジアン角: -π/2〜π/2(-90度〜90度)
+		double yaw = -M_PI_2-currentAttitude.yaw;  // Z軸中心のラジアン角: -π〜π(-180度〜180度)
+		if (yaw < -M_PI) yaw += (2.0*M_PI);
+		if (!(pitch==0 && roll==0)) {
+			gcube->onOrientationChanged(yaw, pitch, roll);
+		}
 	}
-#endif
 	
 	gcube->onUpdate(self.timeSinceLastUpdate);
 }
@@ -142,35 +154,35 @@ using namespace GCube;
 - (NSUInteger)supportedInterfaceOrientations
 {
 	NSUInteger orient = 0;
-#ifdef __GCube_SupportedOrientation_Portrait__
-	orient |= UIInterfaceOrientationMaskPortrait;
-#endif
-#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
-	orient |= UIInterfaceOrientationMaskPortraitUpsideDown;
-#endif
-#ifdef __GCube_SupportedOrientation_LandscapeLeft__
-	orient |= UIInterfaceOrientationMaskLandscapeLeft;
-#endif
-#ifdef __GCube_SupportedOrientation_LandscapeRight__
-	orient |= UIInterfaceOrientationMaskLandscapeRight;
-#endif
+	if (_settings->orientationPortrait) {
+		orient |= UIInterfaceOrientationMaskPortrait;
+	}
+	if (_settings->orientationPortraitUpsideDown) {
+		orient |= UIInterfaceOrientationMaskPortraitUpsideDown;
+	}
+	if (_settings->orientationLandscapeLeft) {
+		orient |= UIInterfaceOrientationMaskLandscapeLeft;
+	}
+	if (_settings->orientationLandscapeRight) {
+		orient |= UIInterfaceOrientationMaskLandscapeRight;
+	}
 	return orient;
 }
 
 // 回転方向（iOS5）
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-#ifdef __GCube_SupportedOrientation_Portrait__
-	if (interfaceOrientation == UIInterfaceOrientationPortrait) return YES;
-#endif
-#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
-	if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) return YES;
-#endif
-#ifdef __GCube_SupportedOrientation_LandscapeLeft__
-	if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) return YES;
-#endif
-#ifdef __GCube_SupportedOrientation_LandscapeRight__
-	if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) return YES;
-#endif
+	if (_settings->orientationPortrait) {
+		if (interfaceOrientation == UIInterfaceOrientationPortrait) return YES;
+	}
+	if (_settings->orientationPortraitUpsideDown) {
+		if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) return YES;
+	}
+	if (_settings->orientationLandscapeLeft) {
+		if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) return YES;
+	}
+	if (_settings->orientationLandscapeRight) {
+		if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) return YES;
+	}
 	return NO;
 }
 

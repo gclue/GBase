@@ -43,7 +43,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	static {
-		System.loadLibrary("gcube");
+		System.loadLibrary("gcube_app");
 	}
 
 	private GCGLSurfaceView glview = null;
@@ -72,7 +72,9 @@ public class MainActivity extends Activity {
 	// メニュー作成
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(Menu.NONE, MENU_ID_DEBUG, Menu.NONE, "Debug");
+		if (NDKInterface.useDebugConsole()) {
+			menu.add(Menu.NONE, MENU_ID_DEBUG, Menu.NONE, "Debug");
+		}
 		return true;
 	}
 

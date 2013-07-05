@@ -34,6 +34,15 @@ using namespace GCube;
 
 @implementation GCAppDelegate
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+		_settings = new GCubeSettings();
+    }
+    return self;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	[GCViewController class];

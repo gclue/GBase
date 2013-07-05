@@ -23,27 +23,43 @@
 #ifndef GCube_GCubeConfig_h
 #define GCube_GCubeConfig_h
 
-// デバッグボタン表示（Androidの場合はメニュー内に表示）
-//  0:非表示
-//  1:右下に表示
-//  2:左下に表示
-//  3:右上に表示
-//  4:左上に表示
-#define __GCube_DebugButton__ 1
-
 // ログ出力
-#define __GCube_Log__
+#define __GCube_LogOut__
 
-// フレームレート
-#define __GCube_FrameRate__ 60
+#ifdef __cplusplus
+struct GCubeSettings{
+	
+	unsigned int debugButtonPos;
+	bool useOrientationSensor;
+	unsigned int frameRate;
+	bool orientationPortrait;
+	bool orientationPortraitUpsideDown;
+	bool orientationLandscapeLeft;
+	bool orientationLandscapeRight;
+	
+	GCubeSettings() {
+		// デバッグボタン表示（Androidの場合はメニュー内に表示）
+		//  0:非表示
+		//  1:右下に表示
+		//  2:左下に表示
+		//  3:右上に表示
+		//  4:左上に表示
+		debugButtonPos = 1;
+		
+		// フレームレート
+		frameRate = 60;
+		
+		// 傾きセンサー使用
+		useOrientationSensor = false;
 
-// 傾きセンサー使用
-//#define __GCube_OrientationSensor__
+		// 対応画面方向
+		orientationPortrait = true;
+		orientationPortraitUpsideDown = false;
+		orientationLandscapeLeft = true;
+		orientationLandscapeRight = true;
+	}
 
-// 対応画面方向
-#define __GCube_SupportedOrientation_Portrait__
-//#define __GCube_SupportedOrientation_PortraitUpsideDown__
-#define __GCube_SupportedOrientation_LandscapeLeft__
-#define __GCube_SupportedOrientation_LandscapeRight__
+};
+#endif
 
 #endif

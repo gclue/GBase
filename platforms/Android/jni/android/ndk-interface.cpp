@@ -29,6 +29,7 @@
 using namespace GCube;
 
 static ApplicationController *controller = NULL;
+static GCubeSettings *settings = new GCubeSettings();
 
 /**
  * JNIを操作する為のデータを保持する構造体.
@@ -265,7 +266,7 @@ JNIEXPORT jint JNICALL
 Java_com_gclue_gcube_NDKInterface_getFrameRate(
 		JNIEnv * env, jobject obj)
 {
-	return __GCube_FrameRate__;
+	return settings->frameRate;
 }
 
 /**
@@ -275,11 +276,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_gclue_gcube_NDKInterface_useOrientationSensor(
 		JNIEnv * env, jobject obj)
 {
-#ifdef __GCube_OrientationSensor__
-	return true;
-#else
-	return false;
-#endif
+	return settings->useOrientationSensor;
 }
 
 /**
@@ -289,11 +286,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_gclue_gcube_NDKInterface_useDebugConsole (
 		JNIEnv * env, jobject obj)
 {
-#if __GCube_DebugButton__ > 0
-	return true;
-#else
-	return false;
-#endif
+	return settings->debugButtonPos > 0;
 }
 
 /**
@@ -303,37 +296,37 @@ JNIEXPORT jint JNICALL
 Java_com_gclue_gcube_NDKInterface_getSupportedOrientation(
 		JNIEnv * env, jobject obj)
 {
-#ifdef __GCube_SupportedOrientation_Portrait__
-	#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
-		return 4; // SCREEN_ORIENTATION_SENSOR
-	#else
-		#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
-			return 7; // SCREEN_ORIENTATION_SENSOR_PORTRAIT
-		#else
-			return 1; // SCREEN_ORIENTATION_PORTRAIT
-		#endif
-	#endif
-#else
-	#ifdef __GCube_SupportedOrientation_PortraitUpsideDown__
-		#if defined(__GCube_SupportedOrientation_LandscapeLeft__) || defined(__GCube_SupportedOrientation_LandscapeRight__)
+	if (settings->orientationPortrait) {
+		if (settings->orientationLandscapeLeft || settings->orientationLandscapeRight) {
 			return 4; // SCREEN_ORIENTATION_SENSOR
-		#else
-			return 9; // SCREEN_ORIENTATION_REVERSE_PORTRAIT
-		#endif
-	#else
-		#ifdef __GCube_SupportedOrientation_LandscapeLeft__
-			#ifdef __GCube_SupportedOrientation_LandscapeRight__
-				return 6; // SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-			#else
+		} else {
+			if (settings->orientationPortraitUpsideDown) {
+				return 7; // SCREEN_ORIENTATION_SENSOR_PORTRAIT
+			} else {
+				return 1; // SCREEN_ORIENTATION_PORTRAIT
+			}
+		}
+	} else {
+		if (settings->orientationPortraitUpsideDown) {
+			if (settings->orientationLandscapeLeft || settings->orientationLandscapeRight) {
+				return 4; // SCREEN_ORIENTATION_SENSOR
+			} else {
 				return 8; // SCREEN_ORIENTATION_REVERSE_LANDSCAPE
-			#endif
-		#else
-			#ifdef __GCube_SupportedOrientation_LandscapeRight__
-				return 0; // SCREEN_ORIENTATION_LANDSCAPE
-			#endif
-		#endif
-	#endif
-#endif
+			}
+		} else {
+			if (settings->orientationLandscapeLeft) {
+				if (settings->orientationLandscapeRight) {
+					return 6; // SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+				} else {
+					return 8; // SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+				}
+			} else {
+				if (settings->orientationLandscapeRight) {
+					return 0; // SCREEN_ORIENTATION_LANDSCAPE
+				}
+			}
+		}
+	}
 
 	return -1; // SCREEN_ORIENTATION_UNSPECIFIED
 }

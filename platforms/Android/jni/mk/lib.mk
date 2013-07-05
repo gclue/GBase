@@ -2,7 +2,7 @@ MY_PATH := $(call my-dir)/../
 LOCAL_PATH := $(call my-dir)/../../../../engine
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := common
+LOCAL_MODULE    := gcube
 LOCAL_SRC_FILES := ApplicationController.cpp \
                    sound/SoundData.cpp \
                    sound/SoundPlayer.cpp \

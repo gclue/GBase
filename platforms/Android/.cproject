@@ -24,7 +24,7 @@
 								<option id="gnu.both.asm.option.include.paths.1188809463" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/engine}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/main}&quot;"/>
-									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-9/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="&quot;${ANDROID_NDK_HOME}/platforms/android-9/arch-arm/usr/include&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.216078413" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -33,7 +33,7 @@
 								<option id="gnu.cpp.compiler.option.include.paths.1591807457" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/engine}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/main}&quot;"/>
-									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-9/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="&quot;${ANDROID_NDK_HOME}/platforms/android-9/arch-arm/usr/include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.885857062" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GCube_Android__"/>
@@ -44,7 +44,7 @@
 								<option id="gnu.c.compiler.option.include.paths.15302643" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/engine}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GCube/main}&quot;"/>
-									<listOptionValue builtIn="false" value="/Applications/android-sdk/ndk/platforms/android-9/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="&quot;${ANDROID_NDK_HOME}/platforms/android-9/arch-arm/usr/include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1279228583" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GCube_Android__"/>
@@ -90,4 +90,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

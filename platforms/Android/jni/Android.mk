@@ -12,8 +12,8 @@ include $(CLEAR_VARS)
 ENGINE_PATH := $(LOCAL_PATH)/engine
 MAIN_PATH := $(LOCAL_PATH)/main
 
-APP_MODULES     := gcube
-LOCAL_MODULE    := gcube
+APP_MODULES     := gcube_app
+LOCAL_MODULE    := gcube_app
 LOCAL_CFLAGS    := -Werror -D__GCube_Android__
 LOCAL_LDLIBS    := -llog -lGLESv2 -lz -landroid -L$(MY_PATH)/libs -lopenal
 
@@ -31,7 +31,7 @@ LOCAL_C_INCLUDES:= $(MY_PATH)/android/ \
                    $(ENGINE_PATH)/external/stb/ \
                    $(MAIN_PATH)
                    
-LOCAL_STATIC_LIBRARIES := openal common
+LOCAL_STATIC_LIBRARIES := openal gcube
 
 include $(BUILD_SHARED_LIBRARY)
 

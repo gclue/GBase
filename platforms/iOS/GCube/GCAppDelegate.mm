@@ -21,6 +21,7 @@
  */
 
 #import "GCAppDelegate.h"
+#import "GCViewController.h"
 #import <GCube.h>
 
 using namespace GCube;
@@ -33,8 +34,18 @@ using namespace GCube;
 
 @implementation GCAppDelegate
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+		_settings = new GCubeSettings();
+    }
+    return self;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[GCViewController class];
 	gcube = ApplicationController::SharedInstance();
 	
     return YES;
