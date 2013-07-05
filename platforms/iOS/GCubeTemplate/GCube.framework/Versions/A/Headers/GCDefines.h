@@ -109,4 +109,5 @@ std::string GCGetStoragePath(GCStorageType type);
 int GCSendUserEvent(int type, int param1, long long param2, float param3, double param4, const char *param5);
 
 
+
 #endif

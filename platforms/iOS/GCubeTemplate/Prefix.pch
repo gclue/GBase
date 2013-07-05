@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'GCubeTemplate' target in the 'GCubeTemplate' project
+// Prefix header for all source files of the 'GCube' target in the 'GCube' project
 //
 
 #import <Availability.h>
