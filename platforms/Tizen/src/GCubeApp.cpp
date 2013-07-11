@@ -63,12 +63,12 @@ GCubeApp::OnAppInitialized(void)
 	Frame *pFrame = new Frame();
 	pFrame->Construct();
 	pFrame->SetName(L"GCube");
-	pFrame->AddOrientationEventListener(*this);
 
 	// フォーム作成
 	Form *pForm = new Form();
 	pForm->Construct(FORM_STYLE_NORMAL);
 	pForm->AddTouchEventListener(*this);
+	pForm->AddOrientationEventListener(*this);
 
 	pFrame->AddControl(pForm);
 	pFrame->SetCurrentForm(pForm);

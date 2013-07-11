@@ -3,7 +3,8 @@ LOCAL_PATH := $(call my-dir)/../../../../engine
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := gcube
-LOCAL_SRC_FILES := ApplicationController.cpp \
+LOCAL_SRC_FILES := ../platforms/Android/jni/android/ndk-interface.cpp \
+                   ApplicationController.cpp \
                    sound/SoundData.cpp \
                    sound/SoundPlayer.cpp \
                    external/stb/stb_image.c \
