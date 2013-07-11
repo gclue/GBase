@@ -134,8 +134,11 @@
 									<listOptionValue builtIn="false" value="-losp-vision"/>
 									<listOptionValue builtIn="false" value="-lxml2"/>
 								</option>
-								<option id="gnu.cpp.link.option.libs.1677709018" superClass="gnu.cpp.link.option.libs" valueType="libs">
+								<option id="gnu.cpp.link.option.libs.1677709018" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="openal"/>
+								</option>
+								<option id="gnu.cpp.link.option.userobjs.781985549" superClass="gnu.cpp.link.option.userobjs" valueType="userObjs">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib/libGCubeLib.a}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.2119600729" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -156,7 +159,6 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="res"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="engine"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="main"/>
 					</sourceEntries>
 				</configuration>
@@ -213,7 +215,7 @@
 									<listOptionValue builtIn="false" value=" -fPIE"/>
 									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.2040379068" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+								<option id="gnu.cpp.compiler.option.preprocessor.def.2040379068" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GCube_Tizen__"/>
 								</option>
 								<inputType id="sbi.gnu.cpp.compiler.tizen.inputType.1912377546" superClass="sbi.gnu.cpp.compiler.tizen.inputType"/>
@@ -248,7 +250,7 @@
 									<listOptionValue builtIn="false" value=" -fPIE"/>
 									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.9820770" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.9820770" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GCube_Tizen__"/>
 								</option>
 								<inputType id="sbi.gnu.c.compiler.tizen.inputType.1431704404" superClass="sbi.gnu.c.compiler.tizen.inputType"/>
@@ -486,7 +488,9 @@
 		<project id="GCube.org.tizen.nativecpp.target.sbi.gcc45.app.893663013" name="Tizen Application" projectType="org.tizen.nativecpp.target.sbi.gcc45.app"/>
 	</storageModule>
 	<storageModule moduleId="com.samsung.tizen.nativeapp.projectInfo" version="1.0.0"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="1">
+		<resource resourceType="PROJECT" workspacePath="/GCube"/>
+	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="org.tizen.nativecpp.config.sbi.gcc45.app.debug.da.512415136">
@@ -502,4 +506,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.tizen.nativecommon.TizenGCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

@@ -50,6 +50,21 @@ rm -f $outpath$droidpath/jni/Android.mk
 mv $outpath$droidpath/jni/Android_template.mk $outpath$droidpath/jni/Android.mk
 sed -e "s/GCube/$1/" $gcubepath$droidpath/.project | sed -e "/engine/d" > $outpath$droidpath/.project
 sed -e "s/GCube/$1/" $gcubepath$droidpath/.cproject | sed -e "/engine/d"  > $outpath$droidpath/.cproject
+sed -e "s/GCube/$1/" $gcubepath$droidpath/res/values/strings.xml > $outpath$droidpath/res/values/strings.xml
 sed -e "s/gcube\"/$1\"/" $gcubepath$droidpath/AndroidManifest.xml > $outpath$droidpath/AndroidManifest.xml
 activitypath='/src/com/gclue/gcube/MainActivity.java'
 sed -e "s/gcube.R/$1.R/" $gcubepath$droidpath$activitypath > $outpath$droidpath/$activitypath
+
+
+# copy Tizen
+tizenpath='/platforms/Tizen/GCube/'
+mkdir -p $outpath$tizenpath
+cp -a $gcubepath$tizenpath $outpath$tizenpath
+## remove
+rm -rf $outpath$tizenpath/crash-info/
+rm -rf $outpath$tizenpath/Debug/
+rm -rf $outpath$tizenpath/Release/
+## change project name
+sed -e "s/GCube/$1/" $gcubepath$tizenpath/.project > $outpath$tizenpath/.project
+sed -e "s/[\/]GCube/\/$1/" $gcubepath$tizenpath/.cproject | sed -e "s/[\"]GCube/\"$1/" > $outpath$tizenpath/.cproject
+sed -e "s/GCube/$1/" $gcubepath$tizenpath/manifest.xml > $outpath$tizenpath/manifest.xml

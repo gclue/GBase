@@ -7,3 +7,6 @@ platforms/Android/libs/armeabi-v7a
 platforms/Android/bin
 platforms/Tizen/.sign
 platforms/Tizen/crash-info
+platforms/Tizen/GCubeLib/Release
+platforms/iOS/GCube.xcworkspace/xcuserdata
+platforms/Tizen/GCube/Debug

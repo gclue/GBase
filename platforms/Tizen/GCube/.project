@@ -87,14 +87,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>engine</name>
-			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/engine</locationURI>
-		</link>
-		<link>
 			<name>main</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/main</locationURI>
+			<locationURI>PARENT-3-PROJECT_LOC/main</locationURI>
+		</link>
+		<link>
+			<name>res/assets</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/assets</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>
