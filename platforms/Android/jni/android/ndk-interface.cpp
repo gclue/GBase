@@ -290,6 +290,16 @@ Java_com_gclue_gcube_NDKInterface_useDebugConsole (
 }
 
 /**
+ * ステータスバーを表示するかを返します.
+ */
+JNIEXPORT jboolean JNICALL
+Java_com_gclue_gcube_NDKInterface_showStatusBar (
+		JNIEnv * env, jobject obj)
+{
+	return settings->showStatusBar;
+}
+
+/**
  * 対応画面方向を返します.
  */
 JNIEXPORT jint JNICALL

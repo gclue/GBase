@@ -66,7 +66,11 @@ GCubeApp::OnAppInitialized(void)
 
 	// フォーム作成
 	Form *pForm = new Form();
-	pForm->Construct(FORM_STYLE_NORMAL);
+	if (settings->showStatusBar) {
+		pForm->Construct(FORM_STYLE_INDICATOR);
+	} else {
+		pForm->Construct(FORM_STYLE_NORMAL);
+	}
 	pForm->AddTouchEventListener(*this);
 	pForm->AddOrientationEventListener(*this);
 
@@ -123,11 +127,15 @@ GCubeApp::OnAppInitialized(void)
 	if (settings->debugButtonPos > 0) {
 		// デバッグボタン作成
 		// TODO: XMLで作成
+		int dy = 0;
+		if (settings->showStatusBar) {
+			dy = 60;
+		}
 		Button* pDebugButton = new Button();
 		if (settings->debugButtonPos == 1) {
-			pDebugButton->Construct(Rectangle(w-80, h-80, 70, 70), L"D");
+			pDebugButton->Construct(Rectangle(w-80, h-80-dy, 70, 70), L"D");
 		} else if (settings->debugButtonPos == 2) {
-			pDebugButton->Construct(Rectangle(10, h-80, 70, 70), L"D");
+			pDebugButton->Construct(Rectangle(10, h-80-dy, 70, 70), L"D");
 		} else if (settings->debugButtonPos == 3) {
 			pDebugButton->Construct(Rectangle(w-80, 10, 70, 70), L"D");
 		} else {

@@ -157,6 +157,10 @@ public class NDKInterface {
 	 */
 	public static native boolean useDebugConsole();
 	
+	/**
+	 * ステータスバーを表示するかを取得
+	 */
+	public static native boolean showStatusBar();
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////// received event from native
 

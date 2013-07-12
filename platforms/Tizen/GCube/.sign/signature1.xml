@@ -2,45 +2,17 @@
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod>
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
-<Reference URI="author-signature.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>auv6+hcpbaVgZoqFF7N1Ghwl0tR9yPygkn+B7Mej+RE=</DigestValue>
-</Reference>
-<Reference URI="bin/GCube.exe">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3mEAXpTxZyjai5fjNzhEpo/+ErkQUljRlrWRItiCpG4=</DigestValue>
-</Reference>
-<Reference URI="info/manifest.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>f9t84xyMKvLCXuTQ2s6/D2xhjTmAw2caeMJ+R/CGgyE=</DigestValue>
-</Reference>
 <Reference URI="lib/libGCubeLib.a">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>JLy92Jdch5xZqzQfFWoNEjNrfe/F40VSpshB2VIIAwk=</DigestValue>
 </Reference>
-<Reference URI="res/assets/.DS_Store">
+<Reference URI="bin/GCube.exe">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>6rGbkJ92eZBBkFhb0KlnKkE2abD7Avo54uj407kLORM=</DigestValue>
+<DigestValue>QZC1aNNF/t9DLqujJ6+GE1kPD2Wih4chi2htwRbIPCQ=</DigestValue>
 </Reference>
-<Reference URI="res/assets/etc/debug.txt">
+<Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>nU63Yonr5kIdhr7hqZ2EV7bOkEVnQEpA/SYKLsvawN0=</DigestValue>
-</Reference>
-<Reference URI="res/assets/sound/se_yay.ogg">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>wK4xh1gThybTnddubv58miEUd6AWc/oYT7kcFA/GRfw=</DigestValue>
-</Reference>
-<Reference URI="res/assets/texture/gclue_logo.png">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>i8IwStxnxlTzqpxwc7KJDhBsG/KlgdI7hvPh8cMBKqk=</DigestValue>
-</Reference>
-<Reference URI="res/screen-size-normal/IDF_FORM.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>fhxQ6NiGmt6QWp1EHln+iFIsg+fNMsf+d7qkZdEDF5w=</DigestValue>
-</Reference>
-<Reference URI="shared/res/screen-density-xhigh/mainmenu.png">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>N68lR4W8Ee+yse98lldvpYxKxPM4ixDnelui03q1/4k=</DigestValue>
+<DigestValue>r1BOuc6vOzByKnV6z9BHnzb+wz8oXzUuQIxxBoe9POU=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -51,9 +23,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-TdLKKfPjJ0fpSTo1fAx/8LiUbMj+352jMj0hMAOmq3moCRVEWEea4rLnZgCdTxz1PZQfuP+QAMwi
-RrIi5/mhHfn9aM2YqEpwtfd5L7qQAyAWTcDEpg+5xBPtC7aG7xOhfAPmt9jetHdlGQljmrlMwN+s
-FyJis/7lq2UW5FpXf54=
+YyBnGZA98OCesYl41q+DTaL86B1YrezKsltwr1C6xbmez+PRiXakr1PVdnmlXr0ScPvjbT91GA5n
+iJLNtwwvmQyexM01Cz2LdlPDFsUXlKr7poLNbuierj8WoKiTsZc20/0Lvp1Nx133P9GNksZYbqvW
+2kGhdugPWu4s4v6s1MQ=
 </SignatureValue>
 <KeyInfo>
 <X509Data>

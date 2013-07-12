@@ -31,6 +31,7 @@ struct GCubeSettings{
 	
 	unsigned int debugButtonPos;
 	bool useOrientationSensor;
+	bool showStatusBar;
 	unsigned int frameRate;
 	bool orientationPortrait;
 	bool orientationPortraitUpsideDown;
@@ -57,6 +58,9 @@ struct GCubeSettings{
 		orientationPortraitUpsideDown = false;
 		orientationLandscapeLeft = true;
 		orientationLandscapeRight = true;
+		
+		// ステータスバー表示
+		showStatusBar = false;
 	}
 
 };

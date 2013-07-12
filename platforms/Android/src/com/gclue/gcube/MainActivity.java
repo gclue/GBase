@@ -40,6 +40,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -61,6 +63,11 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// filesフォルダを作成
 		new File("/data/data/"+getPackageName()+"/files/").mkdir();
+		// ステータスバーの表示設定
+		if (!NDKInterface.showStatusBar()) {
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		    requestWindowFeature(Window.FEATURE_NO_TITLE);
+		}
 		// 画面回転方向を設定
 		this.setRequestedOrientation(NDKInterface.getSupportedOrientation());
 		// GLViewを作成

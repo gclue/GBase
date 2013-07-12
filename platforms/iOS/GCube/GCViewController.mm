@@ -56,6 +56,10 @@ using namespace GCube;
 {
     [super viewDidLoad];
 	
+	// ステータスバー表示
+	[[UIApplication sharedApplication] setStatusBarHidden:!_settings->showStatusBar withAnimation:UIStatusBarAnimationNone];
+	
+	
 	gcube = ApplicationController::SharedInstance();
 	
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];

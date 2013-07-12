@@ -2,41 +2,13 @@
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod>
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
-<Reference URI="bin/GCube.exe">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3mEAXpTxZyjai5fjNzhEpo/+ErkQUljRlrWRItiCpG4=</DigestValue>
-</Reference>
-<Reference URI="info/manifest.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>f9t84xyMKvLCXuTQ2s6/D2xhjTmAw2caeMJ+R/CGgyE=</DigestValue>
-</Reference>
 <Reference URI="lib/libGCubeLib.a">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>JLy92Jdch5xZqzQfFWoNEjNrfe/F40VSpshB2VIIAwk=</DigestValue>
 </Reference>
-<Reference URI="res/assets/.DS_Store">
+<Reference URI="bin/GCube.exe">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>6rGbkJ92eZBBkFhb0KlnKkE2abD7Avo54uj407kLORM=</DigestValue>
-</Reference>
-<Reference URI="res/assets/etc/debug.txt">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>nU63Yonr5kIdhr7hqZ2EV7bOkEVnQEpA/SYKLsvawN0=</DigestValue>
-</Reference>
-<Reference URI="res/assets/sound/se_yay.ogg">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>wK4xh1gThybTnddubv58miEUd6AWc/oYT7kcFA/GRfw=</DigestValue>
-</Reference>
-<Reference URI="res/assets/texture/gclue_logo.png">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>i8IwStxnxlTzqpxwc7KJDhBsG/KlgdI7hvPh8cMBKqk=</DigestValue>
-</Reference>
-<Reference URI="res/screen-size-normal/IDF_FORM.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>fhxQ6NiGmt6QWp1EHln+iFIsg+fNMsf+d7qkZdEDF5w=</DigestValue>
-</Reference>
-<Reference URI="shared/res/screen-density-xhigh/mainmenu.png">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>N68lR4W8Ee+yse98lldvpYxKxPM4ixDnelui03q1/4k=</DigestValue>
+<DigestValue>QZC1aNNF/t9DLqujJ6+GE1kPD2Wih4chi2htwRbIPCQ=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -47,9 +19,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-RUirJYUHsMWNrIsCrfY/LeEHhtoP9/vIrbe7m3qFM/KbhSxySaBf30WK6iIW4X5d9Xy4WI7taqjp
-oDgFUmGoo0bc4h9E0hfydYT51wbhrM1/GBSAls0OnRKsTEiaJ5xk8TUxtzAJSj1yRi/2AGYSxB/A
-63Hgon1M8Amn8KP7h8E=
+cpPerzVxilt1zJA+emnoy4xXg7ziyvQna3lcQu/pJEvAL4kEZwPiZMws+n2f6cKAbiBMb0p7SRLi
+HsejuoT5s/LX55fQ/jO29D6ooTDwZryDYUBxfTzgs1f4fTmQlWk/23/5CIqsiA96+Q9c0OgQ3Yzp
+FE7ZIgSIqt6tqSb9XBU=
 </SignatureValue>
 <KeyInfo>
 <X509Data>
