@@ -20,8 +20,19 @@
  * THE SOFTWARE.
  */
 
+#include <unistd.h>
+#include <signal.h>
 #include "SoundPlayer.h"
 #include "GCube.h"
+
+#define BUFFER_NUM (16)
+
+// スレッド用関数
+void* thread_func(void *arg) {
+	GCube::SoundPlayer *instance = (GCube::SoundPlayer*)arg;
+	instance->playLoop();
+	return NULL;
+}
 
 namespace GCube {
 
@@ -33,13 +44,59 @@ SoundPlayer* SoundPlayer::SharedInstance() {
 	if (!instance) {
 		instance = new SoundPlayer();
 	}
+	SoundPlayer::Start();
 	return instance;
 }
 
 // インスタンスを破棄します.
-void SoundPlayer::dispose() {
+void SoundPlayer::Dispose() {
+	if (!instance) return;
+	instance->cancel = true;
 	delete instance;
 	instance = NULL;
+}
+
+// スレッドを開始します.
+void SoundPlayer::Start() {
+	if (!instance) return;
+	// スレッドが動いていない場合は動かす
+	instance->cancel = false;
+	if (instance->thread) {
+		if(!pthread_kill(instance->thread, 0) == 0)
+		{
+			pthread_create(&(instance->thread), NULL, thread_func, instance);
+		}
+	} else {
+		pthread_create(&(instance->thread), NULL, thread_func, instance);
+	}
+	// 再生中だったサウンドを再生
+	std::vector<int>::iterator it = instance->playingSounds.begin();
+	while(it != instance->playingSounds.end()) {
+		int source = *it;
+		alSourcePlay(source);
+		++it;
+	}
+}
+	
+// スレッドを停止します.
+void SoundPlayer::Pause() {
+	if (!instance) return;
+	
+	// 再生中のサウンドを保持
+	instance->playingSounds.clear();
+	std::vector<SoundData*>::iterator it = instance->sounds.begin();
+	while(it != instance->sounds.end()) {
+		SoundData *data = *it;
+		ALint state;
+		alGetSourcei(data->sourceID, AL_SOURCE_STATE, &state);
+		if (state==AL_PLAYING) {
+			instance->playingSounds.push_back(data->sourceID);
+			alSourceStop(data->sourceID);
+		}
+		++it;
+	}
+	// スレッド停止
+	instance->cancel = true;
 }
 
 
@@ -55,8 +112,11 @@ SoundPlayer::SoundPlayer() {
 	if (alGetError() != AL_NO_ERROR) {
 		LOGE("*****ERROR(SoundPlayer::SoundPlayer)**********");
 	}
+	thread = 0;
+	cancel = false;
 }
 
+// デストラクタ
 SoundPlayer::~SoundPlayer() {
 	if (context) {
 		alcMakeContextCurrent( NULL);
@@ -70,9 +130,85 @@ SoundPlayer::~SoundPlayer() {
 	device = NULL;
 }
 
+// 監視ループ
+void SoundPlayer::playLoop() {
+	while (!cancel) {
+		//LOGD("playLoop");
+		sleep(1);
+		
+		std::vector<SoundData*>::iterator it = sounds.begin();
+		while(it != sounds.end()) {
+			SoundData *data = *it;
+			ALuint  popBufferNo = 0;
+			ALint bufferProcessed = 0;
+			int m_Source = data->sourceID;
+			int type = 0;
+			// ストリーミングじゃないソースは無視
+			alGetSourcei( m_Source, AL_SOURCE_TYPE, &type );
+			if (type!=AL_STREAMING) {
+				++it;
+				break;
+			}
+			alGetSourcei( m_Source, AL_BUFFERS_PROCESSED, &bufferProcessed );
+			//  空いたバッファを埋め尽くすまでループ
+			while( bufferProcessed != 0 ){
+				//  キューからバッファを取り出す
+				popBufferNo = 0;
+				alSourceUnqueueBuffers( m_Source, 1, &popBufferNo );
+				//  バッファ読み込み
+				if (data->readStreamBuffer(popBufferNo)) {
+					alSourceQueueBuffers( m_Source, 1, &popBufferNo );
+				}
+				--bufferProcessed;
+			}
+			++it;
+		}
+	}
+}
+
 // 読み込み
-int SoundPlayer::loadSound(SoundData *data) {
+int SoundPlayer::loadBGM(const char *fileName) {
 	
+	SoundPlayer::SharedInstance();
+	
+	// バッファとソース
+	ALuint buffer, source;
+	ALenum error;
+	
+	// ソース作成
+	alGenSources(1, &source);
+	if ((error = alGetError()) != AL_NO_ERROR) {
+		LOGE("Failed to gen sources. - %d", error);
+		return 0;
+	}
+	
+	// ファイル読み込み
+	SoundData *data = new SoundData();
+	data->openOggFileStream(fileName);
+	
+	// バッファ作成
+	for (int i=0; i<BUFFER_NUM; i++) {
+		alGenBuffers(1, &buffer);
+		// バッファ読み込み
+		if (data->readStreamBuffer(buffer)) {
+			alSourceQueueBuffers(source, 1, &buffer);
+		}
+	}
+	
+	// データ保持
+	data->sourceID = source;
+	instance->sounds.push_back(data);
+	
+	// エラーチェック
+	if (alGetError() != AL_NO_ERROR) {
+		LOGE("*****ERROR(SoundPlayer::loadSound)");
+	}
+	return source;
+}
+
+	
+// SE読み込み
+int SoundPlayer::loadSE(const char *fileName) {
 	SoundPlayer::SharedInstance();
 	
 	// バッファとソース
@@ -94,8 +230,10 @@ int SoundPlayer::loadSound(SoundData *data) {
 		return 0;
 	}
 	
-	// データをバッファへ格納
-	alBufferData(buffer, data->fileType, data->data, data->dataSize, data->sampleRate);
+	// ファイル読み込み
+	SoundData *data = new SoundData();
+	data->loadOggFileStatic(fileName, buffer);
+	data->sourceID = source;
 	
 	// ソースへバッファを関連づける
 	alSourcei(source, AL_BUFFER, buffer);
@@ -105,10 +243,10 @@ int SoundPlayer::loadSound(SoundData *data) {
 		if (buffer) alDeleteBuffers(1, &buffer);
 		return 0;
 	}
-
-	// source,bufferをキャッシュ
-	instance->sounds.insert(std::map<ALuint, ALuint>::value_type(source, buffer));
-
+	
+	// データ保持
+	instance->sounds.push_back(data);
+	
 	// エラーチェック
 	if (alGetError() != AL_NO_ERROR) {
 		LOGE("*****ERROR(SoundPlayer::loadSound)");
@@ -116,41 +254,14 @@ int SoundPlayer::loadSound(SoundData *data) {
 	return source;
 }
 
-// 削除
-void SoundPlayer::removeSound(int source) {
-	if (source) {
-		// ソース削除
-		alDeleteSources(1, (ALuint*) &source);
-		// バッファ削除
-		std::map<ALuint, ALuint>::iterator it = instance->sounds.find(source);
-		if (it != instance->sounds.end()) {
-			ALuint buffer = (*it).second;
-			if (buffer) {
-				alDeleteBuffers(1, (ALuint*) &buffer);
-			}
-			// ハッシュから削除
-			instance->sounds.erase(it);
-		}
-	}
-}
-
-// リセット
-void SoundPlayer::resetAllSounds() {
-	std::map<ALuint, ALuint>::iterator it = instance->sounds.begin();
-	while (it != instance->sounds.end()) {
-		ALuint source = (*it).first;
-		ALuint buffer = (*it).second;
-		if (source) alDeleteSources(1, (ALuint*) &source);
-		if (buffer) alDeleteBuffers(1, (ALuint*) &buffer);
-		it++;
-	}
-	instance->sounds.clear();
-}
-
 // 再生
 void SoundPlayer::play(int source, bool loop) {
 	if (source == 0) return;
-	alSourcei(source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
+	int type = 0;
+	alGetSourcei( source, AL_SOURCE_TYPE, &type );
+	if (type!=AL_STREAMING) {
+		alSourcei(source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
+	}
 	alSourcePlay(source);
 }
 

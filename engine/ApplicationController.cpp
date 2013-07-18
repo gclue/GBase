@@ -39,6 +39,7 @@ ApplicationController* ApplicationController::SharedInstance() {
 
 void ApplicationController::DestroyInstance() {
 	LOGD("ApplicationController::DestroyInstance()");
+	SoundPlayer::Dispose();
 	delete _instance;
 	_instance = NULL;
 }
@@ -85,6 +86,7 @@ int ApplicationController::sendUserEvent(int type, int param1, long long param2,
 // 初期化
 void ApplicationController::onInit(void) {
 	LOGD("ApplicationController::onInit()");
+	SoundPlayer::SharedInstance();
 	main->onInit();
 }
 
@@ -96,11 +98,13 @@ void ApplicationController::onTerminate(void) {
 void ApplicationController::onPause(void) {
 	LOGD("ApplicationController::onPause()");
 	main->onPause();
+	SoundPlayer::Pause();
 }
 
 void ApplicationController::onResume(void) {
 	LOGD("ApplicationController::onResume()");
 	main->onResume();
+	SoundPlayer::Start();
 }
 
 void ApplicationController::onContextChanged(void) {

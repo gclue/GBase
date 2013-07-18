@@ -60,7 +60,7 @@ struct GCubeSettings{
 		orientationLandscapeRight = true;
 		
 		// ステータスバー表示
-		showStatusBar = false;
+		showStatusBar = true;
 	}
 
 };

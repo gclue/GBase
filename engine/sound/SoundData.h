@@ -24,6 +24,7 @@
 #define __GCube__SoundData_h
 
 #include "GCDefines.h"
+#include "../external/stb/stb_vorbis.h"
 
 namespace GCube {
 	
@@ -31,32 +32,28 @@ namespace GCube {
  * サウンドデータクラス.
  */
 class SoundData {
+private:
+	std::vector<char> sourceData; //!< 生データ
+	stb_vorbis *stream; //!< Oggストリーム
+	int fileType;       //!< ファイルタイプ
+	int sampleRate;     //!< サンプリングレート
+	int channels;       //!< チャンネル数
+	
 public:
-	std::string fileName;	//!< ファイル名
-	int dataSize;			//!< データサイズ
-	short *data;			//!< データ
-	int fileType;		//!< ファイルタイプ
-	int sampleRate;		//!< サンプリングレート
+	std::string fileName; //!< ファイル名
+	ALuint sourceID;      //!< OpenALのソースID
 	
-	/**
-	 * コンストラクタ.
-	 */
-	SoundData() : data(NULL) {};
-	SoundData(const char *fileName, int dataSize, short *data, int fileType, int sampleRate) :
-		fileName(std::string(fileName)), dataSize(dataSize), data(data), fileType(fileType), sampleRate(sampleRate) {};
+	SoundData() {};
+	virtual ~SoundData() {};
 	
-	/**
-	 * デストラクタ.
-	 */
-	~SoundData() {
-		if (data) free(data);
-	};
-	
-	
-	/**
-	 * Oggファイル読み込み.
-	 */
-	bool loadOgg(const char *fileName);
+	// Oggファイル読み込み（静的）
+	bool loadOggFileStatic(const char *fileName, ALuint buffer);
+	// Oggファイル読み込み（ストリーム）
+	bool openOggFileStream(const char *fileName);
+	// ストリームから一定量のバッファを読み込み
+	bool readStreamBuffer(ALuint buffer);
+	// ストリームを閉じる
+	void closeStream();
 };
 
 }

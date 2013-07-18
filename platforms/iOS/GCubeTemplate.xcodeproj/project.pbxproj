@@ -23,6 +23,7 @@
 		6699F88217867BF0002E51F9 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6699F87B17867BF0002E51F9 /* Icon-Small@2x.png */; };
 		6699F88317867BF0002E51F9 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6699F87C17867BF0002E51F9 /* Icon.png */; };
 		6699F88417867BF0002E51F9 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6699F87D17867BF0002E51F9 /* Icon@2x.png */; };
+		66C76AD81797B3B40001A284 /* bgm_house.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 66C76AD71797B3A60001A284 /* bgm_house.ogg */; };
 		66FE24DD17856A3200969BA7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66FE24DC17856A3200969BA7 /* UIKit.framework */; };
 		66FE24DF17856A3200969BA7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66FE24DE17856A3200969BA7 /* Foundation.framework */; };
 		66FE24E117856A3200969BA7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66FE24E017856A3200969BA7 /* CoreGraphics.framework */; };
@@ -58,6 +59,7 @@
 		6699F87B17867BF0002E51F9 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		6699F87C17867BF0002E51F9 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		6699F87D17867BF0002E51F9 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		66C76AD71797B3A60001A284 /* bgm_house.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = bgm_house.ogg; sourceTree = "<group>"; };
 		66FE24D917856A3200969BA7 /* GCubeTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCubeTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66FE24DC17856A3200969BA7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		66FE24DE17856A3200969BA7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -118,6 +120,7 @@
 		661C633817865141003DB62E /* sound */ = {
 			isa = PBXGroup;
 			children = (
+				66C76AD71797B3A60001A284 /* bgm_house.ogg */,
 				661C633917865141003DB62E /* se_yay.ogg */,
 			);
 			path = sound;
@@ -298,6 +301,7 @@
 				6699F88217867BF0002E51F9 /* Icon-Small@2x.png in Resources */,
 				6699F88317867BF0002E51F9 /* Icon.png in Resources */,
 				6699F88417867BF0002E51F9 /* Icon@2x.png in Resources */,
+				66C76AD81797B3B40001A284 /* bgm_house.ogg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

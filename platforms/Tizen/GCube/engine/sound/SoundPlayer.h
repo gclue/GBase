@@ -23,6 +23,7 @@
 #ifndef __GCube__SoundPlayer_h
 #define __GCube__SoundPlayer_h
 
+#include <pthread.h>
 #include "SoundData.h"
 
 namespace GCube {
@@ -45,9 +46,16 @@ private:
 	// OpenALのコンテキスト
 	ALCdevice *device;
 	ALCcontext *context;
-	std::map<ALuint, ALuint> sounds;
+	
+	std::vector<SoundData*> sounds;
+	std::vector<int> playingSounds;
 
+	pthread_t thread;
+	bool cancel;
+	
+	
 public:
+	void playLoop();
 	/**
 	 * インスタンスを取得します.
 	 * @return SoundPlayerオブジェクト
@@ -57,26 +65,25 @@ public:
 	/**
 	 * インスタンスを破棄します.
 	 */
-	static void dispose();
+	static void Dispose();
+	
+	static void Start();
+	static void Pause();
 
 	/**
-	 * SoundDataオブジェクト指定でサウンドを登録します.
-	 * @param[in] data SoundData
+	 * BGMファイルを読み込みます.
+	 * @param[in] fileName ファイル名
 	 * @return 登録ID
 	 */
-	static int loadSound(SoundData *data);
+	static int loadBGM(const char *fileName);
 	
 	/**
-	 * 登録ID指定でサウンドを削除します.
-	 * @param[in] source 登録ID
+	 * SEファイルを読み込みます.
+	 * @param[in] fileName ファイル名
+	 * @return 登録ID
 	 */
-	static void removeSound(int source);
-	
-	/**
-	 * すべてのサウンドを削除します.
-	 */
-	static void resetAllSounds();
-	
+	static int loadSE(const char *fileName);
+
 	/**
 	 * 登録ID指定でサウンドを再生します.
 	 * @param[in] source 登録ID

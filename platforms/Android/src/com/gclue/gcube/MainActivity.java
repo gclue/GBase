@@ -66,8 +66,8 @@ public class MainActivity extends Activity {
 		// ステータスバーの表示設定
 		if (!NDKInterface.showStatusBar()) {
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		    requestWindowFeature(Window.FEATURE_NO_TITLE);
 		}
+	    requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// 画面回転方向を設定
 		this.setRequestedOrientation(NDKInterface.getSupportedOrientation());
 		// GLViewを作成

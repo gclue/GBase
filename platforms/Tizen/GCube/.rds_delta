@@ -1,6 +1,10 @@
 #delete
 #add
+res/assets/sound/bgm_boss.ogg
+res/assets/sound/bgm_collection.ogg
+res/assets/sound/bgm_shop.ogg
 #modify
 author-signature.xml
 signature1.xml
 bin/GCube.exe
+lib/libGCubeLib.a

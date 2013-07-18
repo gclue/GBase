@@ -2,17 +2,9 @@
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod>
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
-<Reference URI="lib/libGCubeLib.a">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>JLy92Jdch5xZqzQfFWoNEjNrfe/F40VSpshB2VIIAwk=</DigestValue>
-</Reference>
-<Reference URI="bin/GCube.exe">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>QZC1aNNF/t9DLqujJ6+GE1kPD2Wih4chi2htwRbIPCQ=</DigestValue>
-</Reference>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>r1BOuc6vOzByKnV6z9BHnzb+wz8oXzUuQIxxBoe9POU=</DigestValue>
+<DigestValue>DtBXAS1c4CItMAw1QbGwWmvdInWNhYg69W3prhf1gt0=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -23,9 +15,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-YyBnGZA98OCesYl41q+DTaL86B1YrezKsltwr1C6xbmez+PRiXakr1PVdnmlXr0ScPvjbT91GA5n
-iJLNtwwvmQyexM01Cz2LdlPDFsUXlKr7poLNbuierj8WoKiTsZc20/0Lvp1Nx133P9GNksZYbqvW
-2kGhdugPWu4s4v6s1MQ=
+YrLQLDjpktQiXaHsIQQjAU8jBqFdwd5zUEAzbQ/XdtqEjEYkcg8Ss1gZJYJrHFXDZeGVSGXUBLyx
+V30KtifsH8Rn4d8+DIHAjZSOeZgvWHS4w1vNBGulUbZVCVeh5dwGgC6p0ysZvqypusaQrTrHvK8S
+lvtzZpNiiODtONSgTFs=
 </SignatureValue>
 <KeyInfo>
 <X509Data>

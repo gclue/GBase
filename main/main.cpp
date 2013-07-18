@@ -35,6 +35,24 @@ void Main::onInit() {
 	// UserEventを送信
 	LOGD("send user event:%d", ctr->sendUserEvent(1, 2, 3, 4, 5, "a"));
 	
+	// ファイル書き込み
+	std::string filePath = ctr->getStoragePath(GCStorageTypeDocument);
+	filePath += "hello.txt";
+	LOGD("file:%s", filePath.c_str());
+	FILE* file = fopen(filePath.c_str(), "w+");
+	if (file != NULL) {
+		fputs("HELLO WORLD!\n", file);
+		fflush(file);
+		fclose(file);
+	}
+	
+	// 音読み込み
+	int bgmid = SoundPlayer::loadBGM("sound/bgm_house.ogg");
+	SoundPlayer *player = SoundPlayer::SharedInstance();
+	player->play(bgmid);
+	sid = SoundPlayer::loadSE("sound/se_yay.ogg");
+	
+	//
 	this->onContextChanged();
 }
 
@@ -51,32 +69,16 @@ void Main::onContextChanged() {
 	std::vector<char> buf;
 	ctr->getResource("texture/gclue_logo.png", buf);
 	
-	// ファイル書き込み
-	std::string filePath = ctr->getStoragePath(GCStorageTypeDocument);
-	filePath += "hello.txt";
-	LOGD("file:%s", filePath.c_str());
-	FILE* file = fopen(filePath.c_str(), "w+");
-	if (file != NULL) {
-		fputs("HELLO WORLD!\n", file);
-		fflush(file);
-		fclose(file);
-	}
-	
 	// サンプル初期化
 	initProgram(buf);
-	
-	// 音読み込み
-	SoundPlayer *player = SoundPlayer::SharedInstance();
-	SoundData sdata;
-	sdata.loadOgg("sound/se_yay.ogg");
-	sid = player->loadSound(&sdata);
 }
 
 // 描画
 void Main::onDraw() {
 	draw();
 }
-
+	
+// タッチイベント
 void Main::onTouch(GCTouchAction action, float x, float y, long id, long time) {
 	if (action==GCTouchActionUp) {
 		// 音再生
